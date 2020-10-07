@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_exercise">
+        <item>풋살</item>
+        <item>축구</item>
+        <item>농구</item>
+        <item>배드민턴</item>
+        <item>탁구</item>
+        <item>야구</item>
+        <item>당구</item>
+    </string-array>
+
+    <string-array name="list_num_people">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>22</item>
+    </string-array>
+</resources>

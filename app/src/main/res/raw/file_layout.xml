@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <main_page>
+        <first_layer name="자기개발">
+            <second-layer name = "수능">
+                <third_layer>국어</third_layer>
+                <third_layer>수학</third_layer>
+                <third_layer>영어</third_layer>
+                <third_layer>과학탐구</third_layer>
+                <third_layer>사회탐구</third_layer>
+                <third_layer>한국사</third_layer>
+                <third_layer>제2외국어</third_layer>
+            </second-layer>
+            <second_layer name = "자격증">
+                <third_layer>컴퓨터 활용능력</third_layer>
+                <third_layer>정보처리기사</third_layer>
+            </second_layer>
+            <second_layer name="전공">
+                <third_layer>대학수학</third_layer>
+                <third_layer>대학물리</third_layer>
+                <third_layer>프로그래밍</third_layer>
+                <third_layer>상공계열</third_layer>
+                <third_layer>공과계열</third_layer>
+            </second_layer>
+            <second_layer name="언어시험">
+                <third_layer>토익</third_layer>
+                <third_layer>토플</third_layer>
+            </second_layer>
+        </first_layer>
+        <first_layer name="소통게시판">
+            <second_layer>IT</second_layer>
+            <second_layer>운동</second_layer>
+            <second_layer>음악</second_layer>
+            <second_layer>탈것</second_layer>
+        </first_layer>
+        <first_layer name="플리마켓">asd</first_layer>
+
+        <first_layer name="인원모집">
+            <second_layer>운동</second_layer>
+            <second_layer>동아리</second_layer>
+            <second_layer>대회</second_layer>
+            <second_layer>기타</second_layer>
+        </first_layer>
+
+
+    </main_page>
+</resources>

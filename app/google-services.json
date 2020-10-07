@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "912473506981",
+    "firebase_url": "https://tomas-47250.firebaseio.com",
+    "project_id": "tomas-47250",
+    "storage_bucket": "tomas-47250.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912473506981:android:c98de9beb5fc7c2483b94c",
+        "android_client_info": {
+          "package_name": "com.team9797.ToMAS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912473506981-ss1njhundeoc5muvhl0tijd90g0oma0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaJM3N0P9HBeT70Hdq-RXZExOLHFRUC6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912473506981-ss1njhundeoc5muvhl0tijd90g0oma0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

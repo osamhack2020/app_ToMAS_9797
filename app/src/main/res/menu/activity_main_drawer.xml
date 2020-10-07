@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_home"
+            android:title="홈" />
+        <item
+            android:id="@+id/navigation_calendar"
+            android:title="일정표" />
+        <item
+            android:id="@+id/navigation_social"
+            android:title="소속부대" />
+        <item
+            android:id="@+id/navigation_mypage"
+            android:title="마이페이지" />
+        <group >
+            <item android:title="Item" />
+            <item android:title="Item" />
+        </group>
+    </group>
+</menu>
