@@ -1,5 +1,11 @@
 package com.team9797.ToMAS;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LevelListDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -23,14 +29,20 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 
-public class board_content extends Fragment {
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class board_content extends Fragment implements Html.ImageGetter {
 
     MainActivity mainActivity;
     //FragmentManager fragmentManager;
     String post_id;
     String path;
     TextView title_textView;
-    WebView html_webView;
+    TextView html_textView;
 
     // need to fix 댓글 보기 기능 추가해야 함.
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -43,14 +55,8 @@ public class board_content extends Fragment {
         path = getArguments().getString("path");
         //fragmentManager = getFragmentManager();
         title_textView = root.findViewById(R.id.board_content_title);
-        html_webView = root.findViewById(R.id.board_content_webview);
+        html_textView = root.findViewById(R.id.board_content_textview);
 
-        html_webView.setWebViewClient(new WebViewClient()); // 클릭시 새창 안뜨게
-        html_webView.getSettings().setJavaScriptEnabled(true);
-
-        if(Build.VERSION.SDK_INT >= 21) {
-            html_webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
 
         // 선택한 게시물 document reference
         DocumentReference mPostReference = mainActivity.db.collection(path).document(post_id);
@@ -63,7 +69,7 @@ public class board_content extends Fragment {
                     if (document.exists()) {
                         // need to fix : 커스텀 객체 생성해서 받아보자.
                         Log.d("QQQ", document.get("html", String.class));
-                        html_webView.loadData(document.get("html", String.class), "text/html; charset=utf-8", "UTF-8");
+                        html_textView.setText(Html.fromHtml(document.get("html", String.class), board_content.this, null));
                     } else {
 
                     }
@@ -78,4 +84,56 @@ public class board_content extends Fragment {
 
         return root;
     }
+
+    @Override
+    public Drawable getDrawable(String source) {
+        LevelListDrawable d = new LevelListDrawable();
+        Drawable empty = getResources().getDrawable(R.drawable.ic_arrow_forward_black_24dp);
+        d.addLevel(0, 0, empty);
+        d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
+
+        new LoadImage().execute(source, d);
+
+        return d;
+    }
+
+    class LoadImage extends AsyncTask<Object, Void, Bitmap> {
+
+        private LevelListDrawable mDrawable;
+
+        @Override
+        protected Bitmap doInBackground(Object... params) {
+            String source = (String) params[0];
+            mDrawable = (LevelListDrawable) params[1];
+            Log.d("QQ", "doInBackground " + source);
+            try {
+                InputStream is = new URL(source).openStream();
+                return BitmapFactory.decodeStream(is);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            Log.d("QQ", "onPostExecute drawable " + mDrawable);
+            Log.d("QQ", "onPostExecute bitmap " + bitmap);
+            if (bitmap != null) {
+                BitmapDrawable d = new BitmapDrawable(bitmap);
+                mDrawable.addLevel(1, 1, d);
+                mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+                mDrawable.setLevel(1);
+                // i don't know yet a better way to refresh TextView
+                // mTv.invalidate() doesn't work as expected
+                CharSequence t = html_textView.getText();
+                html_textView.setText(t);
+            }
+        }
+    }
 }
+//code from https://stackoverflow.com/questions/16179285/html-imagegetter-textview/16209680#16209680
