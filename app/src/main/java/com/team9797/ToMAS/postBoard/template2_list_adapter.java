@@ -1,4 +1,4 @@
-package com.team9797.ToMAS;
+package com.team9797.ToMAS.postBoard;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.team9797.ToMAS.MainActivity;
+import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.fragment_template;
 import com.team9797.ToMAS.postBoard.board_content;
 import com.team9797.ToMAS.postBoard.board_list_adapter;
 

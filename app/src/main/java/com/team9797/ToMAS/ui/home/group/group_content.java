@@ -28,6 +28,7 @@ public class group_content extends Fragment {
     TextView place_textView;
     TextView date_textView;
     TextView time_textView;
+    TextView numpeople_textView;
     Button btn_enroll ;
 
     String path;
@@ -52,8 +53,8 @@ public class group_content extends Fragment {
         place_textView = root.findViewById(R.id.group_content_place);
         date_textView = root.findViewById(R.id.group_content_date);
         time_textView = root.findViewById(R.id.group_content_time);
+        numpeople_textView = root.findViewById(R.id.group_content_numpeople);
         btn_enroll = root.findViewById(R.id.group_content_enroll);
-
 
         // 선택한 게시물 document reference
         DocumentReference mPostReference = mainActivity.db.collection(path).document(post_id);
@@ -68,6 +69,7 @@ public class group_content extends Fragment {
                         place_textView.setText(document.get("place", String.class));
                         date_textView.setText(document.get("date", String.class));
                         time_textView.setText(document.get("time", String.class));
+                        numpeople_textView.setText(Integer.toString(document.get("now_people", Integer.class))+"/" + Integer.toString(document.get("num_people", Integer.class)));
                     } else {
 
                     }

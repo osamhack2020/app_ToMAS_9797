@@ -2,7 +2,8 @@ package com.team9797.ToMAS.ui.home.group;
 
 public class group_list_item {
     private String title ;
-    private String numpeople;
+    private int nowpeople;
+    private int numpeople;
     private String place;
     private String date ;
     private String time ;
@@ -12,7 +13,8 @@ public class group_list_item {
     public void setTitle(String a) {
         title = a ;
     }
-    public void setNumpeople(String a) {
+    public void setNowpeople(int a) {nowpeople = a ;}
+    public void setNumpeople(int a) {
         numpeople = a ;
     }
     public void setPlace(String a) {
@@ -29,7 +31,8 @@ public class group_list_item {
     public String getTitle() {
         return this.title ;
     }
-    public String getNumpeople() {
+    public int getNowpeople() { return this.nowpeople ;}
+    public int getNumpeople() {
         return this.numpeople ;
     }
     public String getPlace() {

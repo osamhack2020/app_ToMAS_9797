@@ -76,7 +76,7 @@ public class group_exercise extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                adapter.add_item(document.get("title").toString(), document.get("num_people").toString(), document.get("place").toString(), document.get("date").toString(), document.get("time").toString(), document.getId());
+                                adapter.add_item(document.get("title").toString(), document.get("now_people", Integer.class), document.get("num_people", Integer.class), document.get("place").toString(), document.get("date").toString(), document.get("time").toString(), document.getId());
                             }
                             adapter.notifyDataSetChanged();
                         } else {
@@ -113,6 +113,9 @@ public class group_exercise extends Fragment {
             public void onClick(View view) {
                 Fragment change_fragment = new recruit_register_fragment();
                 fragmentTransaction.addToBackStack(null);
+                Bundle args = new Bundle();
+                args.putString("path", path);
+                change_fragment.setArguments(args);
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });

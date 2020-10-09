@@ -16,7 +16,7 @@
             android:text="제목" />
 
         <EditText
-            android:id="@+id/post_edit_title"
+            android:id="@+id/recruit_register_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -29,7 +29,7 @@
             android:text="날짜" />
 
         <EditText
-            android:id="@+id/editTextDate"
+            android:id="@+id/recruit_register_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -40,12 +40,45 @@
             android:layout_height="wrap_content"
             android:text="시간" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/recruit_register_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="time" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="~" />
+
+            <EditText
+                android:id="@+id/recruit_register_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="time" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장소" />
+
         <EditText
-            android:id="@+id/editTextTime"
+            android:id="@+id/recruit_register_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="time" />
+            android:inputType="textPersonName" />
 
         <TextView
             android:layout_width="match_parent"
@@ -63,11 +96,12 @@
             android:layout_height="wrap_content"
             android:text="모집인원" />
 
-        <Spinner
+        <EditText
             android:id="@+id/recruit_register_num_people"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown" />
+            android:ems="10"
+            android:inputType="number" />
 
     </LinearLayout>
 

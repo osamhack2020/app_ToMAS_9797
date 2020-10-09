@@ -11,6 +11,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.postBoard.board_content;
 import com.team9797.ToMAS.postBoard.board_list_adapter;
+import com.team9797.ToMAS.postBoard.template2_list_adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

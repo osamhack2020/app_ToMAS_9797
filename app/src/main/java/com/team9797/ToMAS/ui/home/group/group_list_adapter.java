@@ -70,7 +70,7 @@ public class group_list_adapter extends RecyclerView.Adapter<group_list_adapter.
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.item_title.setText(mDataset.get(position).getTitle());
-        holder.item_numpeople.setText(mDataset.get(position).getNumpeople());
+        holder.item_numpeople.setText(Integer.toString(mDataset.get(position).getNowpeople()) + "/" + Integer.toString(mDataset.get(position).getNumpeople()));
         holder.item_place.setText(mDataset.get(position).getPlace());
         holder.item_date.setText(mDataset.get(position).getDate());
         holder.item_time.setText(mDataset.get(position).getTime());
@@ -98,11 +98,12 @@ public class group_list_adapter extends RecyclerView.Adapter<group_list_adapter.
         return mDataset.size();
     }
 
-    public void add_item(String title, String numpeople, String place, String date, String time, String post_id)
+    public void add_item(String title, int nowpeple, int numpeople, String place, String date, String time, String post_id)
     {
         group_list_item item = new group_list_item();
 
         item.setTitle(title);
+        item.setNowpeople(nowpeple);
         item.setNumpeople(numpeople);
         item.setPlace(place);
         item.setDate(date);
