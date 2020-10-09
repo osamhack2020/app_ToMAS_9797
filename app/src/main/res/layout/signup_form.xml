@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    tools:context=".signup">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/good_morning_img" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:visibility="visible">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColorHint="#96ffffff"
+            android:theme="@style/EditScreenTextInputLayoutStyle">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColorHint="#96ffffff"
+                android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColorHint="#96ffffff"
+                    android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColorHint="#96ffffff"
+                        android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColorHint="#96ffffff"
+                            android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColorHint="#96ffffff"
+                                android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:textColorHint="#96ffffff"
+                                    android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                                    <EditText
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:drawableRight="@android:drawable/ic_menu_agenda"
+                                        android:drawablePadding="16dp"
+                                        android:editable="true"
+                                        android:fontFamily="@font/calibri"
+                                        android:hint="생년월일"
+                                        android:inputType="datetime|textEmailAddress"
+                                        android:maxLines="1"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="16sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:drawableRight="@drawable/ic_email_white_24dp"
+                                    android:drawablePadding="16dp"
+                                    android:editable="true"
+                                    android:fontFamily="@font/calibri"
+                                    android:hint="군번"
+                                    android:inputType="number|textEmailAddress"
+                                    android:maxLines="1"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="16sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableRight="@drawable/ic_email_white_24dp"
+                                android:drawablePadding="16dp"
+                                android:editable="true"
+                                android:fontFamily="@font/calibri"
+                                android:hint="소속"
+                                android:inputType="textLongMessage|textEmailAddress"
+                                android:maxLines="1"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableRight="@drawable/ic_lock_white_24dp"
+                            android:drawablePadding="16dp"
+                            android:editable="true"
+                            android:fontFamily="@font/calibri"
+                            android:hint="비밀번호확인"
+                            android:inputType="textPassword|textEmailAddress"
+                            android:maxLines="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <EditText
+                        android:id="@+id/et_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableRight="@drawable/ic_lock_white_24dp"
+                        android:drawablePadding="16dp"
+                        android:editable="true"
+                        android:fontFamily="@font/calibri"
+                        android:hint="비밀번호"
+                        android:inputType="textPassword|textEmailAddress"
+                        android:maxLines="1"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableRight="@drawable/ic_email_white_24dp"
+                    android:drawablePadding="16dp"
+                    android:editable="true"
+                    android:fontFamily="@font/calibri"
+                    android:hint="아이디"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableRight="@drawable/ic_email_white_24dp"
+                android:drawablePadding="16dp"
+                android:editable="true"
+                android:fontFamily="@font/calibri"
+                android:hint="이름"
+                android:inputType="textPersonName|textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/buttonshapewhitebg"
+                android:enabled="true"
+                android:fontFamily="@font/calibri"
+                android:text="간부"
+                android:textAllCaps="false"
+                android:textColor="#96ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/buttonshapewhitebg"
+                android:enabled="true"
+                android:fontFamily="@font/calibri"
+                android:text="병사"
+                android:textAllCaps="false"
+                android:textColor="#96ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/buttonshapewhitebg"
+                android:enabled="true"
+                android:fontFamily="@font/calibri"
+                android:text="회원가입"
+                android:textAllCaps="false"
+                android:textColor="#96ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:onClick="signUp"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

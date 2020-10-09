@@ -1,11 +1,13 @@
 package com.team9797.ToMAS;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team9797.ToMAS.navigation.first_level_adapter;
 
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView)findViewById(R.id.total_navi_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
     }
 
     public void set_title(){
@@ -130,5 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         return false;
     }
+
+
 
 }
