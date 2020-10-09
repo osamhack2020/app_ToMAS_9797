@@ -220,7 +220,7 @@ public class register_board_content extends AppCompatActivity {
                  * TODO do your upload here from the bitmap received and all onImageUploadComplete(String url); to insert the result url to
                  * let the editor know the upload has completed
                  */
-                // need to fix : 여기에서 파일을 바로 업로드 하면 안되지만, 어디다 파일 업로드를 넣어야 하는지 모르겠음. 여기서 바로 처리해주고 나중에 수정해야함.
+                // need to fix : 여기에서 사진을 바로 업로드 하면 안되지만, 어디다 파일 업로드를 넣어야 하는지 모르겠음. 여기서 바로 처리해주고 나중에 수정해야함.
                 // 현재는 지금 여기서 firebase storage에 uuid를 이름으로가진 jpg파일에 저장함. 폴더는 "기본폴더/images/" 임
                 Log.d("AAAA", "AAAAAAAAAAAAAAAA");
                 //Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();

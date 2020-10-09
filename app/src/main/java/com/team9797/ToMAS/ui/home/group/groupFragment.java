@@ -52,9 +52,14 @@ public class groupFragment extends Fragment {
         public void onClick(View view) {
             Fragment change_fragment = null;
             fragmentTransaction = fragmentManager.beginTransaction();
+            String title;
             switch (view.getId()) {
                 case R.id.group_btn1:
                     change_fragment = new group_exercise();
+                    Bundle args = new Bundle();
+                    title = "운동";
+                    args.putString("title", title);
+                    change_fragment.setArguments(args);
                     break;
                 case R.id.group_btn2:
                     change_fragment = new group_ca();

@@ -4,12 +4,10 @@ package com.team9797.ToMAS;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.team9797.ToMAS.navigation.first_level_adapter;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -28,7 +26,6 @@ import androidx.navigation.ui.NavigationUI;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -71,8 +68,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         // 임시 firebase에서 받아와서 넣어줘야함.
+        /*
         String[] ItemHeaders = new String[]{"자기개발", "소통게시판", "플리마켓", "인원모집"};
         Collections.addAll(headerList, ItemHeaders);
+         */
+
         expandableListView = findViewById(R.id.total_right_menu);
         if (expandableListView != null)
         {

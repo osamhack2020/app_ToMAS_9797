@@ -6,29 +6,25 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.team9797.ToMAS.postBoard.board_content;
+import com.team9797.ToMAS.postBoard.board_list_adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class fragment_template extends Fragment {
 
@@ -56,22 +52,22 @@ public class fragment_template extends Fragment {
                 // 구조 다시 바꿈. fragment_template에서 child_list를 firebase에서 읽어옴.
                 // firebase에서 child_list채우기
                 mainActivity.db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            child_list.clear();
-                            child_fragment_list.clear();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                child_list.add(document.getId());
-                                child_fragment_list.add(document.get("fragment_style", Integer.class));
-                            }
-                            listview_adapter.notifyDataSetChanged();
-                        } else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        child_list.clear();
+                        child_fragment_list.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            //Log.d(TAG, document.getId() + " => " + document.getData());
+                            child_list.add(document.getId());
+                            child_fragment_list.add(document.get("fragment_style", Integer.class));
                         }
+                        listview_adapter.notifyDataSetChanged();
+                    } else {
+                        //Log.d(TAG, "Error getting documents: ", task.getException());
                     }
-                });
+                }
+            });
                 tmp_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -84,7 +80,6 @@ public class fragment_template extends Fragment {
                         args.putInt("fragment_style", child_fragment_list.get(i));
                         args.putString("title", child_list.get(i));
                         args.putString("path", path);
-                        //args.putStringArrayList("child_list", child_list);
                         change_fragment.setArguments(args);
                         fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
                     }

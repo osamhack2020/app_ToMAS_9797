@@ -1,4 +1,4 @@
-package com.team9797.ToMAS;
+package com.team9797.ToMAS.navigation;
 
 import android.content.Context;
 import android.graphics.Typeface;

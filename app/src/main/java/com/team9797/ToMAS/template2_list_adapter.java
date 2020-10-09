@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.team9797.ToMAS.postBoard.board_content;
+import com.team9797.ToMAS.postBoard.board_list_adapter;
+
 import java.util.ArrayList;
 
 public class template2_list_adapter extends BaseAdapter {

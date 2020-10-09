@@ -1,4 +1,4 @@
-package com.team9797.ToMAS;
+package com.team9797.ToMAS.navigation;
 
 import android.content.Context;
 import android.util.TypedValue;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import com.team9797.ToMAS.R;
 
 import java.util.List;
 import java.util.Map;

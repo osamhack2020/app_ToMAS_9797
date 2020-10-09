@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.fragment_template;
+import com.team9797.ToMAS.ui.home.group.groupFragment;
 
 import java.util.ArrayList;
 
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment {
             Fragment change_fragment = null;
             fragmentTransaction = fragmentManager.beginTransaction();
             String title = "";
+            Bundle args;
             final ArrayList<String> child_list = new ArrayList<>();
             switch (view.getId()) {
                 case R.id.home_btn1:
@@ -78,16 +80,20 @@ public class HomeFragment extends Fragment {
                     */
                     title = "자기개발";
                     change_fragment = new fragment_template();
-                    Bundle args = new Bundle();
+                    args = new Bundle();
                     args.putInt("fragment_style", 1);
                     args.putString("title", title);
                     args.putString("path", "mainpage");
                     change_fragment.setArguments(args);
                     break;
-                    /* 살려야함 이건
                 case R.id.home_btn2:
-                    change_fragment = new boardFragment();
                     title = "게시판";
+                    change_fragment = new fragment_template();
+                    args = new Bundle();
+                    args.putInt("fragment_style", 1);
+                    args.putString("title", title);
+                    args.putString("path", "mainpage");
+                    change_fragment.setArguments(args);
                     break;
                 case R.id.home_btn3:
                     change_fragment = new marketFragment();
@@ -96,9 +102,13 @@ public class HomeFragment extends Fragment {
                 case R.id.home_btn4:
                     change_fragment = new groupFragment();
                     title = "인원모집";
+                    args = new Bundle();
+                    args.putString("title", title);
+                    args.putString("path", "mainpage/인원모집/인원모집");
+                    change_fragment.setArguments(args);
                     break;
-
-                     */
+                default:
+                    break;
             }
             mainActivity.push_title(title);
             fragmentTransaction.addToBackStack(null);

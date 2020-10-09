@@ -1,4 +1,4 @@
-package com.team9797.ToMAS;
+package com.team9797.ToMAS.postBoard;
 import android.graphics.drawable.Drawable;
 
 public class board_list_item {
