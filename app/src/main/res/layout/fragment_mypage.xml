@@ -75,4 +75,12 @@
         android:text="옵션1"
         android:textSize="24sp" />
 
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="logout"
+        android:onClick="log_out"
+        tools:ignore="OnClick" />
+
 </LinearLayout>
