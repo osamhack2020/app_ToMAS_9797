@@ -86,8 +86,23 @@ public class group_content extends Fragment {
                         ArrayList<String> tmp_participants = document.get("participants", ArrayList.class);
                         for (int i = 0; i<tmp_participants.size(); i++)
                         {
-                            //adapter.addItem(tmp_participants.get(i));
+                            mainActivity.db.collection("user").document(tmp_participants.get(i)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> tmp_task) {
+                                    if (tmp_task.isSuccessful()) {
+                                        DocumentSnapshot tmp_document = tmp_task.getResult();
+                                        if (tmp_document.exists()) {
+                                            adapter.addItem(tmp_document.get("계급").toString() + " " + tmp_document.get("이름").toString(), tmp_document.get("phonenumber").toString());
+                                        } else {
+
+                                        }
+                                    } else {
+
+                                    }
+                                }
+                            });
                         }
+                        adapter.notifyDataSetChanged();
                     } else {
 
                     }
