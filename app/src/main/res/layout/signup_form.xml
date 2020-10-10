@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    tools:context=".signup">
+    tools:context=".signupactivity">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -29,6 +29,27 @@
         android:paddingRight="32dp"
         android:visibility="visible">
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColorHint="#96ffffff"
+            android:theme="@style/EditScreenTextInputLayoutStyle">
+
+            <EditText
+                android:id="@+id/edit_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableRight="@android:drawable/ic_menu_agenda"
+                android:drawablePadding="16dp"
+                android:editable="true"
+                android:fontFamily="@font/calibri"
+                android:hint="핸드폰번호"
+                android:inputType="number|text"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -73,6 +94,7 @@
                                     android:theme="@style/EditScreenTextInputLayoutStyle">
 
                                     <EditText
+                                        android:id="@+id/edit_birth"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:drawableRight="@android:drawable/ic_menu_agenda"
@@ -80,13 +102,14 @@
                                         android:editable="true"
                                         android:fontFamily="@font/calibri"
                                         android:hint="생년월일"
-                                        android:inputType="datetime|textEmailAddress"
+                                        android:inputType="datetime"
                                         android:maxLines="1"
                                         android:textColor="@android:color/white"
                                         android:textSize="16sp" />
                                 </com.google.android.material.textfield.TextInputLayout>
 
                                 <EditText
+                                    android:id="@+id/edit_armynumber"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:drawableRight="@drawable/ic_email_white_24dp"
@@ -94,36 +117,40 @@
                                     android:editable="true"
                                     android:fontFamily="@font/calibri"
                                     android:hint="군번"
-                                    android:inputType="number|textEmailAddress"
+                                    android:inputType="number"
                                     android:maxLines="1"
                                     android:textColor="@android:color/white"
                                     android:textSize="16sp" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <EditText
+                                android:id="@+id/edit_class"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:drawableRight="@drawable/ic_email_white_24dp"
                                 android:drawablePadding="16dp"
                                 android:editable="true"
                                 android:fontFamily="@font/calibri"
-                                android:hint="소속"
+                                android:hint="계급"
                                 android:inputType="textLongMessage|textEmailAddress"
                                 android:maxLines="1"
+                                android:privateImeOptions="defaultInputmode=korean"
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <EditText
+                            android:id="@+id/edit_belong"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:drawableRight="@drawable/ic_lock_white_24dp"
                             android:drawablePadding="16dp"
                             android:editable="true"
                             android:fontFamily="@font/calibri"
-                            android:hint="비밀번호확인"
+                            android:hint="소속"
                             android:inputType="textPassword|textEmailAddress"
                             android:maxLines="1"
+                            android:privateImeOptions="defaultInputmode=korean"
                             android:textColor="@android:color/white"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -137,7 +164,7 @@
                         android:editable="true"
                         android:fontFamily="@font/calibri"
                         android:hint="비밀번호"
-                        android:inputType="textPassword|textEmailAddress"
+                        android:inputType="textPassword"
                         android:maxLines="1"
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
@@ -151,7 +178,7 @@
                     android:drawablePadding="16dp"
                     android:editable="true"
                     android:fontFamily="@font/calibri"
-                    android:hint="아이디"
+                    android:hint="이메일"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
@@ -159,6 +186,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <EditText
+                android:id="@+id/edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableRight="@drawable/ic_email_white_24dp"
@@ -166,48 +194,12 @@
                 android:editable="true"
                 android:fontFamily="@font/calibri"
                 android:hint="이름"
-                android:inputType="textPersonName|textEmailAddress"
+                android:inputType="textPersonName"
                 android:maxLines="1"
+                android:privateImeOptions="defaultInputmode=korean"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/buttonshapewhitebg"
-                android:enabled="true"
-                android:fontFamily="@font/calibri"
-                android:text="간부"
-                android:textAllCaps="false"
-                android:textColor="#96ffffff"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/buttonshapewhitebg"
-                android:enabled="true"
-                android:fontFamily="@font/calibri"
-                android:text="병사"
-                android:textAllCaps="false"
-                android:textColor="#96ffffff"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -218,18 +210,19 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/edit_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/buttonshapewhitebg"
                 android:enabled="true"
                 android:fontFamily="@font/calibri"
+                android:onClick="signUp"
                 android:text="회원가입"
                 android:textAllCaps="false"
                 android:textColor="#96ffffff"
                 android:textSize="16dp"
-                android:textStyle="bold"
-                android:onClick="signUp"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
