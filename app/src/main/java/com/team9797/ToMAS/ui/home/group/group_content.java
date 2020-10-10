@@ -86,7 +86,7 @@ public class group_content extends Fragment {
                         ArrayList<String> tmp_participants = document.get("participants", ArrayList.class);
                         for (int i = 0; i<tmp_participants.size(); i++)
                         {
-                            adapter.addItem(tmp_participants.get(i));
+                            //adapter.addItem(tmp_participants.get(i));
                         }
                     } else {
 
