@@ -30,6 +30,7 @@ import com.team9797.ToMAS.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class recruit_register_fragment extends Fragment {
@@ -43,6 +44,7 @@ public class recruit_register_fragment extends Fragment {
     EditText edit_start_time;
     EditText edit_end_time;
     EditText edit_place;
+    EditText edit_position;
     FragmentManager fragmentManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -57,6 +59,7 @@ public class recruit_register_fragment extends Fragment {
         edit_start_time = root.findViewById(R.id.recruit_register_start_time);
         edit_end_time = root.findViewById(R.id.recruit_register_end_time);
         edit_place = root.findViewById(R.id.recruit_register_place);
+        edit_position = root.findViewById(R.id.recruit_register_position);
 
         // args 받아오기
         path = getArguments().getString("path");
@@ -158,8 +161,13 @@ public class recruit_register_fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                ArrayList<String> tmp_participants = new ArrayList<>();
-                tmp_participants.add(mainActivity.getUid());
+                // 참가자 정보 넣은 map : 인원모집 신청자도 자동으로 등록.
+                Map<String, Map<String, String>> participants = new HashMap<>();
+                Map<String, String> tmp_participant = new HashMap<>();
+                tmp_participant.put("name", mainActivity.preferences.getString("이름", "홍길동"));
+                tmp_participant.put("phonenumber", mainActivity.preferences.getString("phonenumber", "01012341234"));
+                tmp_participant.put("position", edit_position.getText().toString());
+                participants.put(mainActivity.getUid(), tmp_participant);
                 Map<String, Object> post = new HashMap<>();
                 //example : need to fix
                 post.put("title", edit_title.getText().toString());
@@ -167,8 +175,8 @@ public class recruit_register_fragment extends Fragment {
                 post.put("place", edit_place.getText().toString());
                 post.put("category", spinner_category.getSelectedItem().toString());
                 post.put("num_people", Integer.parseInt(edit_numpeople.getText().toString()));
-                post.put("now_people", 0);
-                post.put("participants", tmp_participants);
+                post.put("now_people", 1);
+                post.put("participants", participants);
                 post.put("time", edit_start_time.getText().toString() + " ~ " + edit_end_time.getText().toString()); //need to fix : 이것도 integer로 받아서 마감임박같은거 처리하면 좋을 듯
 
 

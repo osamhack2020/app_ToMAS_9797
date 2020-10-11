@@ -41,6 +41,7 @@ public class participant_list_adapter extends BaseAdapter {
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView item_name = (TextView) convertView.findViewById(R.id.participant_name);
+        TextView item_position = (TextView) convertView.findViewById(R.id.participant_position);
         TextView item_phone = (TextView) convertView.findViewById(R.id.participant_phone);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
@@ -49,6 +50,7 @@ public class participant_list_adapter extends BaseAdapter {
         // 아이템 내 각 위젯에 데이터 반영
         item_phone.setText(listViewItem.getPhone());
         item_name.setText(listViewItem.getName());
+        item_position.setText(listViewItem.getPosition());
         return convertView;
     }
 
@@ -65,10 +67,11 @@ public class participant_list_adapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String name, String phone) {
+    public void addItem(String name, String position, String phone) {
         participant_list_item item = new participant_list_item();
 
         item.setPhone(phone);
+        item.setPosition(position);
         item.setName(name);
 
         listViewItemList.add(item);

@@ -77,6 +77,7 @@ public class group_exercise extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 adapter.add_item(document.get("title").toString(), document.get("now_people", Integer.class), document.get("num_people", Integer.class), document.get("place").toString(), document.get("date").toString(), document.get("time").toString(), document.getId());
+                                Log.d("QQ", document.get("title").toString());
                             }
                             adapter.notifyDataSetChanged();
                         } else {
@@ -84,27 +85,6 @@ public class group_exercise extends Fragment {
                         }
                     }
                 });
-
-        // click함수에서 key값을 넘겨서 게시판 db에서 가져온 데이터를 넣어야 함.
-        // recyclerview에서는 adapter에서 click 처리함.
-        /*
-        recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new group_content();
-                // 게시판 id와 path를 받아와서 board_content fragment로 넘긴다.
-                // maybe 이거 구조를 검색해서 바꿔야 할 듯
-                Bundle args = new Bundle();
-                args.putString("post_id", adapter.listViewItemList.get(position).getId());
-                args.putString("path", path);
-                change_fragment.setArguments(args);
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
-            }
-        });
-
-         */
 
         // fab버튼 관리
         FloatingActionButton fab = root.findViewById(R.id.fab_group_exercise_register);

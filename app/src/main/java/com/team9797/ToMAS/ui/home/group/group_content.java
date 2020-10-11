@@ -1,6 +1,8 @@
 package com.team9797.ToMAS.ui.home.group;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -20,13 +25,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.fragment_template;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class group_content extends Fragment {
 
@@ -37,8 +47,12 @@ public class group_content extends Fragment {
     TextView date_textView;
     TextView time_textView;
     TextView numpeople_textView;
+    EditText position_edit;
     Button btn_enroll ;
     GridView participant_gridView;
+    SlidingUpPanelLayout slidingUpPanelLayout;
+    Map<String, Map<String, String>> tmp_participants;
+    DocumentReference mPostReference;
 
     String path;
     String post_id;
@@ -65,12 +79,14 @@ public class group_content extends Fragment {
         numpeople_textView = root.findViewById(R.id.group_content_numpeople);
         btn_enroll = root.findViewById(R.id.group_content_enroll);
         participant_gridView = root.findViewById(R.id.participant_list);
+        position_edit = root.findViewById(R.id.group_content_position);
+        slidingUpPanelLayout = root.findViewById(R.id.group_content_slidingLayout);
 
         final participant_list_adapter adapter = new participant_list_adapter();
         participant_gridView.setAdapter(adapter);
 
         // 선택한 게시물 document reference
-        DocumentReference mPostReference = mainActivity.db.collection(path).document(post_id);
+        mPostReference = mainActivity.db.collection(path).document(post_id);
         mPostReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -83,8 +99,15 @@ public class group_content extends Fragment {
                         date_textView.setText(document.get("date", String.class));
                         time_textView.setText(document.get("time", String.class));
                         numpeople_textView.setText(Integer.toString(document.get("now_people", Integer.class))+"/" + Integer.toString(document.get("num_people", Integer.class)));
-                        ArrayList<String> tmp_participants = document.get("participants", ArrayList.class);
-                        for (int i = 0; i<tmp_participants.size(); i++)
+                        tmp_participants = (Map<String, Map<String, String>>)document.get("participants");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            tmp_participants.forEach((key, value) -> adapter.addItem(value.get("name"), value.get("position"), value.get("phonenumber")));
+                        }
+                        adapter.notifyDataSetChanged();
+
+                        /*
+                        * 매번 user에서 불러와서 읽었을 때의 코드 수정 함.
+                        for (int i = 0; i < tmp_participants.size(); i++)
                         {
                             mainActivity.db.collection("user").document(tmp_participants.get(i)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -93,6 +116,7 @@ public class group_content extends Fragment {
                                         DocumentSnapshot tmp_document = tmp_task.getResult();
                                         if (tmp_document.exists()) {
                                             adapter.addItem(tmp_document.get("계급").toString() + " " + tmp_document.get("이름").toString(), tmp_document.get("phonenumber").toString());
+                                            adapter.notifyDataSetChanged();
                                         } else {
 
                                         }
@@ -102,7 +126,21 @@ public class group_content extends Fragment {
                                 }
                             });
                         }
-                        adapter.notifyDataSetChanged();
+                        */
+
+                        // user id가 participation 목록에 있으면 버튼 text를 취소로 바꾸기.
+                        if (tmp_participants.containsKey(mainActivity.getUid()))
+                        {
+                            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                            btn_enroll.setText("참가취소");
+                            slidingUpPanelLayout.setTouchEnabled(false);
+                        }
+                        else
+                        {
+                            slidingUpPanelLayout.setTouchEnabled(true);
+                        }
+
+
                     } else {
 
                     }
@@ -112,86 +150,48 @@ public class group_content extends Fragment {
             }
         });
 
-        /*
-        * 참고용 코드 (지워야함)
-        // 구조 다시 바꿈. fragment_template에서 child_list를 firebase에서 읽어옴.
-        // firebase에서 child_list채우기
-        mainActivity.db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        // 다른 곳 눌렀을 때 숨기게
+        slidingUpPanelLayout.setFadeOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    child_list.clear();
-                    child_fragment_list.clear();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        //Log.d(TAG, document.getId() + " => " + document.getData());
-                        child_list.add(document.getId());
-                        child_fragment_list.add(document.get("fragment_style", Integer.class));
+            public void onClick(View view) {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            }
+        });
+
+        btn_enroll.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // user ID를 통해 검색하고 list에 있으면 없애고, list에 없으면 추가하기)
+                String mUid = mainActivity.getUid();
+                if (tmp_participants.containsKey(mainActivity.getUid()))
+                { // 이미 참가자에 uid가 있는 경우 : array에서 삭제
+                    mPostReference.update("participants."+mUid , FieldValue.delete());
+                    mPostReference.update("now_people", FieldValue.increment(-1));
+                    // fragment 새로고침
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.detach(group_content.this).attach(group_content.this).commit();
+                }
+                else {
+                    if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED)
+                    {
+                        Map<String, String> my_info = new HashMap<>();
+                        my_info.put("name", mainActivity.preferences.getString("이름", "홍길동"));
+                        my_info.put("phonenumber", mainActivity.preferences.getString("phonenumber", "01012341234"));
+                        my_info.put("position", position_edit.getText().toString());
+                        mPostReference.update("participants." + mUid, my_info);
+                        mPostReference.update("now_people", FieldValue.increment(1));
+
+                        // fragment 새로고침
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.detach(group_content.this).attach(group_content.this).commit();
                     }
-                    listview_adapter.notifyDataSetChanged();
-                } else {
-                    //Log.d(TAG, "Error getting documents: ", task.getException());
+                    else
+                    {
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                    }
                 }
             }
         });
-        tmp_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                // 다음 child를 만들고 arg 넘기는 과정
-                // need to fix db에서 받아와서 분기해야댐.
-                Fragment change_fragment = new fragment_template();
-                Bundle args = new Bundle();
-                args.putInt("fragment_style", child_fragment_list.get(i));
-                args.putString("title", child_list.get(i));
-                args.putString("path", path);
-                change_fragment.setArguments(args);
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
-            }
-        });
-        */
-
-        // user id가 participation 목록에 있으면 버튼 text를 취소로 바꾸기.
-        /*
-        * 예시 코드
-        if (post.stars.indexOf(getUid())>-1) {
-            //if (post.stars.containsKey(getUid())) {
-                viewHolder.starView.setImageResource(R.drawable.ic_toggle_star_24);
-            } else {
-                viewHolder.starView.setImageResource(R.drawable.ic_toggle_star_outline_24);
-            }
-         */
-
-        // maybe : fragment 새로고침 해야 할 수도 있음.
-
-
         return root;
-    }
-    public void group_exercise_enroll(View view)
-    {
-        // user ID를 통해 검색하고 list에 있으면 없애고, list에 없으면 추가하기)
-        //test
-
-        // post 보내기
-        // need to fix : participation list에 추가하는 법 검색해서 넣기
-        /*
-        mainActivity.db.collection(path).document()
-                .set(post)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("AAA", "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("AAA", "Error writing document", e);
-                    }
-                });
-
-         */
-        //finish();
-        // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
     }
 }

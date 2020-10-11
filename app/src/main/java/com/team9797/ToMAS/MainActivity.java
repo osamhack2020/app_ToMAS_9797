@@ -2,12 +2,16 @@ package com.team9797.ToMAS;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team9797.ToMAS.navigation.first_level_adapter;
 
@@ -16,6 +20,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +30,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 
 import java.util.ArrayList;
@@ -42,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //firebase
     public FirebaseFirestore db;
 
+    // 사용자 정보 저장.
+    public SharedPreferences preferences;
+    public SharedPreferences.Editor sp_editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +60,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //firebase
         db = FirebaseFirestore.getInstance();
+
+        //shared preference init
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sp_editor = preferences.edit();
+
+        db.collection("user").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        sp_editor.putString("이름", document.get("이름").toString());
+                        sp_editor.putString("권한", document.get("권한").toString());
+                        sp_editor.putString("계급", document.get("계급").toString());
+                        sp_editor.putString("user_id", document.getId());
+                        sp_editor.putString("phonenumber", document.get("phonenumber").toString());
+                        sp_editor.commit();
+                    } else {
+
+                    }
+                }
+            }
+        });
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
