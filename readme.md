@@ -56,3 +56,5 @@ $ yarn start or npm run start
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
  - TextView에서 이미지 포함한 html 띄우기 : https://stackoverflow.com/questions/16179285/html-imagegetter-textview/16209680#16209680
+ - 아래에서 올라오는 layout : https://github.com/umano/AndroidSlidingUpPanel
+ 
