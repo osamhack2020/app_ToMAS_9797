@@ -83,7 +83,7 @@ public class loginactivity extends AppCompatActivity{
     public void repw(View view) {
         email = signEmail.getText().toString();
         if(isValidEmail()) {
-            //firebaseAuth.sendPasswordResetEmail(email);
+            firebaseAuth.sendPasswordResetEmail(email);
             Toast.makeText(loginactivity.this, R.string.repw, Toast.LENGTH_SHORT).show();
         }
 
