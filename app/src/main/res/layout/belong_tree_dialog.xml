@@ -2,18 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/template1_linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".postBoard.fragment_template">
+    tools:context=".ui.home.market.marketFragment">
 
-
-    <ListView
-        android:id="@+id/template1_listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/belong_tree_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    </ListView>
-
+        android:layout_height="match_parent" />
 </LinearLayout>

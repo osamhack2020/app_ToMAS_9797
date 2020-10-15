@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".postBoard.fragment_template">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/board_content_title"
+        android:id="@+id/market_sample_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="300dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/board_content_textview"
+        <ListView
+            android:id="@+id/market_sample_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

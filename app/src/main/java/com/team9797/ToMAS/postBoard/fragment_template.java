@@ -1,4 +1,4 @@
-package com.team9797.ToMAS;
+package com.team9797.ToMAS.postBoard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.team9797.ToMAS.postBoard.board_content;
-import com.team9797.ToMAS.postBoard.board_list_adapter;
-import com.team9797.ToMAS.postBoard.template2_list_adapter;
+import com.team9797.ToMAS.MainActivity;
+import com.team9797.ToMAS.R;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

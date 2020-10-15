@@ -11,18 +11,17 @@ import android.view.LayoutInflater;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.fragment_template;
+import com.team9797.ToMAS.postBoard.fragment_template;
 import com.team9797.ToMAS.ui.home.group.groupFragment;
+import com.team9797.ToMAS.ui.home.market.marketFragment;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     MainActivity mainActivity;
@@ -33,8 +32,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();

@@ -1,9 +1,11 @@
-package com.team9797.ToMAS;
+package com.team9797.ToMAS.ui.home.market;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
@@ -15,13 +17,20 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
@@ -31,15 +40,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.firestore.v1.DocumentTransform;
+import com.team9797.ToMAS.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -47,23 +62,91 @@ import top.defaults.colorpicker.ColorPickerPopup;
 
 // github.irshulx 에서 코드 인용.
 
-public class register_board_content extends AppCompatActivity {
+public class register_market_content extends AppCompatActivity {
     Editor editor;
+    EditText edit_date;
     FirebaseStorage storage;
     StorageReference storageRef;
     String path;
     String title;
     Intent intent;
+    Spinner spinner_category;
+
+    public SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_board_content);
+        setContentView(R.layout.register_market_content);
+
+        // get shared preference
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         editor =  findViewById(R.id.editor);
+        edit_date = findViewById(R.id.register_market_content_due_date);
+
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
         intent = getIntent();
         path = intent.getExtras().getString("path");
+
+        edit_date.setShowSoftInputOnFocus(false);
+        edit_date.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    final Calendar calendar = Calendar.getInstance();
+                    int mYear = calendar.get(Calendar.YEAR);
+                    int mMonth = calendar.get(Calendar.MONTH);
+                    int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(register_market_content.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                            month++;
+                            edit_date.setText(year + "-" + month + "-"+day);
+                        }
+                    }, mYear, mMonth, mDay);
+                    datePickerDialog.show();
+                }
+
+                return false;
+            }
+        });
+
+        // set spinner by list from firebase
+        spinner_category = (Spinner) findViewById(R.id.recruit_register_category);
+        FirebaseFirestore.getInstance().collection(path)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<String> items = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                items.add(document.getId());
+                            }
+                            ArrayAdapter<String> category_adapter = new ArrayAdapter<>(register_market_content.this, android.R.layout.simple_spinner_item, items);
+                            //category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+                            spinner_category.setAdapter(category_adapter);
+                            spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    //need to fix
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+                        } else {
+                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
         setUpEditor();
     }
 
@@ -149,7 +232,7 @@ public class register_board_content extends AppCompatActivity {
         findViewById(R.id.action_color).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ColorPickerPopup.Builder(register_board_content.this)
+                new ColorPickerPopup.Builder(register_market_content.this)
                         .initialColor(Color.RED) // Set initial color
                         .enableAlpha(true) // Enable alpha slider or not
                         .okTitle("Choose")
@@ -160,7 +243,7 @@ public class register_board_content extends AppCompatActivity {
                         .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                Toast.makeText(register_board_content.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
+                                Toast.makeText(register_market_content.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
                                 editor.updateTextColor(colorHex(color));
                             }
 
@@ -215,14 +298,13 @@ public class register_board_content extends AppCompatActivity {
 
             @Override
             public void onUpload(Bitmap image, final String uuid) {
-                Toast.makeText(register_board_content.this, uuid, Toast.LENGTH_LONG).show();
+                Toast.makeText(register_market_content.this, uuid, Toast.LENGTH_LONG).show();
                 /**
                  * TODO do your upload here from the bitmap received and all onImageUploadComplete(String url); to insert the result url to
                  * let the editor know the upload has completed
                  */
                 // need to fix : 여기에서 사진을 바로 업로드 하면 안되지만, 어디다 파일 업로드를 넣어야 하는지 모르겠음. 여기서 바로 처리해주고 나중에 수정해야함.
                 // 현재는 지금 여기서 firebase storage에 uuid를 이름으로가진 jpg파일에 저장함. 폴더는 "기본폴더/images/" 임
-                Log.d("AAAA", "AAAAAAAAAAAAAAAA");
                 //Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -297,7 +379,7 @@ public class register_board_content extends AppCompatActivity {
                 */
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Intent intent = new Intent(getApplicationContext(), register_board_content.class);
+                Intent intent = new Intent(getApplicationContext(), register_market_content.class);
                 intent.putExtra("content", text);
                 startActivity(intent);
             }
@@ -350,11 +432,12 @@ public class register_board_content extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == editor.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             try {
 
-                if(Build.VERSION.SDK_INT < 28) {
+                if (Build.VERSION.SDK_INT < 28) {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     editor.insertImage(bitmap);
                 } else {
@@ -418,36 +501,36 @@ public class register_board_content extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String string_html = editor.getContentAsHTML();
 
-        EditText edit_title = findViewById(R.id.post_edit_title);
+        // get Views
+        EditText edit_title = findViewById(R.id.register_market_content_title);
         title = edit_title.getText().toString();
+        EditText edit_place = findViewById(R.id.register_market_content_place_editText);
 
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
         //example : need to fix
         post.put("title", title);
         post.put("date", ""); // need to fix
-        post.put("sub", "[5]");
-        post.put("clicks", 0);
-        post.put("name", "경민");
-        //사용자이름, 시간 등등 추가해야 함.
+        post.put("due_date", edit_date.getText().toString());
+        post.put("price", 0);
+        post.put("category", spinner_category.getSelectedItem().toString());
+        post.put("numpeople", 0);
+        post.put("writer", preferences.getString("이름", "홍길동"));
 
-        //test
-
-        db.collection(path).document()
-                .set(post)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("AAA", "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("AAA", "Error writing document", e);
-                    }
-                });
+        db.collection(path).document().set(post)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    //Log.d("AAA", "DocumentSnapshot successfully written!");
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //Log.w("AAA", "Error writing document", e);
+                }
+            });
         finish();
-        // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
+        // need to fix : finish되서 돌아갈 때 게시판 리스트 최신화하기.
     }
 }

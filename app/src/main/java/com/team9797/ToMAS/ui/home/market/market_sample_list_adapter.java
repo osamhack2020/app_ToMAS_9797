@@ -1,4 +1,4 @@
-package com.team9797.ToMAS.postBoard;
+package com.team9797.ToMAS.ui.home.market;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,18 +19,19 @@ import com.team9797.ToMAS.R;
 
 import java.util.ArrayList;
 
-public class template2_list_adapter extends BaseAdapter {
+public class market_sample_list_adapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<board_list_adapter> adapter = new ArrayList<>();
+    private ArrayList<market_list_adapter> adapter = new ArrayList<>();
     private ArrayList<String> title = new ArrayList<>();
     private ArrayList<String> path = new ArrayList<>();
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     MainActivity mainActivity;
     // ListViewAdapter의 생성자
-    public template2_list_adapter() {
+    public market_sample_list_adapter() {
+
     }
-    public template2_list_adapter(MainActivity mainActivity, FragmentManager fragmentManager)
+    public market_sample_list_adapter(MainActivity mainActivity, FragmentManager fragmentManager)
     {
         this.mainActivity = mainActivity;
         this.fragmentManager = fragmentManager;
@@ -51,20 +52,19 @@ public class template2_list_adapter extends BaseAdapter {
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.template2_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.market_sample_list_item, parent, false);
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView item_title = (TextView) convertView.findViewById(R.id.template2_title);
-        ListView item_list = (ListView) convertView.findViewById(R.id.template2_sample_list);
+        TextView item_title = (TextView) convertView.findViewById(R.id.market_sample_title);
+        ListView item_list = (ListView) convertView.findViewById(R.id.market_sample_list);
 
         item_title.setOnClickListener(new AdapterView.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Fragment change_fragment = new fragment_template();
+                Fragment change_fragment = new market_category_fragment();
                 Bundle args = new Bundle();
 
-                args.putInt("fragment_style", 3);
                 args.putString("title", title.get(position));
                 args.putString("path", path.get(position));
                 change_fragment.setArguments(args);
@@ -82,9 +82,9 @@ public class template2_list_adapter extends BaseAdapter {
             public void onItemClick(AdapterView parent, View v, int list_position, long id) {
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new board_content();
+                Fragment change_fragment = new market_content();
 
-                // 게시판 id와 path를 받아와서 board_content fragment로 넘긴다.
+                // 게시판 id와 path를 받아와서 market_content fragment로 넘긴다.
                 // maybe 이거 구조를 검색해서 바꿔야 할 듯
                 Bundle args = new Bundle();
                 args.putString("post_id", adapter.get(position).listViewItemList.get(list_position).getId());
@@ -96,7 +96,7 @@ public class template2_list_adapter extends BaseAdapter {
         });
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        //board_list_item listViewItem = listViewItemList.get(position);
+        //market_list_item listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         item_title.setText(title.get(position));
@@ -116,7 +116,7 @@ public class template2_list_adapter extends BaseAdapter {
         return title.get(position) ;
     }
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String tmp_title, board_list_adapter tmp_adapter, String tmp_path) {
+    public void addItem(String tmp_title, market_list_adapter tmp_adapter, String tmp_path) {
         title.add(tmp_title);
         adapter.add(tmp_adapter);
         path.add(tmp_path);
