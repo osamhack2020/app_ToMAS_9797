@@ -513,6 +513,7 @@ public class register_market_content extends AppCompatActivity {
         post.put("date", ""); // need to fix
         post.put("due_date", edit_date.getText().toString());
         post.put("price", 0);
+        post.put("place", edit_place.getText().toString());
         post.put("category", category);
         post.put("numpeople", 0);
         post.put("writer", preferences.getString("이름", "홍길동"));

@@ -110,13 +110,10 @@ public class marketFragment extends Fragment{
 
         // firestore에서 market list 불러오기.
         path += "market";
-        Log.d("path", path);
         mainActivity.db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                Log.d("QQ", "ZZZZZZZZZ");
                 if (task.isSuccessful()) {
-                    Log.d("QQ", "ZZZZZZZZZ");
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String tmp = document.getId();
                         Log.d("AAA", tmp);

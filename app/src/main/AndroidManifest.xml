@@ -16,7 +16,7 @@
             android:label="@string/app_name">
 
         </activity>
-        <activity android:name=".ui.social.register_social_survey"/>
+        <activity android:name=".ui.social.survey.register_social_survey"/>
         <activity android:name=".postBoard.register_board_content"/>
         <activity
             android:name=".loginactivity"
