@@ -30,7 +30,7 @@ public class loginactivity extends AppCompatActivity{
     EditText signPassword;
     private String email = "";
     private String password = "";
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{6,16}$");
 
     int count = 0;
 

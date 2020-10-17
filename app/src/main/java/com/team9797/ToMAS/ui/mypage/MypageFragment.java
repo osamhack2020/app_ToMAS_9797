@@ -56,7 +56,7 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment change_fragment = new Mypage_profile();
+                Fragment change_fragment = new fixprofile();
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });

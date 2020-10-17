@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         sp_editor.putString("권한", document.get("권한").toString());
                         sp_editor.putString("계급", document.get("계급").toString());
                         sp_editor.putString("소속", document.get("소속").toString());
+                        sp_editor.putString("소속", document.get("소속").toString());
+                        sp_editor.putString("소속", document.get("소속").toString());
+                        sp_editor.putString("소속", document.get("소속").toString());
                         sp_editor.putString("user_id", document.getId());
                         sp_editor.putString("phonenumber", document.get("phonenumber").toString());
                         sp_editor.commit();
