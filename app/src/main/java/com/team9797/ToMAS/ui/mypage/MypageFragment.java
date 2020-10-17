@@ -32,6 +32,7 @@ public class MypageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+
         View root = inflater.inflate(R.layout.fragment_mypage, container, false);
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
@@ -56,7 +57,11 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment change_fragment = new Mypage_profile();
+                Fragment change_fragment = new fixprofile();
+
+
+                fragmentTransaction.addToBackStack(null);
+
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });
