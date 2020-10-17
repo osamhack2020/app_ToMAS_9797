@@ -52,7 +52,7 @@ public class market_list_adapter extends BaseAdapter {
         // 아이템 내 각 위젯에 데이터 반영
         item_title.setText(listViewItem.getTitle());
         item_numpeople.setText(Integer.toString(listViewItem.getNumpeople()));
-        item_date.setText(listViewItem.getDate());
+        item_date.setText("마감일 : " + listViewItem.getDate());
         item_name.setText(listViewItem.getName());
         item_price.setText(Integer.toString(listViewItem.getPrice()));
         return convertView;

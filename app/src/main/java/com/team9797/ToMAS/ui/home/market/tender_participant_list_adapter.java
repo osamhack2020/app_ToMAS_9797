@@ -48,9 +48,9 @@ public class tender_participant_list_adapter extends BaseAdapter {
         tender_participant_list_item listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        item_price.setText(listViewItem.getPrice());
+        item_price.setText(Integer.toString(listViewItem.getPrice()));
         item_name.setText(listViewItem.getName());
-        item_num.setText(listViewItem.getNum());
+        item_num.setText(Integer.toString(listViewItem.getNum()));
         return convertView;
     }
 

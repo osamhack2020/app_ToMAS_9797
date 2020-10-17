@@ -40,6 +40,9 @@ public class MypageFragment extends Fragment {
         btn_logout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                mainActivity.sp_editor.clear();
+                mainActivity.sp_editor.commit();
+
                 FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent intent=new Intent(mainActivity,loginactivity.class);

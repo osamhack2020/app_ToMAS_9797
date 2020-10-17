@@ -1,6 +1,8 @@
 package com.team9797.ToMAS.ui.home.market;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +16,26 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.postBoard.register_board_content;
+import com.team9797.ToMAS.ui.home.group.recruit_register_fragment;
 import com.team9797.ToMAS.ui.home.market.belong_tree.belong_tree_dialog;
 
 public class market_category_fragment extends Fragment {
     MainActivity mainActivity;
     belong_tree_dialog dialog;
     FragmentManager fragmentManager;
+    FloatingActionButton fab;
     String path;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_market, container, false);
+        View root = inflater.inflate(R.layout.market_category_fragment, container, false);
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
         path = getArguments().getString("path");
@@ -37,14 +43,14 @@ public class market_category_fragment extends Fragment {
         dialog = new belong_tree_dialog();
         dialog.show(fragmentManager, "dialog");
 */
-        final ListView market_listView = root.findViewById(R.id.market_list);
+        fab = root.findViewById(R.id.fab_market_category);
+        final ListView market_listView = root.findViewById(R.id.market_category_list);
 
         // custom listview를 생성해서 만들어야됨.
         final market_list_adapter list_adapter = new market_list_adapter();
         market_listView.setAdapter(list_adapter);
 
         // firestore에서 market list 불러오기.
-        // 이 path를 예하부대 단위로 할지 어떻게 할지 고민 중.
         mainActivity.db.collection(path)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -52,7 +58,7 @@ public class market_category_fragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("date").toString(), document.get("name").toString(), document.get("price", Integer.class), document.getId());
+                                list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), document.get("price", Integer.class), document.getId());
                             }
                             list_adapter.notifyDataSetChanged();
                         } else {
@@ -75,6 +81,17 @@ public class market_category_fragment extends Fragment {
                 args.putString("path", path);
                 change_fragment.setArguments(args);
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mainActivity, register_market_content.class);
+                String[] tmp = path.split("/");
+                String parent_path = path.substring(0, path.length() - tmp[tmp.length - 1].length()*2 -2);
+                intent.putExtra("path", parent_path);
+                startActivity(intent);
             }
         });
 

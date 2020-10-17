@@ -87,7 +87,6 @@ public class group_exercise extends Fragment {
                 });
 
         // fab버튼 관리
-        FloatingActionButton fab = root.findViewById(R.id.fab_group_exercise_register);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
