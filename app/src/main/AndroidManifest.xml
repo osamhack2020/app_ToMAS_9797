@@ -27,6 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".signupactivity"/>
+        <activity android:name=".email_verify"/>
     </application>
 
 </manifest>
