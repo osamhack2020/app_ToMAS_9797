@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,24 +39,7 @@ public class belong_tree_dialog extends DialogFragment {
     RecyclerView rv;
     TreeViewAdapter adapter;
     String last_select;
-    NoticeDialogListener listener;
 
-    public interface NoticeDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
-        public void onDialogNegativeClick(DialogFragment dialog);
-    }
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(mainActivity);
-        // Verify that the host activity implements the callback interface
-        try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = (NoticeDialogListener) mainActivity;
-        } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException("must implement NoticeDialogListener");
-        }
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -83,7 +67,7 @@ public class belong_tree_dialog extends DialogFragment {
             public boolean onClick(TreeNode node, RecyclerView.ViewHolder holder) {
                 Log.d("AAA", "QQQQQQQ");
                 last_select = node.getPath();
-                    //Update and toggle the node.
+                //Update and toggle the node.
                 onToggle(!node.isExpand(), holder);
 //                    if (!node.isExpand())
 //                        adapter.collapseBrotherNode(node);
@@ -135,14 +119,16 @@ public class belong_tree_dialog extends DialogFragment {
         // click listener 연결
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // Send the positive button event back to the host activity
-                listener.onDialogPositiveClick(belong_tree_dialog.this);
+
+                Intent belong = new Intent();
+                belong.putExtra("belong", last_select);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, belong);
+                dismiss();
             }
         })
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Send the negative button event back to the host activity
-                        listener.onDialogNegativeClick(belong_tree_dialog.this);
+                        dismiss();
                     }
                 });
 
@@ -154,7 +140,7 @@ public class belong_tree_dialog extends DialogFragment {
     {
         String stringed_path = "";
         String[] tmp = this.last_select.split("/");
-        for (int i = 0; i<tmp.length; i++)
+        for (int i = 1; i<tmp.length; i++)
         {
             stringed_path += tmp[i] + " ";
         }

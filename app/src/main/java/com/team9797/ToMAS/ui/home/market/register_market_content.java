@@ -115,7 +115,7 @@ public class register_market_content extends AppCompatActivity {
         });
 
         // set spinner by list from firebase
-        spinner_category = (Spinner) findViewById(R.id.recruit_register_category);
+        spinner_category = (Spinner) findViewById(R.id.register_market_content_category_spinner);
         FirebaseFirestore.getInstance().collection(path)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -371,7 +371,7 @@ public class register_market_content extends AppCompatActivity {
         //editor.render("<p>Hello man, whats up!</p>");
         //String text = "<p data-tag=\"input\" style=\"color:#000000;\">I have to do the needful and send to me and my husband is in a Apple has to offer a variety is not a.</p><p data-tag=\"input\" style=\"color:#000000;\">I have to go with you will be highly grateful if we can get the latest</p><blockquote data-tag=\"input\" style=\"color:#000000;\">I have to do the negotiation and a half years old story and I am looking forward in a few days.</blockquote><p data-tag=\"input\" style=\"color:#000000;\">I have to do the needful at your to the product and the other to a new job is going well and that the same old stuff and a half day city is the stream and a good idea to get onboard the stream.</p>";
         editor.render();
-        findViewById(R.id.btnRender).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_render_market_content).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /*
@@ -475,7 +475,7 @@ public class register_market_content extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        setGhost((Button) findViewById(R.id.btnRender));
+        setGhost((Button) findViewById(R.id.btn_render_market_content));
     }
 
     public Map<Integer, String> getHeadingTypeface() {
@@ -505,7 +505,7 @@ public class register_market_content extends AppCompatActivity {
         EditText edit_title = findViewById(R.id.register_market_content_title);
         title = edit_title.getText().toString();
         EditText edit_place = findViewById(R.id.register_market_content_place_editText);
-
+        String category = spinner_category.getSelectedItem().toString();
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
         //example : need to fix
@@ -513,11 +513,11 @@ public class register_market_content extends AppCompatActivity {
         post.put("date", ""); // need to fix
         post.put("due_date", edit_date.getText().toString());
         post.put("price", 0);
-        post.put("category", spinner_category.getSelectedItem().toString());
+        post.put("category", category);
         post.put("numpeople", 0);
         post.put("writer", preferences.getString("이름", "홍길동"));
 
-        db.collection(path).document().set(post)
+        db.collection(path + "/" + category + "/" + category).document().set(post)
             .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {

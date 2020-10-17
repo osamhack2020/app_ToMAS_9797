@@ -59,6 +59,7 @@ public class market_content extends Fragment implements Html.ImageGetter {
     TextView place_textView;
     TextView date_textView;
     TextView due_date_textView;
+    TextView highest_price_textView;
     ListView tender_listView;
     EditText price_editText;
     SlidingUpPanelLayout slidingUpPanelLayout;
@@ -69,7 +70,7 @@ public class market_content extends Fragment implements Html.ImageGetter {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.board_content, container, false);
+        View root = inflater.inflate(R.layout.market_content, container, false);
 
         mainActivity = (MainActivity)getActivity();
         post_id = getArguments().getString("post_id");
@@ -82,11 +83,13 @@ public class market_content extends Fragment implements Html.ImageGetter {
         writer_textView = root.findViewById(R.id.market_content_writer);
         category_textView = root.findViewById(R.id.market_content_category);
         date_textView = root.findViewById(R.id.market_content_date);
+        place_textView = root.findViewById(R.id.market_content_place);
         due_date_textView = root.findViewById(R.id.market_content_due_date);
         tender_listView = root.findViewById(R.id.market_content_tender_list);
         slidingUpPanelLayout = root.findViewById(R.id.market_content_sliding);
         enroll_button = root.findViewById(R.id.market_content_enroll_btn);
         price_editText = root.findViewById(R.id.market_content_tender_price);
+        highest_price_textView = root.findViewById(R.id.market_content_highest_price);
 
         tmp_participants = new ArrayList<>();
         tender_participant_list_adapter adapter = new tender_participant_list_adapter();
@@ -109,17 +112,21 @@ public class market_content extends Fragment implements Html.ImageGetter {
                         date_textView.setText(document.get("date", String.class));
                         due_date_textView.setText(document.get("due_date", String.class));
                         writer_textView.setText(document.get("writer", String.class));
-                        mPostReference.collection("participants").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        mPostReference.collection("participants").orderBy("price", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
                                     int tmp_counter = 1;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
+                                        if (tmp_counter == 1)
+                                        {
+                                            highest_price_textView.setText(Integer.toString(document.get("price", Integer.class)));
+                                        }
                                         adapter.addItem(tmp_counter++, document.get("name").toString(), document.get("price", Integer.class));
                                         tmp_participants.add(document.getId());
                                     }
                                     // user id가 participation 목록에 있으면 버튼 text를 취소로 바꾸기.
-                                    if (tmp_participants.indexOf(mainActivity.getUid()) >= -1)
+                                    if (tmp_participants.indexOf(mainActivity.getUid()) > -1)
                                     {
                                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                                         enroll_button.setText("입찰취소");
@@ -162,7 +169,7 @@ public class market_content extends Fragment implements Html.ImageGetter {
                 String mUid = mainActivity.getUid();
                 if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED)
                 {
-                    if (tmp_participants.indexOf(mUid) >= -1)
+                    if (tmp_participants.indexOf(mUid) > -1)
                     { // 이미 참가자에 uid가 있는 경우 : collection의 document에서 삭제
                         mPostReference.collection("participants").document(mainActivity.getUid()).delete();
                         mPostReference.update("numpeople", FieldValue.increment(-1));
@@ -181,8 +188,7 @@ public class market_content extends Fragment implements Html.ImageGetter {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        // 내림차순 정렬
-                                        mPostReference.collection("participants").orderBy("price", Query.Direction.DESCENDING);
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {

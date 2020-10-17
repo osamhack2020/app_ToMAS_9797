@@ -1,30 +1,35 @@
 package com.team9797.ToMAS.ui.social;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.ui.home.group.group_content;
 import com.team9797.ToMAS.ui.home.group.group_list_item;
 
 import java.util.ArrayList;
 
-public class survey_list_adapter extends RecyclerView.Adapter<survey_list_adapter.MyViewHolder> {
-    public ArrayList<group_list_item> mDataset;
+public class survey_question_list_adapter extends RecyclerView.Adapter<survey_question_list_adapter.MyViewHolder> {
+    Activity activity;
+    public int count = 0;
 
-    public survey_list_adapter()
+    public survey_question_list_adapter(Activity a)
     {
-        mDataset = new ArrayList<>();
-
+        activity = a;
     }
 
     // Provide a reference to the views for each data item
@@ -33,28 +38,28 @@ public class survey_list_adapter extends RecyclerView.Adapter<survey_list_adapte
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         TextView item_title;
-        TextView item_numpeople;
-        TextView item_place;
-        TextView item_date;
-        TextView item_time;
+        RadioButton radioButton_1;
+        RadioButton radioButton_2;
+        Button button;
+        LinearLayout container;
 
         public MyViewHolder(View view) {
             super(view);
-            item_title = (TextView) view.findViewById(R.id.group_item_title);
-            item_numpeople = (TextView) view.findViewById(R.id.group_item_numpeople);
-            item_place = (TextView) view.findViewById(R.id.group_item_place);
-            item_date = (TextView) view.findViewById(R.id.group_item_date);
-            item_time = (TextView) view.findViewById(R.id.group_item_time);
+            item_title = (TextView) view.findViewById(R.id.survey_question_list_item_title);
+            radioButton_1 = view.findViewById(R.id.survey_question_radio1);
+            radioButton_2 = view.findViewById(R.id.survey_question_radio2);
+            button = view.findViewById(R.id.button);
+            container = view.findViewById(R.id.survey_question_list_item_container);
         }
     }
 
     @Override
-    public survey_list_adapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                               int viewType) {
+    public survey_question_list_adapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                        int viewType) {
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
-        View view = inflater.inflate(R.layout.group_list_item, parent, false) ;
+        View view = inflater.inflate(R.layout.survey_question_list_item, parent, false) ;
         MyViewHolder vh = new MyViewHolder(view);
         return vh;
     }
@@ -64,48 +69,40 @@ public class survey_list_adapter extends RecyclerView.Adapter<survey_list_adapte
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.item_title.setText(mDataset.get(position).getTitle());
-        holder.item_numpeople.setText(Integer.toString(mDataset.get(position).getNowpeople()) + "/" + Integer.toString(mDataset.get(position).getNumpeople()));
-        holder.item_place.setText(mDataset.get(position).getPlace());
-        holder.item_date.setText(mDataset.get(position).getDate());
-        holder.item_time.setText(mDataset.get(position).getTime());
-
-        // 여기서 onclick 처리
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.radioButton_1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new group_content();
-                Bundle args = new Bundle();
-                args.putString("post_id", mDataset.get(position).getId());
-                args.putString("path", path);
-                change_fragment.setArguments(args);
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+            public void onClick(View view) {
+                holder.container.removeAllViews();
+                //holder.container.addView();
+
             }
         });
+        holder.radioButton_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.container.removeAllViews();
+                EditText tmp_edit = new EditText(activity);
+                holder.container.addView(tmp_edit);
+            }
+        });
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return count;
     }
 
-    public void add_item(String title, int nowpeple, int numpeople, String place, String date, String time, String post_id)
+    public void add_item()
     {
-        group_list_item item = new group_list_item();
 
-        item.setTitle(title);
-        item.setNowpeople(nowpeple);
-        item.setNumpeople(numpeople);
-        item.setPlace(place);
-        item.setDate(date);
-        item.setTime(time);
-        item.setId(post_id);
-
-        mDataset.add(item);
+        count++;
     }
 
 }
