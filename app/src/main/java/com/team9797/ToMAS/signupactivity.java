@@ -30,11 +30,22 @@ public class signupactivity extends AppCompatActivity{
     private FirebaseAuth firebaseAuth;
     EditText editTextEmail;
     EditText editTextPassword;
+    EditText editphone;
+    EditText editname;
+    EditText editbelong;
+    EditText editclass;
+    EditText editarmynumber;
+    EditText editbirth;
     private String email = "";
     private String password = "";
+    private String armynumber ="";
+    private String belong ="";
+    private String armyclass ="";
+    private String birth ="";
+    private String name ="";
+    private String phone ="";
 
-
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{6,16}$");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +54,12 @@ public class signupactivity extends AppCompatActivity{
         setContentView(R.layout.signup_form);
         editTextEmail = findViewById(R.id.et_email);
         editTextPassword = findViewById(R.id.et_password);
+        editarmynumber=findViewById(R.id.edit_armynumber);
+        editbelong=findViewById(R.id.edit_belong);
+        editclass=findViewById(R.id.edit_class);
+        editbirth=findViewById(R.id.edit_birth);
+        editname=findViewById(R.id.edit_name);
+        editphone=findViewById(R.id.edit_phone);
 
 // ...
 // Initialize Firebase Auth
@@ -52,9 +69,26 @@ public class signupactivity extends AppCompatActivity{
     public void signUp(View view) {
         email = editTextEmail.getText().toString();
         password = editTextPassword.getText().toString();
+        name=editname.getText().toString();
+        phone=editphone.getText().toString();
+        birth=editbirth.getText().toString();
+        armyclass=editclass.getText().toString();
+        armynumber=editarmynumber.getText().toString();
+        belong=editbelong.getText().toString();
 
-        if(isValidEmail() && isValidPasswd()) {
-            createUser(email, password);
+        if(isEmpty(email)&&isEmpty(password)&&isEmpty(name)&&isEmpty(phone)&&isEmpty(birth)&&isEmpty(armyclass)&&isEmpty(armynumber)&&isEmpty(belong)) {
+            if (isValidEmail()) {
+                if(isValidPasswd())
+                createUser(email, password);
+                else
+                    Toast.makeText(signupactivity.this, "비밀번호는 6자이상 16자리이하 입니다. ", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(signupactivity.this, "이메일 형식을 따라야 합니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(signupactivity.this,"모든 칸을 기입해주세요", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -83,6 +117,13 @@ public class signupactivity extends AppCompatActivity{
         }
     }
 
+    private boolean isEmpty(String s){
+        if(s.isEmpty()){
+            return false;
+        }
+        else
+            return true;
+    }
     private void createUser(String email, String password) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -91,14 +132,12 @@ public class signupactivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             // 회원가입 성공
                             updateuser();
-                            Intent intent=new Intent(signupactivity.this,loginactivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            Intent intent=new Intent(signupactivity.this,email_verify.class);
                             startActivity(intent);
                             Toast.makeText(signupactivity.this, R.string.success_signup, Toast.LENGTH_SHORT).show();
                         } else {
                             // 회원가입 실패
-                            Toast.makeText(signupactivity.this, R.string.failed_signup, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(signupactivity.this, "중복된 아이디 입니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

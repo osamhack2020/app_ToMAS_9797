@@ -83,7 +83,7 @@ public class loginactivity extends AppCompatActivity{
     public void repw(View view) {
         email = signEmail.getText().toString();
         if(isValidEmail()) {
-            //firebaseAuth.sendPasswordResetEmail(email);
+            firebaseAuth.sendPasswordResetEmail(email);
             Toast.makeText(loginactivity.this, R.string.repw, Toast.LENGTH_SHORT).show();
         }
 
@@ -120,12 +120,23 @@ public class loginactivity extends AppCompatActivity{
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 로그인 성공
-                            Toast.makeText(loginactivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(loginactivity.this,MainActivity.class);
-                            // activiy 스택 삭제
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                           //Toast.makeText(loginactivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
+
+
+                            if(firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                Intent intent = new Intent(loginactivity.this, MainActivity.class);
+                                // activiy 스택 삭제
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                            else{
+                                Intent intent = new Intent(loginactivity.this, email_verify.class);
+
+                                startActivity(intent);
+
+
+                            }
                         } else {
                             // 로그인 실패
                             Toast.makeText(loginactivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
