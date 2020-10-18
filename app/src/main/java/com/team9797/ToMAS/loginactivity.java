@@ -19,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
 public class loginactivity extends AppCompatActivity{
@@ -41,7 +40,7 @@ public class loginactivity extends AppCompatActivity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.login_form);
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.profileimage);
         firebaseAuth = FirebaseAuth.getInstance();
                 if(firebaseAuth.getUid()!=null){
                     Intent intent=new Intent(loginactivity.this,MainActivity.class);

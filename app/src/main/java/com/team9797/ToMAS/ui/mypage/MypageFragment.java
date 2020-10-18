@@ -1,13 +1,18 @@
 package com.team9797.ToMAS.ui.mypage;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +22,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.loginactivity;
@@ -28,6 +37,8 @@ public class MypageFragment extends Fragment {
     LinearLayout profile_container;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    FirebaseStorage storage;
+    ImageView profileimg_mypg;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +49,34 @@ public class MypageFragment extends Fragment {
         fragmentManager = getFragmentManager();
         profile_container = root.findViewById(R.id.profile_container);
         Button btn_logout = root.findViewById(R.id.btn_logout);
+
+
+        TextView name=root.findViewById(R.id.mypage_name);
+        TextView belong=root.findViewById(R.id.mypage_regiment);
+        name.setText("이름: " +mainActivity.preferences.getString("이름",""));
+        belong.setText("소속: "+mainActivity.preferences.getString("소속",""));
+
+        profileimg_mypg=root.findViewById(R.id.profileimg_mypg);
+        storage = FirebaseStorage.getInstance();
+        StorageReference storageRef =storage.getReference();
+        StorageReference profileRef=storageRef.child("profiles/"+mainActivity.getUid());
+        final long ONE_MEGABYTE = 1024 * 1024;
+        profileRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Data for "images/island.jpg" is returns, use this as needed
+                Bitmap bmp= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                profileimg_mypg.setImageBitmap(bmp);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+
+
+
         btn_logout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
