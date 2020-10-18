@@ -1,28 +1,17 @@
 package com.team9797.ToMAS.ui.social.survey;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LevelListDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,25 +19,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.ui.home.market.tender_participant_list_adapter;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class survey_content extends Fragment {
+public class survey_result_content extends Fragment {
 
     MainActivity mainActivity;
     FragmentManager fragmentManager;
@@ -155,7 +135,7 @@ public class survey_content extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         //Log.d("AAA", "DocumentSnapshot successfully written!");
-                        fragmentManager.beginTransaction().remove(survey_content.this).commit();
+                        fragmentManager.beginTransaction().remove(survey_result_content.this).commit();
                         fragmentManager.popBackStack();
                     }
                 })

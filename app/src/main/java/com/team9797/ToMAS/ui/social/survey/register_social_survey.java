@@ -101,8 +101,8 @@ public class register_social_survey extends AppCompatActivity {
                 // 서버로 제출
 
                 // firestore의 소속 부대 내 설문조사 경로 찾기
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(register_social_survey.this);
-                String path = "armyunit/" + preferences.getString("소속", "5군단/105정보통신단/105정보통신단");
+                SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
+                String path = "armyunit/" + preferences.getString("소속", "5군단/5군단/105정보통신단/105정보통신단");
                 String[] tmp = path.split("/");
                 path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
                 path += "설문조사";

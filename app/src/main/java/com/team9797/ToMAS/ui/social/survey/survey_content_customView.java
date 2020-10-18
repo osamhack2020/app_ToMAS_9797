@@ -2,6 +2,7 @@ package com.team9797.ToMAS.ui.social.survey;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class survey_content_customView extends LinearLayout {
         num_textView = findViewById(R.id.custom_number);
         container = findViewById(R.id.custom_container);
         title_textView = findViewById(R.id.custom_question_title);
-        num_textView.setText(Integer.toString(index));
+        num_textView.setText(Integer.toString(index)+".");
 
         title_textView.setText(title);
         if (question_type == 1)

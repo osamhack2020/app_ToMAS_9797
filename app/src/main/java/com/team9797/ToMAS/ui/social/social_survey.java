@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.ui.social.survey.register_social_survey;
+import com.team9797.ToMAS.ui.social.survey.survey_content;
 import com.team9797.ToMAS.ui.social.survey.survey_list_adapter;
 
 public class social_survey extends Fragment {
@@ -33,9 +35,10 @@ public class social_survey extends Fragment {
     MainActivity mainActivity;
     FragmentManager fragmentManager;
     ListView survey_listView;
-    LinearLayout container;
+    LinearLayout container_linearLayout;
     FragmentTransaction fragmentTransaction;
     FloatingActionButton fab;
+    String path;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class social_survey extends Fragment {
         View root = inflater.inflate(R.layout.social_survey, container, false);
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
-        container = root.findViewById(R.id.social_survey_container);
+        container_linearLayout = root.findViewById(R.id.social_survey_container);
         fab = root.findViewById(R.id.social_survey_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +60,7 @@ public class social_survey extends Fragment {
         Button btn_manager = new Button(mainActivity);
         btn_manager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         btn_manager.setText("진행 중인 설문조사 결과보기");
-        container.addView(btn_manager, 0);
+        container_linearLayout.addView(btn_manager, 0);
         btn_manager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,12 +77,11 @@ public class social_survey extends Fragment {
         survey_listView.setAdapter(list_adapter);
 
         // firestore의 소속 path 내 설문조사 찾기
-        String path = "armyunit/" + mainActivity.preferences.getString("소속", "5군단/105정보통신단/105정보통신단");
+        path = "armyunit/" + mainActivity.preferences.getString("소속", "5군단/5군단/105정보통신단/105정보통신단");
         String[] tmp = path.split("/");
         path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
         path += "설문조사";
-        Log.d("path : " ,  path);
-        FirebaseFirestore.getInstance().collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mainActivity.db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -88,6 +90,20 @@ public class social_survey extends Fragment {
                         list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), document.getId());
                     }
                     list_adapter.notifyDataSetChanged();
+
+                    survey_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView parent, View v, int position, long id) {
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.addToBackStack(null);
+                            Fragment change_fragment = new survey_content();
+                            Bundle args = new Bundle();
+                            args.putString("post_id", list_adapter.listViewItemList.get(position).getId());
+                            args.putString("path", path);
+                            change_fragment.setArguments(args);
+                            fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+                        }
+                    });
                 } else {
                     //Log.d(TAG, "Error getting documents: ", task.getException());
                 }
