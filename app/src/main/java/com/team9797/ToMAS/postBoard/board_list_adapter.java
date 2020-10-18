@@ -50,7 +50,7 @@ public class board_list_adapter extends BaseAdapter {
 
         // 아이템 내 각 위젯에 데이터 반영
         item_title.setText(listViewItem.getTitle());
-        item_sub.setText(listViewItem.getSub());
+        item_sub.setText("[" + listViewItem.getSub() + "]");
         item_date.setText(listViewItem.getDate());
         item_name.setText(listViewItem.getName());
         item_clicks.setText(listViewItem.getClicks());

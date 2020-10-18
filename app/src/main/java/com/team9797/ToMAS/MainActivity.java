@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         sp_editor.putString("계급", document.get("계급").toString());
                         sp_editor.putString("소속", document.get("소속").toString());
                         sp_editor.putString("군번", document.get("군번").toString());
+                        sp_editor.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                         sp_editor.putString("email", document.get("email").toString());
                         sp_editor.putString("birth", document.get("birth").toString());
 

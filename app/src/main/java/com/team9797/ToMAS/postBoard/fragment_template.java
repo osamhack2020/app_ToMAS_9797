@@ -114,7 +114,7 @@ public class fragment_template extends Fragment {
                                                         if (count > 5)
                                                             break;
                                                         Log.d("QQQ", document.get("title").toString());
-                                                        tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("sub").toString(), document.get("date").toString(), document.get("name").toString(), document.get("clicks").toString(), document.getId());
+                                                        tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), document.get("date").toString(), document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                                         count++;
                                                     }
                                                     tmp_sample_list_adapter.notifyDataSetChanged();
@@ -123,7 +123,7 @@ public class fragment_template extends Fragment {
                                                 }
                                             }
                                         });
-                                template2_adapter.addItem(tmp, tmp_sample_list_adapter, path);
+                                template2_adapter.addItem(tmp, tmp_sample_list_adapter, path + "/" + tmp + "/" + tmp);
                             }
                             template2_adapter.notifyDataSetChanged();
 
@@ -147,7 +147,7 @@ public class fragment_template extends Fragment {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    adapter.addItem(document.get("title").toString(), document.get("sub").toString(), document.get("date").toString(), document.get("name").toString(), document.get("clicks").toString(), document.getId());
+                                    adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), document.get("date").toString(), document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                 }
                                 adapter.notifyDataSetChanged();
                             } else {

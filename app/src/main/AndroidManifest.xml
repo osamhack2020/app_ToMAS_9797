@@ -30,6 +30,7 @@
         <activity android:name=".signupactivity"/>
         <activity android:name=".email_verify"/>
         <activity android:name=".ui.home.market.register_market_content"/>
+        <activity android:name=".postBoard.comment.register_board_content_comment"/>
     </application>
 
 </manifest>
