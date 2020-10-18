@@ -2,6 +2,7 @@ package com.team9797.ToMAS.postBoard;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class template2_list_adapter extends BaseAdapter {
                 // maybe 이거 구조를 검색해서 바꿔야 할 듯
                 Bundle args = new Bundle();
                 args.putString("post_id", adapter.get(position).listViewItemList.get(list_position).getId());
-                args.putString("path", path.get(position));
+                args.putString("path", path.get(position) + "/" + title.get(position) + "/" + title.get(position));
                 change_fragment.setArguments(args);
 
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();

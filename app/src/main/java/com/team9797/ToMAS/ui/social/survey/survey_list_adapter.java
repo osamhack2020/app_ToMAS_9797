@@ -1,4 +1,4 @@
-package com.team9797.ToMAS.postBoard;
+package com.team9797.ToMAS.ui.social.survey;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import com.team9797.ToMAS.R;
 
 import java.util.ArrayList;
 
-public class board_list_adapter extends BaseAdapter {
+public class survey_list_adapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    public ArrayList<board_list_item> listViewItemList = new ArrayList<board_list_item>() ;
+    public ArrayList<survey_list_item> listViewItemList = new ArrayList<survey_list_item>() ;
 
     // ListViewAdapter의 생성자
-    public board_list_adapter() {
+    public survey_list_adapter() {
 
     }
 
@@ -35,25 +35,23 @@ public class board_list_adapter extends BaseAdapter {
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.template3_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.survey_list_item, parent, false);
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView item_title = (TextView) convertView.findViewById(R.id.template3_title);
-        TextView item_sub = (TextView) convertView.findViewById(R.id.template3_sub);
-        TextView item_date = (TextView) convertView.findViewById(R.id.template3_date);
-        TextView item_name = (TextView) convertView.findViewById(R.id.template3_name);
-        TextView item_clicks = (TextView) convertView.findViewById(R.id.template3_clicks);
+        TextView item_title = (TextView) convertView.findViewById(R.id.survey_list_item_title);
+        TextView item_numpeople = (TextView) convertView.findViewById(R.id.survey_list_item_num_people);
+        TextView item_date = (TextView) convertView.findViewById(R.id.survey_list_item_due_date);
+        TextView item_name = (TextView) convertView.findViewById(R.id.survey_list_item_writer);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        board_list_item listViewItem = listViewItemList.get(position);
+        survey_list_item listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         item_title.setText(listViewItem.getTitle());
-        item_sub.setText("[" + listViewItem.getSub() + "]");
-        item_date.setText(listViewItem.getDate());
+        item_numpeople.setText(Integer.toString(listViewItem.getNumpeople()));
+        item_date.setText("마감일 : " + listViewItem.getDate());
         item_name.setText(listViewItem.getName());
-        item_clicks.setText(listViewItem.getClicks());
         return convertView;
     }
 
@@ -70,14 +68,13 @@ public class board_list_adapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String title, String sub, String date, String name, String clicks, String post_id) {
-        board_list_item item = new board_list_item();
+    public void addItem(String title, int numpeople, String date, String name, String post_id) {
+        survey_list_item item = new survey_list_item();
 
         item.setTitle(title);
-        item.setSub(sub);
+        item.setNumpeople(numpeople);
         item.setDate(date);
         item.setName(name);
-        item.setClicks(clicks);
         item.setId(post_id);
 
         listViewItemList.add(item);

@@ -1,4 +1,4 @@
-package com.team9797.ToMAS.postBoard;
+package com.team9797.ToMAS.postBoard.comment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -50,23 +51,25 @@ import top.defaults.colorpicker.ColorPickerPopup;
 
 // github.irshulx 에서 코드 인용.
 
-public class register_board_content extends AppCompatActivity {
+public class register_board_content_comment extends AppCompatActivity {
     Editor editor;
     FirebaseStorage storage;
     StorageReference storageRef;
     String path;
+    String post_id;
     String title;
     Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_board_content);
+        setContentView(R.layout.register_board_content_comment);
 
         editor =  findViewById(R.id.editor);
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
         intent = getIntent();
         path = intent.getExtras().getString("path");
+        post_id = intent.getExtras().getString("post_id");
         setUpEditor();
     }
 
@@ -152,7 +155,7 @@ public class register_board_content extends AppCompatActivity {
         findViewById(R.id.action_color).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ColorPickerPopup.Builder(register_board_content.this)
+                new ColorPickerPopup.Builder(register_board_content_comment.this)
                         .initialColor(Color.RED) // Set initial color
                         .enableAlpha(true) // Enable alpha slider or not
                         .okTitle("Choose")
@@ -163,7 +166,7 @@ public class register_board_content extends AppCompatActivity {
                         .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                Toast.makeText(register_board_content.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
+                                Toast.makeText(register_board_content_comment.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
                                 editor.updateTextColor(colorHex(color));
                             }
 
@@ -218,7 +221,7 @@ public class register_board_content extends AppCompatActivity {
 
             @Override
             public void onUpload(Bitmap image, final String uuid) {
-                Toast.makeText(register_board_content.this, uuid, Toast.LENGTH_LONG).show();
+                Toast.makeText(register_board_content_comment.this, uuid, Toast.LENGTH_LONG).show();
                 /**
                  * TODO do your upload here from the bitmap received and all onImageUploadComplete(String url); to insert the result url to
                  * let the editor know the upload has completed
@@ -299,7 +302,7 @@ public class register_board_content extends AppCompatActivity {
                 */
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Intent intent = new Intent(getApplicationContext(), register_board_content.class);
+                Intent intent = new Intent(getApplicationContext(), register_board_content_comment.class);
                 intent.putExtra("content", text);
                 startActivity(intent);
             }
@@ -416,27 +419,29 @@ public class register_board_content extends AppCompatActivity {
         return typefaceMap;
     }
 
-    public void post_to_server(View view)
+    public void comment_to_server(View view)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String string_html = editor.getContentAsHTML();
 
+        SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
         EditText edit_title = findViewById(R.id.post_edit_title);
         title = edit_title.getText().toString();
-
-        SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
 
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
         post.put("title", title);
+        // 이걸 지우고 timestamp로 대체할 수도
         SimpleDateFormat today = new SimpleDateFormat("yy-MM-dd", Locale.KOREA);
         post.put("date", today.format(new Date()));
-        post.put("num_comments", 0);
-        post.put("clicks", 0);
-        post.put("writer", preferences.getString("이름", "홍길동"));
+        post.put("timestamp", FieldValue.serverTimestamp());
+        post.put("writer", preferences.getString("이름", ""));
+        post.put("user_id", preferences.getString("user_id", ""));
 
 
-        db.collection(path).document()
+        //test
+        db.collection(path).document(post_id).update("num_comments", FieldValue.increment(1));
+        db.collection( path + "/" + post_id + "/comments").document()
                 .set(post)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

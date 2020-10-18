@@ -41,11 +41,11 @@
                 android:textSize="@dimen/large_text" />
 
             <Button
-                android:id="@+id/btn_register_board_content"
+                android:id="@+id/btn_register_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="post_to_server"
-                android:text="글쓰기" />
+                android:onClick="comment_to_server"
+                android:text="댓글 쓰기" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 

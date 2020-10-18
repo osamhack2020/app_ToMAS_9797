@@ -16,7 +16,7 @@
             android:label="@string/app_name">
 
         </activity>
-        <activity android:name=".ui.social.register_social_survey"/>
+        <activity android:name=".ui.social.survey.register_social_survey"/>
         <activity android:name=".postBoard.register_board_content"/>
         <activity
             android:name=".loginactivity"
@@ -30,6 +30,7 @@
         <activity android:name=".signupactivity"/>
         <activity android:name=".email_verify"/>
         <activity android:name=".ui.home.market.register_market_content"/>
+        <activity android:name=".postBoard.comment.register_board_content_comment"/>
     </application>
 
 </manifest>
