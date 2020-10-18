@@ -1,7 +1,6 @@
 package com.team9797.ToMAS.ui.social;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +26,7 @@ import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.ui.social.survey.register_social_survey;
 import com.team9797.ToMAS.ui.social.survey.survey_list_adapter;
 
-public class social_survey extends Fragment {
+public class social_survey_manager_result extends Fragment {
 
     MainActivity mainActivity;
     FragmentManager fragmentManager;
@@ -61,10 +59,7 @@ public class social_survey extends Fragment {
         btn_manager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new social_survey_manager_result();
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+                
             }
         });
 

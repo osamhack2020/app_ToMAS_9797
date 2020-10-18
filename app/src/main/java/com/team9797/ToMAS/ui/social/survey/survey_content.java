@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,25 +47,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class survey_content extends Fragment implements Html.ImageGetter {
+public class survey_content extends Fragment {
 
     MainActivity mainActivity;
-    //FragmentManager fragmentManager;
+    FragmentManager fragmentManager;
     String post_id;
     String path;
     TextView title_textView;
-    TextView html_textView;
     TextView writer_textView;
-    TextView category_textView;
-    TextView place_textView;
-    TextView date_textView;
     TextView due_date_textView;
-    TextView highest_price_textView;
-    ListView tender_listView;
-    EditText price_editText;
-    SlidingUpPanelLayout slidingUpPanelLayout;
     Button enroll_button;
-    ArrayList<String> tmp_participants;
+    ArrayList<survey_content_customView> customView_list;
+    DocumentReference mPostReference;
 
     // need to fix 댓글 보기 기능 추가해야 함.
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -72,19 +67,20 @@ public class survey_content extends Fragment implements Html.ImageGetter {
         View root = inflater.inflate(R.layout.survey_content, container, false);
 
         mainActivity = (MainActivity)getActivity();
+        fragmentManager = getFragmentManager();
         post_id = getArguments().getString("post_id");
         path = getArguments().getString("path");
 
         // get View
         title_textView = root.findViewById(R.id.survey_content_title);
-        html_textView = root.findViewById(R.id.survey_content_html);
         writer_textView = root.findViewById(R.id.survey_content_writer);
-        category_textView = root.findViewById(R.id.survey_content_category);
         due_date_textView = root.findViewById(R.id.survey_content_due_date);
-        tender_listView = root.findViewById(R.id.market_content_tender_list);
+        enroll_button = root.findViewById(R.id.survey_content_enroll_button);
+
+        customView_list = new ArrayList<>();
 
         // 선택한 게시물 document reference
-        DocumentReference mPostReference = mainActivity.db.collection(path).document(post_id);
+        mPostReference = mainActivity.db.collection(path).document(post_id);
         // id를 바탕으로
         mPostReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -92,39 +88,27 @@ public class survey_content extends Fragment implements Html.ImageGetter {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        // need to fix : 커스텀 객체 생성해서 받아보자.
-                        html_textView.setText(Html.fromHtml(document.get("html", String.class), survey_content.this, null));
                         title_textView.setText(document.get("title", String.class));
-                        category_textView.setText(document.get("category", String.class));
-                        place_textView.setText(document.get("place", String.class));
-                        date_textView.setText(document.get("date", String.class));
                         due_date_textView.setText(document.get("due_date", String.class));
                         writer_textView.setText(document.get("writer", String.class));
-                        mPostReference.collection("participants").orderBy("price", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        mPostReference.collection("questions").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    int tmp_counter = 1;
+                                    int count = 1;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (tmp_counter == 1)
+                                        int tmp_type = document.get("type", Integer.class);
+                                        String item_title = document.get("title", String.class);
+                                        if (tmp_type == 1)
                                         {
-                                            highest_price_textView.setText(Integer.toString(document.get("price", Integer.class)));
+                                            customView_list.add(new survey_content_customView(mainActivity, null, tmp_type, count, item_title, null));
                                         }
-                                        adapter.addItem(tmp_counter++, document.get("name").toString(), document.get("price", Integer.class));
-                                        tmp_participants.add(document.getId());
+                                        else
+                                        {
+                                            customView_list.add(new survey_content_customView(mainActivity, null, tmp_type, count, item_title, (ArrayList<String>) document.get("multi_choice_questions")));
+                                        }
+                                        count++;
                                     }
-                                    // user id가 participation 목록에 있으면 버튼 text를 취소로 바꾸기.
-                                    if (tmp_participants.indexOf(mainActivity.getUid()) > -1)
-                                    {
-                                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                                        enroll_button.setText("입찰취소");
-                                        slidingUpPanelLayout.setTouchEnabled(false);
-                                    }
-                                    else
-                                    {
-                                        slidingUpPanelLayout.setTouchEnabled(true);
-                                    }
-                                    adapter.notifyDataSetChanged();
                                 }
                                 else {
 
@@ -141,8 +125,44 @@ public class survey_content extends Fragment implements Html.ImageGetter {
                 }
             }
         });
+
+        enroll_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, Object> post = new HashMap<>();
+                for (int i = 0; i < customView_list.size(); i++)
+                {
+                    if (customView_list.get(i).question_type == 1)
+                    {// 객관식
+                        // 이게 너무 느리면 radiobutton 을 extend한 class 생성해서 할 것.
+                        int tmp_radioButtonID = customView_list.get(i).type1_radioGroup.getCheckedRadioButtonId();
+                        RadioButton tmp_radioButton = customView_list.get(i).type1_radioGroup.findViewById(tmp_radioButtonID);
+                        int tmp_idx = customView_list.get(i).type1_radioGroup.indexOfChild(tmp_radioButton);
+                        post.put(Integer.toString(i+1), tmp_idx);
+                    }
+                    else
+                    {// 주관식
+                        post.put(Integer.toString(i+1), customView_list.get(i).type2_editText.getText().toString());
+                    }
+                }
+                mPostReference.collection("submissions").document(mainActivity.getUid()).set(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Log.d("AAA", "DocumentSnapshot successfully written!");
+                        fragmentManager.beginTransaction().remove(survey_content.this).commit();
+                        fragmentManager.popBackStack();
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                //Log.w("AAA", "Error writing document", e);
+                            }
+                        });
+            }
+    });
         return root;
-    }
+}
 
 
 }
