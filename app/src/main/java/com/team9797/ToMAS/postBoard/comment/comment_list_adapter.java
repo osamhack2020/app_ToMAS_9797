@@ -9,6 +9,7 @@ import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.postBoard.board_content;
 import com.team9797.ToMAS.ui.home.group.group_content;
@@ -38,13 +41,16 @@ public class comment_list_adapter extends RecyclerView.Adapter<comment_list_adap
     String path;
     Context context;
     String user_id;
+    String post_id;
 
-    public comment_list_adapter(String tmp_path, Context tmp_context, String uid)
+    public comment_list_adapter(String tmp_path, String tmp_post_id, Context tmp_context, String uid)
     {
         mDataset = new ArrayList<>();
         path = tmp_path;
+        post_id = tmp_post_id;
         context = tmp_context;
         user_id = uid;
+
     }
 
     @Override
@@ -103,12 +109,28 @@ public class comment_list_adapter extends RecyclerView.Adapter<comment_list_adap
         holder.item_html.setText(Html.fromHtml(mDataset.get(position).getHtml(), comment_list_adapter.this, null));
         holder.item_date.setText(mDataset.get(position).getDate());
 
-        if (user_id == mDataset.get(position).getWriterId())
+        if (user_id.equals(mDataset.get(position).getWriterId()))
         {
-            //holder.btn_fix.setVisibility(View.VISIBLE);
-            //holder.btn_fix.setEnabled(true);
-            //holder.btn_delete.setVisibility(View.VISIBLE);
-            //holder.btn_delete.setEnabled(true);
+            holder.btn_fix.setVisibility(View.VISIBLE);
+            holder.btn_fix.setEnabled(true);
+            holder.btn_delete.setVisibility(View.VISIBLE);
+            holder.btn_delete.setEnabled(true);
+            holder.btn_fix.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseFirestore.getInstance().collection(path + "/" + post_id + "/comments").document(mDataset.get(position).getId()).delete();
+                    FirebaseFirestore.getInstance().collection(path).document(post_id).update("num_comments", FieldValue.increment(-1));
+                    mDataset.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, mDataset.size());
+                }
+            });
         }
 
     }
@@ -161,7 +183,8 @@ public class comment_list_adapter extends RecyclerView.Adapter<comment_list_adap
                 mDrawable.addLevel(1, 1, d);
                 mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
                 mDrawable.setLevel(1);
-                // need to fix : refresh하기
+                // need to fix : refresh하기 - 이미지 안나옴. 이거 구조를 바꾸던가 해야할 듯.
+                notifyDataSetChanged();
             }
         }
     }

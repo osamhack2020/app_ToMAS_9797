@@ -23,18 +23,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:enabled="true"
+            android:enabled="false"
             android:text="수정"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/btn_comment_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:enabled="true"
+            android:enabled="false"
             android:text="삭제"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
     </LinearLayout>
 
