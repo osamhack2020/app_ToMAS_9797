@@ -52,22 +52,51 @@ import top.defaults.colorpicker.ColorPickerPopup;
 
 public class register_board_content extends AppCompatActivity {
     Editor editor;
+    FirebaseFirestore db;
     FirebaseStorage storage;
     StorageReference storageRef;
     String path;
+    String post_id;
     String title;
     Intent intent;
+    EditText edit_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_board_content);
 
+        // get view
+        edit_title = findViewById(R.id.post_edit_title);
         editor =  findViewById(R.id.editor);
+
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
+        db = FirebaseFirestore.getInstance()
         intent = getIntent();
         path = intent.getExtras().getString("path");
+        post_id = intent.getExtras().getString("post_id");
         setUpEditor();
+
+        if (post_id != null)
+        {
+            db.collection(path).document(post_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            edit_title.setText(document.get("title", String.class));
+                            editor.render(document.get("html", String.class));
+                        } else {
+    
+                        }
+                    } else {
+    
+                    }
+                }
+            });
+        }
+
     }
 
     private void setUpEditor() {
@@ -418,10 +447,8 @@ public class register_board_content extends AppCompatActivity {
 
     public void post_to_server(View view)
     {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         String string_html = editor.getContentAsHTML();
 
-        EditText edit_title = findViewById(R.id.post_edit_title);
         title = edit_title.getText().toString();
 
         SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
@@ -434,6 +461,7 @@ public class register_board_content extends AppCompatActivity {
         post.put("num_comments", 0);
         post.put("clicks", 0);
         post.put("writer", preferences.getString("이름", "홍길동"));
+        post.put("user_id", preferences.getString("user_id", ""));
 
 
         db.collection(path).document()

@@ -181,6 +181,7 @@ public class fragment_template extends Fragment {
                     public void onClick(View view) {
                         Intent intent = new Intent(mainActivity, register_board_content.class);
                         intent.putExtra("path", path);
+                        intent.putExtra("post_id", null);
                         startActivity(intent);
                     }
                 });

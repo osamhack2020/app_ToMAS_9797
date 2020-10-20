@@ -51,7 +51,11 @@ public class board_content extends Fragment implements Html.ImageGetter {
     TextView date_textView;
     TextView num_comments_textView;
     Button comment_button;
+    Button delete_button;
+    Button update_button;
     RecyclerView comment_recyclerView;
+    String writer_id;
+    FragmentManager fragmentManager;
 
     // need to fix 댓글 보기 기능 추가해야 함.
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -69,6 +73,8 @@ public class board_content extends Fragment implements Html.ImageGetter {
         writer_textView = root.findViewById(R.id.board_content_writer);
         date_textView = root.findViewById(R.id.board_content_date);
         num_comments_textView = root.findViewById(R.id.board_content_num_comments);
+        delete_button = root.findViewById(R.id.board_content_delete_btn);
+        update_button = root.findViewById(R.id.board_content_update_btn);
 
 
         // 선택한 게시물 document reference
@@ -80,12 +86,36 @@ public class board_content extends Fragment implements Html.ImageGetter {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d("QQQ", "문서 있음");
                         html_textView.setText(Html.fromHtml(document.get("html", String.class), board_content.this, null));
                         title_textView.setText(document.get("title", String.class));
                         writer_textView.setText(document.get("writer", String.class));
                         date_textView.setText(document.get("date", String.class));
                         num_comments_textView.setText("댓글 수 : " + Integer.toString(document.get("num_comments", Integer.class)));
+                        writer_id = document.get("user_id", String.class);
+                        if (writer_id.equals(mainActivity.getUid()))
+                        {
+                            board_content_update_btn.setVisibility(View.VISIBLE);
+                            board_content_update_btn.setEnabled(true);
+                            board_content_delete_btn.setVisibility(View.VISIBLE);
+                            board_content_delete_btn.setEnabled(true);
+                            board_content_update_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(mainActivity, register_board_content.class);
+                                    intent.putExtra("path", path);
+                                    intent.putExtra("post_id", post_id);
+                                    startActivity(intent);
+                                }
+                            });
+                            board_content_delete_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    deleteAtPath(path + "/" + post_id);
+                                    fragmentManager.beginTransaction().remove(board_content.this).commit();
+                                    fragmentManager.popBackStack();
+                                }
+                            });
+                        }
                     } else {
 
                     }
@@ -127,6 +157,29 @@ public class board_content extends Fragment implements Html.ImageGetter {
         //화면제대로 안보이면 fragment 업데이트 해야 할 수도 있음.
 
         return root;
+    }
+
+    public void deleteAtPath(String path) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("path", path);
+    
+        HttpsCallableReference deleteFn =
+                FirebaseFunctions.getInstance().getHttpsCallable("recursiveDelete");
+        deleteFn.call(data)
+                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                    @Override
+                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                        // Delete Success
+                        // ...
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Delete failed
+                        // ...
+                    }
+                });
     }
 
     @Override
