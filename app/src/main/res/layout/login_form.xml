@@ -188,7 +188,7 @@
             android:enabled="true"
             android:fontFamily="@font/calibri"
             android:onClick="repw"
-            android:text="비밀번호 찾기"
+            android:text="비밀번호 재설정 이메일 보내기"
             android:textAlignment="center"
             android:textColor="#96ffffff"
             android:textSize="16sp" />
