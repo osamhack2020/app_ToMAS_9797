@@ -85,6 +85,31 @@ public class fixprofile extends Fragment {
         fragmentManager = getFragmentManager();
         mainActivity = (MainActivity)getActivity();
         View root = inflater.inflate(R.layout.fragment_fixprofile, container, false);
+
+
+        Button get_image=root.findViewById(R.id.get_image);
+        profileimage=root.findViewById(R.id.profileimage);
+        StorageReference storageRef =storage.getReference();
+        StorageReference profileRef=storageRef.child("profiles/"+mainActivity.getUid());
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        profileRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Data for "images/island.jpg" is returns, use this as needed
+                Bitmap bmp= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                img=bmp;
+                profileimage.setImageBitmap(img);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                img = BitmapFactory.decodeResource(getResources(), R.drawable.profile_image);
+                profileimage.setImageBitmap(img);
+
+            }
+        });
         fix_name= root.findViewById(R.id.fix_name);
         fix_birth=root.findViewById(R.id.fix_birth);
         fix_anumber=root.findViewById(R.id.fix_anumber);
@@ -94,10 +119,6 @@ public class fixprofile extends Fragment {
         fix_ph=root.findViewById(R.id.fix_ph);
         fix_class=root.findViewById(R.id.fix_class);
         Button button_fix=root.findViewById(R.id.button_fix);
-        Button get_image=root.findViewById(R.id.get_image);
-        profileimage=root.findViewById(R.id.profileimage);
-        StorageReference storageRef =storage.getReference();
-        StorageReference profileRef=storageRef.child("profiles/"+mainActivity.getUid());
 
 
         fix_name.setText(mainActivity.preferences.getString("이름",""));
@@ -109,21 +130,7 @@ public class fixprofile extends Fragment {
         fix_ph.setText(mainActivity.preferences.getString("phonenumber",""));
         fix_class.setText(mainActivity.preferences.getString("계급",""));
 
-        final long ONE_MEGABYTE = 1024 * 1024;
-        profileRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                // Data for "images/island.jpg" is returns, use this as needed
-                Bitmap bmp= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                img=bmp;
-                profileimage.setImageBitmap(bmp);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
+
 
 
         button_fix.setOnClickListener(new Button.OnClickListener() {
@@ -148,11 +155,13 @@ public class fixprofile extends Fragment {
                         mainActivity.sp_editor.putString("소속",belong);
                         mainActivity.sp_editor.putString("계급",a_class);
                         mainActivity.sp_editor.putString("password",pw);
+                        mainActivity.sp_editor.commit();
                         mainActivity.db.collection("user").document(mainActivity.getUid()).update("birth",birth);
                         mainActivity.db.collection("user").document(mainActivity.getUid()).update("소속",belong);
                         mainActivity.db.collection("user").document(mainActivity.getUid()).update("계급",a_class);
                         mainActivity.db.collection("user").document(mainActivity.getUid()).update("password",pw);
                         FirebaseAuth.getInstance().getCurrentUser().updatePassword(pw);
+                        //이미지 업로드 파트
                         ByteArrayOutputStream baos =new ByteArrayOutputStream();
                         img.compress(Bitmap.CompressFormat.JPEG,100,baos);
                         byte[] data =baos.toByteArray();
@@ -172,6 +181,11 @@ public class fixprofile extends Fragment {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(mainActivity, "수정완료", Toast.LENGTH_SHORT).show();
+
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.remove(fixprofile.this);
+                                fragmentManager.popBackStack();
                                 // Handle unsuccessful uploads
                             }
                         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -179,15 +193,16 @@ public class fixprofile extends Fragment {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 // Handle successful uploads on complete
                                 // ...
+                                Toast.makeText(mainActivity, "수정완료", Toast.LENGTH_SHORT).show();
+
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.remove(fixprofile.this);
+                                fragmentManager.popBackStack();
                             }
                         });
 
 
-                        Toast.makeText(mainActivity, "수정완료", Toast.LENGTH_SHORT).show();
 
-                        fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.remove(fixprofile.this);
-                        fragmentManager.popBackStack();
                     }
                     else{
                         Toast.makeText(mainActivity, "비밀번호는 6자리이상 16자리이하입니다.", Toast.LENGTH_SHORT).show();
