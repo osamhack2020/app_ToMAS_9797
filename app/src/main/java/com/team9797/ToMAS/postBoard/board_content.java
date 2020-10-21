@@ -64,6 +64,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
         View root = inflater.inflate(R.layout.board_content, container, false);
 
         mainActivity = (MainActivity)getActivity();
+        fragmentManager = getFragmentManager();
         post_id = getArguments().getString("post_id");
         path = getArguments().getString("path");
         title_textView = root.findViewById(R.id.board_content_title);
@@ -94,11 +95,11 @@ public class board_content extends Fragment implements Html.ImageGetter {
                         writer_id = document.get("user_id", String.class);
                         if (writer_id.equals(mainActivity.getUid()))
                         {
-                            board_content_update_btn.setVisibility(View.VISIBLE);
-                            board_content_update_btn.setEnabled(true);
-                            board_content_delete_btn.setVisibility(View.VISIBLE);
-                            board_content_delete_btn.setEnabled(true);
-                            board_content_update_btn.setOnClickListener(new View.OnClickListener() {
+                            update_button.setVisibility(View.VISIBLE);
+                            update_button.setEnabled(true);
+                            delete_button.setVisibility(View.VISIBLE);
+                            delete_button.setEnabled(true);
+                            update_button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(mainActivity, register_board_content.class);
@@ -107,10 +108,22 @@ public class board_content extends Fragment implements Html.ImageGetter {
                                     startActivity(intent);
                                 }
                             });
-                            board_content_delete_btn.setOnClickListener(new View.OnClickListener() {
+                            delete_button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    deleteAtPath(path + "/" + post_id);
+                                    mPostReference.collection("comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    mPostReference.collection("comments").document(document.getId()).delete();
+                                                }
+                                                mPostReference.delete();
+                                            } else {
+                                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
                                     fragmentManager.beginTransaction().remove(board_content.this).commit();
                                     fragmentManager.popBackStack();
                                 }
@@ -157,29 +170,6 @@ public class board_content extends Fragment implements Html.ImageGetter {
         //화면제대로 안보이면 fragment 업데이트 해야 할 수도 있음.
 
         return root;
-    }
-
-    public void deleteAtPath(String path) {
-        Map<String, Object> data = new HashMap<>();
-        data.put("path", path);
-    
-        HttpsCallableReference deleteFn =
-                FirebaseFunctions.getInstance().getHttpsCallable("recursiveDelete");
-        deleteFn.call(data)
-                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-                    @Override
-                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                        // Delete Success
-                        // ...
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Delete failed
-                        // ...
-                    }
-                });
     }
 
     @Override
