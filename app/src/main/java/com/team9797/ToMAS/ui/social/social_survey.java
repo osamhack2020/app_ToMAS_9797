@@ -28,6 +28,7 @@ import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.ui.social.survey.register_social_survey;
 import com.team9797.ToMAS.ui.social.survey.survey_content;
+import com.team9797.ToMAS.ui.social.survey.survey_content_result;
 import com.team9797.ToMAS.ui.social.survey.survey_list_adapter;
 
 public class social_survey extends Fragment {
@@ -35,7 +36,6 @@ public class social_survey extends Fragment {
     MainActivity mainActivity;
     FragmentManager fragmentManager;
     ListView survey_listView;
-    LinearLayout container_linearLayout;
     FragmentTransaction fragmentTransaction;
     FloatingActionButton fab;
     String path;
@@ -46,28 +46,12 @@ public class social_survey extends Fragment {
         View root = inflater.inflate(R.layout.social_survey, container, false);
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
-        container_linearLayout = root.findViewById(R.id.social_survey_container);
         fab = root.findViewById(R.id.social_survey_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mainActivity, register_social_survey.class);
                 startActivity(intent);
-            }
-        });
-
-        // need to fix : 권한이 관리자 일 때만 버튼 추가하게 바꾸기!!
-        Button btn_manager = new Button(mainActivity);
-        btn_manager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        btn_manager.setText("진행 중인 설문조사 결과보기");
-        container_linearLayout.addView(btn_manager, 0);
-        btn_manager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new social_survey_manager_result();
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });
 
@@ -96,10 +80,18 @@ public class social_survey extends Fragment {
                         public void onItemClick(AdapterView parent, View v, int position, long id) {
                             fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.addToBackStack(null);
-                            Fragment change_fragment = new survey_content();
                             Bundle args = new Bundle();
                             args.putString("post_id", list_adapter.listViewItemList.get(position).getId());
                             args.putString("path", path);
+                            Fragment change_fragment;
+                            if (mainActivity.preferences.getString("권한", "").equals("사용자"))
+                            {
+                                change_fragment = new survey_content();
+                            }
+                            else
+                            {
+                                change_fragment = new survey_content_result();
+                            }
                             change_fragment.setArguments(args);
                             fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
                         }
