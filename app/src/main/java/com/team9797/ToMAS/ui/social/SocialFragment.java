@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.ui.social.social_board.social_board;
 
 public class SocialFragment extends Fragment {
 

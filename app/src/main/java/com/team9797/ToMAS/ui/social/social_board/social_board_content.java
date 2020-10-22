@@ -1,5 +1,7 @@
-package com.team9797.ToMAS.postBoard;
+package com.team9797.ToMAS.ui.social.social_board;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,20 +34,21 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.comment.comment_list_adapter;
-import com.team9797.ToMAS.postBoard.comment.register_board_content_comment;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class social_board_content extends Fragment implements Html.ImageGetter {
 
     MainActivity mainActivity;
     String post_id;
     String path;
+    boolean isRead;
     TextView title_textView;
     TextView html_textView;
     TextView writer_textView;
@@ -86,13 +90,13 @@ public class social_board_content extends Fragment implements Html.ImageGetter {
                         writer_textView.setText(document.get("writer", String.class));
                         // get date from timestamp
                         SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
-                        String dateString = formatter.format(new Date(Long.parseLong(document.get("timestamp", Long.class))));
+                        String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
                         date_textView.setText(dateString);
                         ArrayList<String> read_list = (ArrayList<String>)document.get("readers");
                         show_unread_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                String people_path = path.substring(0, path.length - 4) + "부대원";
+                                String people_path = path.substring(0, path.length() - 4) + "부대원";
                                 ArrayList<String> unread_list = new ArrayList<>();
                                 mainActivity.db.collection(people_path).get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

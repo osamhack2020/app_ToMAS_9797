@@ -1,6 +1,6 @@
 package com.team9797.ToMAS.ui.social.social_board;
 
-public class participant_list_item {
+public class social_board_list_item {
     private String title;
     private String date;
     private String writer;

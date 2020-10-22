@@ -7,15 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.board_list_item;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class social_board_list_adapter extends RecyclerView.Adapter<social_board
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     String path;
+    Context context;
 
     public social_board_list_adapter(String tmp_path, FragmentManager tmp_fragmentManager)
     {
@@ -54,7 +56,7 @@ public class social_board_list_adapter extends RecyclerView.Adapter<social_board
     @Override
     public social_board_list_adapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
-        Context context = parent.getContext() ;
+        context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
         View view = inflater.inflate(R.layout.social_board_list_item, parent, false) ;
@@ -67,9 +69,9 @@ public class social_board_list_adapter extends RecyclerView.Adapter<social_board
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.item_title.setText(mDataset.get(position).getTitle());
-        holder.item_date.setText(mDataset.get(position).getDate());
-        holder.item_writer.setText(mDataset.get(position).getWriter());
+        holder.item_title.setText("제목 : " + mDataset.get(position).getTitle());
+        holder.item_date.setText("등록일  : " + mDataset.get(position).getDate());
+        holder.item_writer.setText("작성자 : " + mDataset.get(position).getWriter());
 
         if (mDataset.get(position).getRead())
         {

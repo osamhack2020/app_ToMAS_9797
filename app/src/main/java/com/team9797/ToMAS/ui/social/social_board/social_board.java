@@ -1,5 +1,6 @@
 package com.team9797.ToMAS.ui.social.social_board;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class social_board extends Fragment {
 
@@ -65,12 +77,12 @@ public class social_board extends Fragment {
         }
         else
         {
-            fab.setEnable(true);
-            fab.setVisibility(VISIBLE);
+            fab.setEnabled(true);
+            fab.hide();
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(mainActivity, register_socia_board_content.class);
+                    Intent intent = new Intent(mainActivity, register_social_board_content.class);
                     intent.putExtra("path", path);
                     startActivity(intent);
                 }
@@ -91,7 +103,7 @@ public class social_board extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
-                                String dateString = formatter.format(new Date(Long.parseLong(document.get("timestamp", Long.class))));
+                                String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
                                 ArrayList<String> reader_list = (ArrayList<String>)document.get("readers");
                                 adapter.add_item(document.get("title").toString(), document.get("writer").toString(), dateString, reader_list.indexOf(mainActivity.getUid())>-1, document.getId());
                             }
