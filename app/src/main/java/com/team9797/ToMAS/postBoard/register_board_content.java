@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -457,8 +458,7 @@ public class register_board_content extends AppCompatActivity {
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
         post.put("title", title);
-        SimpleDateFormat today = new SimpleDateFormat("yy-MM-dd", Locale.KOREA);
-        post.put("date", today.format(new Date()));
+        post.put("timestamp", FieldValue.serverTimestamp());
         post.put("num_comments", 0);
         post.put("clicks", 0);
         post.put("writer", preferences.getString("이름", "홍길동"));

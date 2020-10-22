@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class board_content extends Fragment implements Html.ImageGetter {
 
@@ -90,7 +92,9 @@ public class board_content extends Fragment implements Html.ImageGetter {
                         html_textView.setText(Html.fromHtml(document.get("html", String.class), board_content.this, null));
                         title_textView.setText(document.get("title", String.class));
                         writer_textView.setText(document.get("writer", String.class));
-                        date_textView.setText(document.get("date", String.class));
+                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                        date_textView.setText("작성일 : " + dateString);
                         num_comments_textView.setText("댓글 수 : " + Integer.toString(document.get("num_comments", Integer.class)));
                         writer_id = document.get("user_id", String.class);
                         if (writer_id.equals(mainActivity.getUid()))
@@ -147,7 +151,9 @@ public class board_content extends Fragment implements Html.ImageGetter {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                adapter.add_item(document.get("title", String.class), document.get("writer", String.class), document.get("date", String.class), document.get("html", String.class), document.getId(), document.get("user_id", String.class));
+                                SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                                String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                                adapter.add_item(document.get("title", String.class), document.get("writer", String.class), dateString, document.get("html", String.class), document.getId(), document.get("user_id", String.class));
                             }
                             adapter.notifyDataSetChanged();
                         } else {

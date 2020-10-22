@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -114,8 +115,9 @@ public class register_social_survey extends AppCompatActivity {
 
                 Map<String, Object> post = new HashMap<>();
                 post.put("title", title);
+                post.put("timestamp", FieldValue.serverTimestamp());
                 post.put("due_date", edit_date.getText().toString());
-                post.put("writer", preferences.getString("이름", "홍길동"));
+                post.put("writer", preferences.getString("이름", ""));
                 post.put("numpeople", 0);
 
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection(path).document();

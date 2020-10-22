@@ -35,6 +35,11 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/survey_content_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/survey_content_enroll_button"
             android:layout_width="match_parent"
