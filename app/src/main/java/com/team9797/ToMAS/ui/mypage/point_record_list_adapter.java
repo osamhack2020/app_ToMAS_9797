@@ -44,7 +44,7 @@ public class point_record_list_adapter extends RecyclerView.Adapter<point_record
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
-        View view = inflater.inflate(R.layout.group_list_item, parent, false) ;
+        View view = inflater.inflate(R.layout.point_record_list_item, parent, false) ;
         MyViewHolder vh = new MyViewHolder(view);
         return vh;
     }

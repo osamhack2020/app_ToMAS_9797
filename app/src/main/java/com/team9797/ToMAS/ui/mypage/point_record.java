@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -35,11 +36,11 @@ public class point_record extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         // init fragment
-        View root = inflater.inflate(R.layout.group_exercise, container, false);
+        View root = inflater.inflate(R.layout.point_record, container, false);
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        recyclerView = root.findViewById(R.id.group_exercise_recyclerview);
+        recyclerView = root.findViewById(R.id.point_record_recyclerView);
 
         final point_record_list_adapter adapter = new point_record_list_adapter();
 
@@ -57,7 +58,7 @@ public class point_record extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
-                                String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                                String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                 adapter.add_item(document.get("content").toString(), dateString, document.get("change").toString());
                             }
                             adapter.notifyDataSetChanged();
