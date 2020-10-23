@@ -44,7 +44,6 @@ public class signupactivity extends AppCompatActivity{
     private String birth ="";
     private String name ="";
     private String phone ="";
-
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{6,16}$");
 
     protected void onCreate(Bundle savedInstanceState) {

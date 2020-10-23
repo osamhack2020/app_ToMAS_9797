@@ -57,4 +57,6 @@ $ yarn start or npm run start
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
  - TextView에서 이미지 포함한 html 띄우기 : https://stackoverflow.com/questions/16179285/html-imagegetter-textview/16209680#16209680
  - 아래에서 올라오는 layout : https://github.com/umano/AndroidSlidingUpPanel
+ - 로그인 ui 구현 참고 : https://github.com/Shashank02051997/LoginUI-Android
+ - 안드로이드 갤러리에서 비트맵형식으로 이미지 가져오기 :https://lktprogrammer.tistory.com/188
  
