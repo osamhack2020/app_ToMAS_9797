@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,13 +41,17 @@ public class MypageFragment extends Fragment {
     FirebaseStorage storage;
     ImageView profileimg_mypg;
 
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
+        Log.d("test","온크리에트실해중");
         View root = inflater.inflate(R.layout.fragment_mypage, container, false);
+
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
+
         profile_container = root.findViewById(R.id.profile_container);
         Button btn_logout = root.findViewById(R.id.btn_logout);
 
@@ -72,6 +77,8 @@ public class MypageFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
+                Bitmap bmp= BitmapFactory.decodeResource(getResources(), R.drawable.profile_image);
+                profileimg_mypg.setImageBitmap(bmp);
             }
         });
 
@@ -104,6 +111,8 @@ public class MypageFragment extends Fragment {
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });
+
+
 
         return root;
     }

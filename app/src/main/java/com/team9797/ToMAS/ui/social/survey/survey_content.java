@@ -143,6 +143,7 @@ public class survey_content extends Fragment {
             @Override
             public void onClick(View view) {
                 Map<String, Object> post = new HashMap<>();
+                ArrayList<String> answer = new ArrayList<>();
                 for (int i = 0; i < customView_list.size(); i++)
                 {
                     if (customView_list.get(i).question_type == 1)
@@ -151,13 +152,14 @@ public class survey_content extends Fragment {
                         int tmp_radioButtonID = customView_list.get(i).type1_radioGroup.getCheckedRadioButtonId();
                         RadioButton tmp_radioButton = customView_list.get(i).type1_radioGroup.findViewById(tmp_radioButtonID);
                         int tmp_idx = customView_list.get(i).type1_radioGroup.indexOfChild(tmp_radioButton);
-                        post.put(Integer.toString(i+1), tmp_idx);
+                        answer.add(Integer.toString(tmp_idx));
                     }
                     else
                     {// 주관식
-                        post.put(Integer.toString(i+1), customView_list.get(i).type2_editText.getText().toString());
+                        answer.add(customView_list.get(i).type2_editText.getText().toString());
                     }
                 }
+                post.put("answers", answer);
                 mPostReference.collection("submissions").document(mainActivity.getUid()).set(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

@@ -81,24 +81,11 @@
                 android:text="시간" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/group_content_numpeople"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="참가인원" />
-
-            <TextView
-                android:id="@+id/group_content_numpeople"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="인원 수" />
-        </LinearLayout>
+            android:text="인원 수" />
 
         <GridView
             android:id="@+id/participant_list"

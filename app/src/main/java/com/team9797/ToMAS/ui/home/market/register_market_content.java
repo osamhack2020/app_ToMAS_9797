@@ -30,6 +30,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import com.github.irshulx.Editor;
@@ -49,6 +52,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.postBoard.comment.register_board_content_comment;
+import com.team9797.ToMAS.postBoard.register_board_content;
+import com.team9797.ToMAS.render_preview;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -72,6 +78,7 @@ public class register_market_content extends AppCompatActivity {
     String title;
     Intent intent;
     Spinner spinner_category;
+    EditText edit_title;
 
     public SharedPreferences preferences;
 
@@ -85,6 +92,7 @@ public class register_market_content extends AppCompatActivity {
 
         editor =  findViewById(R.id.editor);
         edit_date = findViewById(R.id.register_market_content_due_date);
+        edit_title = findViewById(R.id.register_market_content_title);
 
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
         intent = getIntent();
@@ -372,17 +380,35 @@ public class register_market_content extends AppCompatActivity {
         //editor.render("<p>Hello man, whats up!</p>");
         //String text = "<p data-tag=\"input\" style=\"color:#000000;\">I have to do the needful and send to me and my husband is in a Apple has to offer a variety is not a.</p><p data-tag=\"input\" style=\"color:#000000;\">I have to go with you will be highly grateful if we can get the latest</p><blockquote data-tag=\"input\" style=\"color:#000000;\">I have to do the negotiation and a half years old story and I am looking forward in a few days.</blockquote><p data-tag=\"input\" style=\"color:#000000;\">I have to do the needful at your to the product and the other to a new job is going well and that the same old stuff and a half day city is the stream and a good idea to get onboard the stream.</p>";
         editor.render();
-        findViewById(R.id.btn_render_market_content).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnRender).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Retrieve the content as serialized, you could also say getContentAsHTML();
-                */
+
+                //미리보기
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Intent intent = new Intent(getApplicationContext(), register_market_content.class);
-                intent.putExtra("content", text);
+                Intent intent = new Intent(register_market_content.this, render_preview.class);
+                intent.putExtra("SERIALIZED", text);
+                intent.putExtra("title", edit_title.getText().toString());
                 startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.action_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(register_market_content.this)
+                        .setTitle("Exit Editor?")
+                        .setMessage("Are you sure you want to exit the editor?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
 
@@ -476,7 +502,7 @@ public class register_market_content extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        setGhost((Button) findViewById(R.id.btn_render_market_content));
+        setGhost((Button) findViewById(R.id.btnRender));
     }
 
     public Map<Integer, String> getHeadingTypeface() {
@@ -503,7 +529,6 @@ public class register_market_content extends AppCompatActivity {
         String string_html = editor.getContentAsHTML();
 
         // get Views
-        EditText edit_title = findViewById(R.id.register_market_content_title);
         title = edit_title.getText().toString();
         EditText edit_place = findViewById(R.id.register_market_content_place_editText);
         String category = spinner_category.getSelectedItem().toString();

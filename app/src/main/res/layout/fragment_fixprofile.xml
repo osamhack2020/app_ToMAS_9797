@@ -28,7 +28,7 @@
                 android:layout_height="91dp"
                 android:layout_weight="1"
                 android:scaleType="fitXY"
-                android:src="@drawable/profile_image" />
+                />
 
             <Button
                 android:id="@+id/get_image"

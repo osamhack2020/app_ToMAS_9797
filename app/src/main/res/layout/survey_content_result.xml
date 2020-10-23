@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".postBoard.fragment_template">
+
+
+    <Button
+        android:id="@+id/survey_all_result_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="전체 설문조사 결과 보기" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/survey_content_result_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
