@@ -146,7 +146,6 @@ public class register_social_survey extends AppCompatActivity {
                         Log.d("question number : " , Integer.toString(question_list.get(i).multi_chice_selection_list.size()));
                         for (int j = 0; j < question_list.get(i).multi_chice_selection_list.size(); j++)
                         {
-                            Log.d("QQ", "AAA");
                             tmp_multi_choice_item_list.add(question_list.get(i).multi_chice_selection_list.get(j).selection_editText.getText().toString());
                         }
                         tmp_question.put("multi_choice_questions", tmp_multi_choice_item_list);

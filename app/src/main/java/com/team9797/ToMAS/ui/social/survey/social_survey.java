@@ -1,4 +1,4 @@
-package com.team9797.ToMAS.ui.social;
+package com.team9797.ToMAS.ui.social.survey;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
