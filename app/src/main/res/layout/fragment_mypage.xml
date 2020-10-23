@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.mypage.MypageFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,17 +81,17 @@
         android:text="자신이 쓴 글"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/mypage_option3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="12dp"
-        android:text="옵션1"
-        android:textSize="24sp" />
 
+        <TextView
+            android:id="@+id/mypage_option3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="12dp"
+            android:text="현재 포인트 : "
+            android:textSize="24sp" />
 
-    <Button
+        <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,5 +99,6 @@
         android:onClick="log_out"
         android:text="logout"
         tools:ignore="OnClick" />
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

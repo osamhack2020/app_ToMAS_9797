@@ -23,9 +23,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.team9797.ToMAS.MainActivity;
@@ -40,6 +43,7 @@ public class MypageFragment extends Fragment {
     FragmentTransaction fragmentTransaction;
     FirebaseStorage storage;
     ImageView profileimg_mypg;
+    TextView point_textView;
 
 
 
@@ -54,12 +58,15 @@ public class MypageFragment extends Fragment {
 
         profile_container = root.findViewById(R.id.profile_container);
         Button btn_logout = root.findViewById(R.id.btn_logout);
+        point_textView = root.findViewById(R.id.mypage_option3);
 
 
         TextView name=root.findViewById(R.id.mypage_name);
         TextView belong=root.findViewById(R.id.mypage_regiment);
         name.setText("이름: " +mainActivity.preferences.getString("이름",""));
         belong.setText("소속: "+mainActivity.preferences.getString("소속",""));
+
+
 
         profileimg_mypg=root.findViewById(R.id.profileimg_mypg);
         storage = FirebaseStorage.getInstance();
@@ -82,6 +89,27 @@ public class MypageFragment extends Fragment {
             }
         });
 
+        mainActivity.db.collection("user").document(mainActivity.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+           @Override
+           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+               if (task.isSuccessful()) {
+                   DocumentSnapshot document = task.getResult();
+                   if (document.exists()) {
+                        point_textView.setText("현재 포인트 : " + Integer.toString(document.get("point", Integer.class)));
+                   }
+               }
+           }
+       });
+
+        point_textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment change_fragment = new point_record();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+            }
+        });
 
 
         btn_logout.setOnClickListener(new OnClickListener() {
