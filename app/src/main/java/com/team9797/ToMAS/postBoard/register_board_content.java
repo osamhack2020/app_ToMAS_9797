@@ -23,6 +23,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
@@ -37,6 +40,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.postBoard.comment.register_board_content_comment;
+import com.team9797.ToMAS.render_preview;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -294,14 +299,31 @@ public class register_board_content extends AppCompatActivity {
         findViewById(R.id.btnRender).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Retrieve the content as serialized, you could also say getContentAsHTML();
-                */
+
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Intent intent = new Intent(getApplicationContext(), register_board_content.class);
-                intent.putExtra("content", text);
-                startActivity(intent);
+                Fragment change_fragment = render_preview.newInstance(text);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+            }
+        });
+
+        findViewById(R.id.action_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(register_board_content.this)
+                        .setTitle("Exit Editor?")
+                        .setMessage("Are you sure you want to exit the editor?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
 

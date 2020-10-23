@@ -45,16 +45,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/comment_list_item_writer"
+            android:id="@+id/comment_list_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/comment_list_item_date"
+            android:id="@+id/comment_list_item_writer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
+
     </LinearLayout>
 
     <TextView

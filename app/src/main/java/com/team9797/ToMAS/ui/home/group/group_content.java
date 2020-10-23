@@ -86,7 +86,7 @@ public class group_content extends Fragment {
                         place_textView.setText(document.get("place", String.class));
                         date_textView.setText(document.get("date", String.class));
                         time_textView.setText(document.get("time", String.class));
-                        numpeople_textView.setText(Integer.toString(document.get("now_people", Integer.class))+"/" + Integer.toString(document.get("num_people", Integer.class)));
+                        numpeople_textView.setText("참가인원 : " + Integer.toString(document.get("now_people", Integer.class))+"/" + Integer.toString(document.get("num_people", Integer.class)));
                         tmp_participants = (Map<String, Map<String, String>>)document.get("participants");
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             tmp_participants.forEach((key, value) -> adapter.addItem(value.get("name"), value.get("position"), value.get("phonenumber")));
