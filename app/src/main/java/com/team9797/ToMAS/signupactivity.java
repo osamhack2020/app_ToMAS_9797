@@ -68,11 +68,10 @@ public class signupactivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 tree_dialog = new belong_tree_dialog();
-                tree_dialog.show();
+                tree_dialog.show(getSupportFragmentManager(), "소속트리");
             }
         });
 
-// ...
 // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
 

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.loginactivity;
 
 
 import java.util.ArrayList;
@@ -53,7 +55,6 @@ public class belong_tree_dialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        context = (MainActivity)getActivity();
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -129,7 +130,11 @@ public class belong_tree_dialog extends DialogFragment {
         // click listener 연결
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                if (context.getClass().getName().equals("MainActivity"))
+                {
+                    Toast.makeText(context, "AAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
+                    Log.d("AAA", "AAA");
+                }
                 Intent belong = new Intent();
                 belong.putExtra("belong", last_select);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, belong);

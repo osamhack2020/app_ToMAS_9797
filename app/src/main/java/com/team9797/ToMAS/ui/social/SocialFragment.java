@@ -16,11 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
-<<<<<<< HEAD
 import com.team9797.ToMAS.ui.social.survey.social_survey;
-=======
 import com.team9797.ToMAS.ui.social.social_board.social_board;
->>>>>>> 0e9ad3e86e191e69138f9f5821c09336a4a3b69e
 
 public class SocialFragment extends Fragment {
 
@@ -38,7 +35,6 @@ public class SocialFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_social, container, false);
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
-<<<<<<< HEAD
 
         path = "armyunit/" + mainActivity.preferences.getString("소속", "5군단/5군단");
         String[] tmp = path.split("/");
@@ -56,10 +52,8 @@ public class SocialFragment extends Fragment {
                     }
                 });
 
-=======
         
         //get Views
->>>>>>> 0e9ad3e86e191e69138f9f5821c09336a4a3b69e
         survey_textView = root.findViewById(R.id.social_survey);
         board_big_textView = root.findViewById(R.id.social_notice_board_big);
         board_small_textView = root.findViewById(R.id.social_notice_board_small);
