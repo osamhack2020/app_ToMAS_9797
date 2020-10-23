@@ -15,40 +15,39 @@
             android:layout_height="wrap_content">
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:paddingTop="5dp"
-                android:text="EDITOR DEMO"
-                android:textColor="@color/f5f5f5"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btn_render_market_content"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="10dp"
-                android:height="35dp"
+            <ImageButton
+                android:id="@+id/action_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
                 android:background="@android:color/transparent"
-                android:padding="4dp"
-                android:text="Render"
-                android:textColor="@color/f5f5f5"
-                android:textSize="@dimen/large_text" />
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
             <Button
                 android:id="@+id/button_market_content_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/btn_render_market_content"
-                android:layout_alignParentLeft="false"
-                android:layout_marginLeft="-87dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:height="32dp"
+                android:padding="4dp"
                 android:onClick="post_to_server"
                 android:text="글쓰기" />
+
+            <Button
+                android:id="@+id/btnRender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/button_market_content_register"
+                android:height="32dp"
+                android:padding="4dp"
+                android:layout_marginRight="8dp"
+                android:text="미리보기"
+                android:textColor="@color/f5f5f5" />
+
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 

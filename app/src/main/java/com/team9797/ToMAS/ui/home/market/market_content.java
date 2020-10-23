@@ -42,7 +42,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,8 +111,10 @@ public class market_content extends Fragment implements Html.ImageGetter {
                         title_textView.setText(document.get("title", String.class));
                         category_textView.setText(document.get("category", String.class));
                         place_textView.setText(document.get("place", String.class));
-                        date_textView.setText(document.get("date", String.class));
-                        due_date_textView.setText(document.get("due_date", String.class));
+                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        String dateString = formatter.format(new Date(document.get("timestamp", String.class)));
+                        date_textView.setText("등록일 : " + dateString);
+                        due_date_textView.setText("마감일 : " + document.get("due_date", String.class));
                         writer_textView.setText(document.get("writer", String.class));
                         mPostReference.collection("participants").orderBy("price", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
