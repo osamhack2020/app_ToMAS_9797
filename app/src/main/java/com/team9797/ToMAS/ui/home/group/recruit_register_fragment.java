@@ -23,6 +23,7 @@ import android.widget.TimePicker;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
@@ -171,6 +172,7 @@ public class recruit_register_fragment extends Fragment {
                 Map<String, Object> post = new HashMap<>();
                 //example : need to fix
                 post.put("title", edit_title.getText().toString());
+                post.put("timestamp", FieldValue.serverTimestamp());
                 post.put("date", edit_date.getText().toString());
                 post.put("place", edit_place.getText().toString());
                 post.put("category", spinner_category.getSelectedItem().toString());

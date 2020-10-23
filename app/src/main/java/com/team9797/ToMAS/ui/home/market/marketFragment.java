@@ -82,7 +82,7 @@ public class marketFragment extends Fragment{
     public void default_setting()
     {
         // sharedPreference에서 가져와서 넣어주기
-        path = "armyunit/" + mainActivity.preferences.getString("소속", "5군단/105정보통신단/105정보통신단");
+        path = "armyunit/" + mainActivity.preferences.getString("소속", "");
         tree_textView.setText(getPath(path));
         set_list();
     }

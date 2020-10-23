@@ -35,6 +35,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -57,9 +59,11 @@ import top.defaults.colorpicker.ColorPickerPopup;
 
 public class register_board_content extends AppCompatActivity {
     Editor editor;
+    FirebaseFirestore db;
     FirebaseStorage storage;
     StorageReference storageRef;
     String path;
+    String post_id;
     String title;
     Intent intent;
     EditText edit_title;
@@ -69,13 +73,37 @@ public class register_board_content extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_board_content);
 
-        edit_title = findViewById(R.id.post_edit_title);
 
+        edit_title = findViewById(R.id.post_edit_title);
         editor =  findViewById(R.id.editor);
+
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
+        db = FirebaseFirestore.getInstance();
         intent = getIntent();
         path = intent.getExtras().getString("path");
+        post_id = intent.getExtras().getString("post_id");
         setUpEditor();
+
+        if (!post_id.equals(""))
+        {
+            db.collection(path).document(post_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            edit_title.setText(document.get("title", String.class));
+                            editor.render(document.get("html", String.class));
+                        } else {
+    
+                        }
+                    } else {
+    
+                    }
+                }
+            });
+        }
+
     }
 
     private void setUpEditor() {
@@ -444,7 +472,6 @@ public class register_board_content extends AppCompatActivity {
 
     public void post_to_server(View view)
     {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         String string_html = editor.getContentAsHTML();
 
         title = edit_title.getText().toString();
@@ -454,27 +481,46 @@ public class register_board_content extends AppCompatActivity {
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
         post.put("title", title);
-        SimpleDateFormat today = new SimpleDateFormat("yy-MM-dd", Locale.KOREA);
-        post.put("date", today.format(new Date()));
+        post.put("timestamp", FieldValue.serverTimestamp());
         post.put("num_comments", 0);
         post.put("clicks", 0);
         post.put("writer", preferences.getString("이름", "홍길동"));
+        post.put("user_id", preferences.getString("user_id", ""));
 
 
-        db.collection(path).document()
-                .set(post)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("AAA", "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("AAA", "Error writing document", e);
-                    }
-                });
+        if (post_id.equals("")) {
+            db.collection(path).document()
+                    .set(post)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("AAA", "DocumentSnapshot successfully written!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("AAA", "Error writing document", e);
+                        }
+                    });
+        }
+        else
+        {
+            db.collection(path).document(post_id)
+                    .set(post)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("AAA", "DocumentSnapshot successfully written!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("AAA", "Error writing document", e);
+                        }
+                    });
+        }
         finish();
         // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
     }

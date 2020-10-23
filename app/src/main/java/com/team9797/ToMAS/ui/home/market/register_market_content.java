@@ -44,6 +44,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -535,7 +536,7 @@ public class register_market_content extends AppCompatActivity {
         post.put("html", string_html);
         //example : need to fix
         post.put("title", title);
-        post.put("date", ""); // need to fix
+        post.put("timestamp", FieldValue.serverTimestamp());
         post.put("due_date", edit_date.getText().toString());
         post.put("price", 0);
         post.put("place", edit_place.getText().toString());

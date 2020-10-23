@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -24,7 +25,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class fragment_template extends Fragment {
 
@@ -114,7 +117,9 @@ public class fragment_template extends Fragment {
                                                         if (count > 5)
                                                             break;
                                                         Log.d("QQQ", document.get("title").toString());
-                                                        tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), document.get("date").toString(), document.get("writer").toString(), document.get("clicks").toString(), document.getId());
+                                                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
+                                                        String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
+                                                        tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                                         count++;
                                                     }
                                                     tmp_sample_list_adapter.notifyDataSetChanged();
@@ -148,7 +153,9 @@ public class fragment_template extends Fragment {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d("AAA", document.get("title").toString());
-                                    adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), document.get("date").toString(), document.get("writer").toString(), document.get("clicks").toString(), document.getId());
+                                    SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
+                                    String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
+                                    adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                 }
                                 adapter.notifyDataSetChanged();
                             } else {
@@ -181,6 +188,7 @@ public class fragment_template extends Fragment {
                     public void onClick(View view) {
                         Intent intent = new Intent(mainActivity, register_board_content.class);
                         intent.putExtra("path", path);
+                        intent.putExtra("post_id", "");
                         startActivity(intent);
                     }
                 });

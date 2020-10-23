@@ -454,9 +454,6 @@ public class register_board_content_comment extends AppCompatActivity {
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
         post.put("title", title);
-        // 이걸 지우고 timestamp로 대체할 수도
-        SimpleDateFormat today = new SimpleDateFormat("yy-MM-dd", Locale.KOREA);
-        post.put("date", today.format(new Date()));
         post.put("timestamp", FieldValue.serverTimestamp());
         post.put("writer", preferences.getString("이름", ""));
         post.put("user_id", preferences.getString("user_id", ""));
