@@ -23,6 +23,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
@@ -37,6 +40,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.postBoard.comment.register_board_content_comment;
+import com.team9797.ToMAS.render_preview;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -57,11 +62,14 @@ public class register_board_content extends AppCompatActivity {
     String path;
     String title;
     Intent intent;
+    EditText edit_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_board_content);
+
+        edit_title = findViewById(R.id.post_edit_title);
 
         editor =  findViewById(R.id.editor);
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
@@ -294,14 +302,32 @@ public class register_board_content extends AppCompatActivity {
         findViewById(R.id.btnRender).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Retrieve the content as serialized, you could also say getContentAsHTML();
-                */
+                //미리보기
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Intent intent = new Intent(getApplicationContext(), register_board_content.class);
-                intent.putExtra("content", text);
+                Intent intent = new Intent(register_board_content.this, render_preview.class);
+                intent.putExtra("SERIALIZED", text);
+                intent.putExtra("title", edit_title.getText().toString());
                 startActivity(intent);
+
+            }
+        });
+
+        findViewById(R.id.action_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(register_board_content.this)
+                        .setTitle("Exit Editor?")
+                        .setMessage("Are you sure you want to exit the editor?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
 
@@ -421,7 +447,6 @@ public class register_board_content extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String string_html = editor.getContentAsHTML();
 
-        EditText edit_title = findViewById(R.id.post_edit_title);
         title = edit_title.getText().toString();
 
         SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
