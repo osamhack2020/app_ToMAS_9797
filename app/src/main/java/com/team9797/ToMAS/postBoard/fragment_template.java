@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -117,7 +118,7 @@ public class fragment_template extends Fragment {
                                                             break;
                                                         Log.d("QQQ", document.get("title").toString());
                                                         SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
-                                                        String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                                                        String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                                         tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                                         count++;
                                                     }
@@ -153,7 +154,7 @@ public class fragment_template extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d("AAA", document.get("title").toString());
                                     SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
-                                    String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                                    String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                     adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                 }
                                 adapter.notifyDataSetChanged();

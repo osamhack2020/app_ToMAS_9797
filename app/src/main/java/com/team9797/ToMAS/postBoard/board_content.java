@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -93,7 +94,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
                         title_textView.setText(document.get("title", String.class));
                         writer_textView.setText(document.get("writer", String.class));
                         SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
-                        String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                        String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         date_textView.setText("작성일 : " + dateString);
                         num_comments_textView.setText("댓글 수 : " + Integer.toString(document.get("num_comments", Integer.class)));
                         writer_id = document.get("user_id", String.class);

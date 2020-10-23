@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -90,7 +91,7 @@ public class group_content extends Fragment {
                         place_textView.setText(document.get("place", String.class));
                         date_textView.setText(document.get("date", String.class));
                         SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
-                        String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                        String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         enroll_date_textView.setText(dateString);
                         time_textView.setText(document.get("time", String.class));
                         numpeople_textView.setText(Integer.toString(document.get("now_people", Integer.class))+"/" + Integer.toString(document.get("num_people", Integer.class)));
