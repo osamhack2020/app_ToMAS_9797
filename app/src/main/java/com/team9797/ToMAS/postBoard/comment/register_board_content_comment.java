@@ -41,6 +41,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.postBoard.register_board_content;
 import com.team9797.ToMAS.render_preview;
 
 import java.io.ByteArrayOutputStream;
@@ -63,6 +64,7 @@ public class register_board_content_comment extends AppCompatActivity {
     String post_id;
     String title;
     Intent intent;
+    EditText edit_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class register_board_content_comment extends AppCompatActivity {
         intent = getIntent();
         path = intent.getExtras().getString("path");
         post_id = intent.getExtras().getString("post_id");
+        edit_title = findViewById(R.id.post_edit_title);
         setUpEditor();
     }
 
@@ -301,12 +304,13 @@ public class register_board_content_comment extends AppCompatActivity {
         findViewById(R.id.btnRender).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //미리보기
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Fragment change_fragment = render_preview.newInstance(text);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+                Intent intent = new Intent(register_board_content_comment.this, render_preview.class);
+                intent.putExtra("title", edit_title.getText().toString());
+                intent.putExtra("SERIALIZED", text);
+                startActivity(intent);
             }
         });
 
@@ -445,7 +449,6 @@ public class register_board_content_comment extends AppCompatActivity {
         String string_html = editor.getContentAsHTML();
 
         SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
-        EditText edit_title = findViewById(R.id.post_edit_title);
         title = edit_title.getText().toString();
 
         Map<String, Object> post = new HashMap<>();

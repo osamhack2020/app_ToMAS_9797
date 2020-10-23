@@ -1,4 +1,5 @@
 package com.team9797.ToMAS;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -8,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.github.irshulx.Editor;
@@ -18,7 +21,7 @@ import com.github.irshulx.models.EditorContent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class render_preview extends Fragment {
+public class render_preview extends AppCompatActivity {
 
 
     private String mSerialized;
@@ -27,29 +30,16 @@ public class render_preview extends Fragment {
 
     public render_preview() {
     }
-    public static render_preview newInstance(String serialized) {
-        render_preview fragment = new render_preview();
-        Bundle args = new Bundle();
-        args.putString("SERIALIZED", serialized);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mSerialized = getArguments().getString("SERIALIZED");
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.render_preview, container, false);
-
-        Editor renderer= (Editor)view.findViewById(R.id.renderer);
+        setContentView(R.layout.render_preview);
+        Intent intent = getIntent();
+        mSerialized = intent.getExtras().getString("SERIALIZED");
+        TextView title_edit = findViewById(R.id.title);
+        title_edit.setText(intent.getExtras().getString("title"));
+        Editor renderer= (Editor)findViewById(R.id.renderer);
         Map<Integer, String> headingTypeface = getHeadingTypeface();
         Map<Integer, String> contentTypeface = getContentface();
         renderer.setHeadingTypeface(headingTypeface);
@@ -76,13 +66,8 @@ public class render_preview extends Fragment {
             }
         });
         renderer.render(Deserialized);
-        return  view;
     }
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
