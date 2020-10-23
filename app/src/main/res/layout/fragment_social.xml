@@ -38,7 +38,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/social_notice_board_big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -54,7 +54,7 @@
         android:orientation="vertical"></LinearLayout>
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/social_notice_board_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

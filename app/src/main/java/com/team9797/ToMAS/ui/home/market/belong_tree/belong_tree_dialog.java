@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -35,17 +36,26 @@ import tellh.com.recyclertreeview_lib.TreeViewAdapter;
 
 public class belong_tree_dialog extends DialogFragment {
 
-    MainActivity mainActivity;
+    Context context;
     RecyclerView rv;
     TreeViewAdapter adapter;
     String last_select;
 
+    public belong_tree_dialog()
+    {
+
+    }
+
+    public belong_tree_dialog(Context tmp_context)
+    {
+        context = tmp_context;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mainActivity = (MainActivity)getActivity();
+        context = (MainActivity)getActivity();
         // Use the Builder class for convenient dialog construction
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View rootView = inflater.inflate(R.layout.belong_tree_dialog, null);
         builder.setView(rootView);
@@ -57,7 +67,7 @@ public class belong_tree_dialog extends DialogFragment {
         List<TreeNode> nodes = new ArrayList<>();
         TreeNode<Dir> app = new TreeNode<>(new Dir("소속"), "armyunit");
         nodes.add(app);
-        rv.setLayoutManager(new LinearLayoutManager(mainActivity));
+        rv.setLayoutManager(new LinearLayoutManager(context));
         adapter = new TreeViewAdapter(nodes, Arrays.asList(new FileNodeBinder(), new DirectoryNodeBinder()));
         // whether collapse child nodes when their parent node was close.
 //        adapter.ifCollapseChildWhileCollapseParent(true);
@@ -75,7 +85,7 @@ public class belong_tree_dialog extends DialogFragment {
                 if (!node.isLeaf())
                     return false;
                 // 자기자신의 path까지 node로 저장하고 이를 firebase path에 넘겨줌.
-                mainActivity.db.collection(node.getPath())
+                FirebaseFirestore.getInstance().collection(node.getPath())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override

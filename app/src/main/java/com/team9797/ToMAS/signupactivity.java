@@ -21,6 +21,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.team9797.ToMAS.ui.home.market.belong_tree.belong_tree_dialog;
+import com.team9797.ToMAS.ui.home.market.marketFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +46,8 @@ public class signupactivity extends AppCompatActivity{
     private String birth ="";
     private String name ="";
     private String phone ="";
+    belong_tree_dialog tree_dialog;
+
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{6,16}$");
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,14 @@ public class signupactivity extends AppCompatActivity{
         editbirth=findViewById(R.id.edit_birth);
         editname=findViewById(R.id.edit_name);
         editphone=findViewById(R.id.edit_phone);
+
+        editbelong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tree_dialog = new belong_tree_dialog();
+                tree_dialog.show();
+            }
+        });
 
 // ...
 // Initialize Firebase Auth
