@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,56 +13,46 @@
         android:layout_height="222dp"
         android:layout_weight="3"
         android:orientation="horizontal"
-        android:padding="24dp"
-        android:weightSum="2">
+        android:padding="24dp">
 
         <ImageView
             android:id="@+id/profileimg_mypg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+             />
 
         <LinearLayout
             android:id="@+id/profile_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:weightSum="5">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/mypage_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:paddingLeft="24dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp"
+                android:text="이름 홍길동"
+                android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/mypage_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="24dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="이름 홍길동"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/mypage_regiment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:paddingLeft="24dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="소속 체계중대"
-                    android:textSize="24sp" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/mypage_regiment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="24dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp"
+                android:text="소속 체계중대"
+                android:textSize="24sp" />
 
         </LinearLayout>
 
