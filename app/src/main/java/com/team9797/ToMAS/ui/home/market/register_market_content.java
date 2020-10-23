@@ -52,6 +52,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.postBoard.comment.register_board_content_comment;
+import com.team9797.ToMAS.postBoard.register_board_content;
 import com.team9797.ToMAS.render_preview;
 
 import java.io.ByteArrayOutputStream;
@@ -76,6 +77,7 @@ public class register_market_content extends AppCompatActivity {
     String title;
     Intent intent;
     Spinner spinner_category;
+    EditText edit_title;
 
     public SharedPreferences preferences;
 
@@ -89,6 +91,7 @@ public class register_market_content extends AppCompatActivity {
 
         editor =  findViewById(R.id.editor);
         edit_date = findViewById(R.id.register_market_content_due_date);
+        edit_title = findViewById(R.id.register_market_content_title);
 
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
         intent = getIntent();
@@ -380,12 +383,13 @@ public class register_market_content extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //미리보기
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Fragment change_fragment = render_preview.newInstance(text);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+                Intent intent = new Intent(register_market_content.this, render_preview.class);
+                intent.putExtra("SERIALIZED", text);
+                intent.putExtra("title", edit_title.getText().toString());
+                startActivity(intent);
             }
         });
 
@@ -524,7 +528,6 @@ public class register_market_content extends AppCompatActivity {
         String string_html = editor.getContentAsHTML();
 
         // get Views
-        EditText edit_title = findViewById(R.id.register_market_content_title);
         title = edit_title.getText().toString();
         EditText edit_place = findViewById(R.id.register_market_content_place_editText);
         String category = spinner_category.getSelectedItem().toString();
