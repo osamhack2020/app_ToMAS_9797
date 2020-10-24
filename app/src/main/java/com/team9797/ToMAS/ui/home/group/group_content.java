@@ -39,6 +39,7 @@ public class group_content extends Fragment {
     TextView time_textView;
     TextView numpeople_textView;
     TextView enroll_date_textView;
+    TextView writer_textView;
     EditText position_edit;
     Button btn_enroll ;
     GridView participant_gridView;
@@ -73,6 +74,7 @@ public class group_content extends Fragment {
         btn_enroll = root.findViewById(R.id.group_content_enroll);
         participant_gridView = root.findViewById(R.id.participant_list);
         position_edit = root.findViewById(R.id.group_content_position);
+        writer_textView = root.findViewById(R.id.group_content_writer);
         slidingUpPanelLayout = root.findViewById(R.id.group_content_slidingLayout);
 
         final participant_list_adapter adapter = new participant_list_adapter();
@@ -86,14 +88,15 @@ public class group_content extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        title_textView.setText(document.get("title", String.class));
-                        category_textView.setText(document.get("category", String.class));
-                        place_textView.setText(document.get("place", String.class));
-                        date_textView.setText(document.get("date", String.class));
+                        title_textView.setText("제목 : " + document.get("title", String.class));
+                        category_textView.setText("카테고리 : " + document.get("category", String.class));
+                        place_textView.setText("모집장소 : " + document.get("place", String.class));
+                        date_textView.setText("모집일 : " + document.get("date", String.class));
                         SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
-                        enroll_date_textView.setText(dateString);
-                        time_textView.setText(document.get("time", String.class));
+                        enroll_date_textView.setText("작성일 : " + dateString);
+                        time_textView.setText("모집시간 : " + document.get("time", String.class));
+                        writer_textView.setText("작성자 : " + document.get("writer").toString());
                         numpeople_textView.setText("참가인원 : " + Integer.toString(document.get("now_people", Integer.class))+"/" + Integer.toString(document.get("num_people", Integer.class)));
                         tmp_participants = (Map<String, Map<String, String>>)document.get("participants");
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

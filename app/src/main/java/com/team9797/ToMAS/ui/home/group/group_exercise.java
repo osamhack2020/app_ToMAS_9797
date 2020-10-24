@@ -23,12 +23,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.ui.home.market.belong_tree.belong_tree_dialog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +43,8 @@ public class group_exercise extends Fragment {
     FloatingActionButton fab;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    TextView tree_textView;
+    belong_tree_dialog tree_dialog;
 
     String title;
     String path;
@@ -55,12 +59,57 @@ public class group_exercise extends Fragment {
         fragmentTransaction = fragmentManager.beginTransaction();
         fab = root.findViewById(R.id.fab_group_exercise_register);
         recyclerView = root.findViewById(R.id.group_exercise_recyclerview);
+        tree_textView = root.findViewById(R.id.tree_textView);
 
         // argument 받아오기
         title = getArguments().getString("title");
-        // 여기선 path 받아올 필요가 없음.
-        path = "mainpage/인원모집/인원모집/운동/운동";
 
+        tree_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tree_dialog = new belong_tree_dialog(mainActivity);
+                tree_dialog.show(fragmentManager, "소속트리");
+                tree_dialog.setDialogResult(new belong_tree_dialog.tree_dialog_result() {
+                    @Override
+                    public void get_result(String result) {
+                        tree_textView.setText(getPath(result));
+                        set_list();
+                    }
+                });
+            }
+        });
+        default_setting();
+
+
+        return root;
+    }
+
+    public void default_setting()
+    {
+        // sharedPreference에서 가져와서 넣어주기
+        String tmp_path = mainActivity.preferences.getString("소속", "");
+        tree_textView.setText(getPath(tmp_path));
+        set_list();
+    }
+
+    public String getPath(String str)
+    {
+        String stringed_path = "";
+        String[] tmp = str.split("/");
+        String market_path = str.substring(0, str.length() - tmp[tmp.length - 1].length());
+        market_path += "인원모집/운동/운동";
+        for (int i = 1; i<tmp.length; i++)
+        {
+            // document를 만들기 위해 tmp로 사용했던 path를 무시한다.
+            if (i%2 == 0)
+                stringed_path += tmp[i] + " ";
+        }
+        path = market_path;
+        return stringed_path;
+    }
+
+    public void set_list()
+    {
         final group_list_adapter adapter = new group_list_adapter(path, fragmentManager);
 
         // recycler view 사용하기
@@ -98,8 +147,5 @@ public class group_exercise extends Fragment {
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });
-
-
-        return root;
     }
 }
