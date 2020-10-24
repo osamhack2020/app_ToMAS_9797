@@ -23,9 +23,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
@@ -42,13 +39,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.comment.register_board_content_comment;
 import com.team9797.ToMAS.render_preview;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -84,6 +78,7 @@ public class register_board_content extends AppCompatActivity {
         post_id = intent.getExtras().getString("post_id");
         setUpEditor();
 
+        // 수정할 때
         if (!post_id.equals(""))
         {
             db.collection(path).document(post_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -488,6 +483,7 @@ public class register_board_content extends AppCompatActivity {
         post.put("user_id", preferences.getString("user_id", ""));
 
 
+        // 새로 글 쓸 때
         if (post_id.equals("")) {
             db.collection(path).document()
                     .set(post)
@@ -505,7 +501,7 @@ public class register_board_content extends AppCompatActivity {
                     });
         }
         else
-        {
+        {// 수정할 때
             db.collection(path).document(post_id)
                     .set(post)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
