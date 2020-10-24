@@ -59,7 +59,7 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
         if (dates.size() > 0) {
             for (int i = 0; i < dates.size(); i++)
             {
-                decorator.
+                
             }
             calendarView.invalidateDecorators();
         }
