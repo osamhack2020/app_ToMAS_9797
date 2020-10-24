@@ -98,7 +98,7 @@ public class register_market_content extends AppCompatActivity {
         intent = getIntent();
         path = intent.getExtras().getString("path");
 
-        edit_date.setShowSoftInputOnFocus(false);
+        edit_date.setFocusable(false);
         edit_date.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

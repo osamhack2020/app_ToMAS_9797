@@ -48,9 +48,15 @@ public class marketFragment extends Fragment{
         tree_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tree_dialog = new belong_tree_dialog();
-                tree_dialog.setTargetFragment(marketFragment.this, 1111);
+                tree_dialog = new belong_tree_dialog(mainActivity);
                 tree_dialog.show(fragmentManager, "소속트리");
+                tree_dialog.setDialogResult(new belong_tree_dialog.tree_dialog_result() {
+                    @Override
+                    public void get_result(String result) {
+                        tree_textView.setText(getPath(result));
+                        set_list();
+                    }
+                });
             }
         });
 
@@ -62,20 +68,6 @@ public class marketFragment extends Fragment{
         mainActivity.set_title();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1111) {
-
-            if (resultCode == Activity.RESULT_OK) {
-                path = data.getExtras().getString("belong");
-                tree_textView.setText(getPath(path));
-                set_list();
-
-            }
-        }
-    }
 
 
     // 자기의 소속을 바탕으로 default setting 처리

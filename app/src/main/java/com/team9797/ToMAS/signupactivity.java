@@ -47,6 +47,7 @@ public class signupactivity extends AppCompatActivity{
     private String name ="";
     private String phone ="";
     belong_tree_dialog tree_dialog;
+    String belong_path;
 
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{6,16}$");
 
@@ -64,11 +65,19 @@ public class signupactivity extends AppCompatActivity{
         editname=findViewById(R.id.edit_name);
         editphone=findViewById(R.id.edit_phone);
 
+        editbelong.setFocusable(false);
         editbelong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tree_dialog = new belong_tree_dialog();
+                tree_dialog = new belong_tree_dialog(signupactivity.this);
                 tree_dialog.show(getSupportFragmentManager(), "소속트리");
+                tree_dialog.setDialogResult(new belong_tree_dialog.tree_dialog_result() {
+                    @Override
+                    public void get_result(String result) {
+                        belong_path = result;
+                        editbelong.setText(getPath(result));
+                    }
+                });
             }
         });
 
@@ -76,6 +85,20 @@ public class signupactivity extends AppCompatActivity{
         firebaseAuth = FirebaseAuth.getInstance();
 
     }
+
+    public String getPath(String str)
+    {
+        String stringed_path = "";
+        String[] tmp = str.split("/");
+        for (int i = 1; i<tmp.length; i++)
+        {
+            // document를 만들기 위해 tmp로 사용했던 path를 무시한다.
+            if (i%2 == 0)
+                stringed_path += tmp[i] + " ";
+        }
+        return stringed_path;
+    }
+
     public void signUp(View view) {
         email = editTextEmail.getText().toString();
         password = editTextPassword.getText().toString();
@@ -167,14 +190,13 @@ public class signupactivity extends AppCompatActivity{
         String name = edit_name.getText().toString();
         String email = et_email.getText().toString();
         String password = et_password.getText().toString();
-        String belong = edit_belong.getText().toString();
         String armyclass = edit_class.getText().toString();
         String armynumber = edit_armynumber.getText().toString();
         String birth = edit_birth.getText().toString();
 
         Map<String, Object> upload = new HashMap<>();
        upload.put("이름",name);
-        upload.put("소속",belong);
+        upload.put("소속",belong_path);
         upload.put("권한","사용자");
         upload.put("군번",armynumber);
         upload.put("계급",armyclass);

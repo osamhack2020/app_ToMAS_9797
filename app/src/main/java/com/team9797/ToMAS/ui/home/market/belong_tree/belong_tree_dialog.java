@@ -42,6 +42,15 @@ public class belong_tree_dialog extends DialogFragment {
     RecyclerView rv;
     TreeViewAdapter adapter;
     String last_select;
+    tree_dialog_result mdialogResult;
+
+    public interface tree_dialog_result{
+        void get_result(String result);
+    }
+    public void setDialogResult(tree_dialog_result dialogResult)
+    {
+        mdialogResult = dialogResult;
+    }
 
     public belong_tree_dialog()
     {
@@ -130,14 +139,7 @@ public class belong_tree_dialog extends DialogFragment {
         // click listener 연결
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                if (context.getClass().getName().equals("MainActivity"))
-                {
-                    Toast.makeText(context, "AAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
-                    Log.d("AAA", "AAA");
-                }
-                Intent belong = new Intent();
-                belong.putExtra("belong", last_select);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, belong);
+                mdialogResult.get_result(last_select);
                 dismiss();
             }
         })
