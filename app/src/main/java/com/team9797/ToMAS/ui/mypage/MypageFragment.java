@@ -70,7 +70,7 @@ public class MypageFragment extends Fragment {
         TextView name=root.findViewById(R.id.mypage_name);
         TextView belong=root.findViewById(R.id.mypage_regiment);
         name.setText("이름: " +mainActivity.preferences.getString("이름",""));
-        belong.setText("소속: "+mainActivity.preferences.getString("소속",""));
+        belong.setText("소속: "+ getPath(mainActivity.preferences.getString("소속","")));
 
 
 
@@ -149,6 +149,20 @@ public class MypageFragment extends Fragment {
         customProgressDialog.dismiss();
         return root;
     }
+
+    public String getPath(String str)
+    {
+        String stringed_path = "";
+        String[] tmp = str.split("/");
+        for (int i = 1; i<tmp.length; i++)
+        {
+            // document를 만들기 위해 tmp로 사용했던 path를 무시한다.
+            if (i%2 == 0)
+                stringed_path += tmp[i] + " ";
+        }
+        return stringed_path;
+    }
+
 
     @Override
     public void onResume() {
