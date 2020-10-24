@@ -15,64 +15,62 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="222dp"
-        android:layout_weight="3"
-        android:orientation="horizontal"
-        android:padding="24dp">
-
-        <ImageView
-            android:id="@+id/profileimg_mypg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="fitXY" />
-
         <LinearLayout
-            android:id="@+id/profile_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="222dp"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
-            <TextView
-                android:id="@+id/mypage_name"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/profileimg_mypg"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="30dp"
+                android:scaleType="fitXY" />
+
+            <LinearLayout
+                android:id="@+id/profile_container"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingLeft="24dp"
-                android:paddingTop="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp"
-                android:text="이름 홍길동"
-                android:textSize="24sp" />
+                android:layout_weight="2"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/mypage_regiment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:autoSizeTextType="uniform"
+                <TextView
+                    android:id="@+id/mypage_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="이름 홍길동"
+                    android:textSize="18sp" />
 
-                android:paddingLeft="24dp"
-                android:paddingTop="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp"
-                android:text="소속 체계중대"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/mypage_regiment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:autoSizeTextType="uniform"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="소속 체계중대"
+                    android:textSize="18sp" />
 
-            <Button
-                android:id="@+id/button_profilefix"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape_type1"
-                android:text="프로필 수정" />
+                <Button
+                    android:id="@+id/button_profilefix"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttonshape_type1"
+                    android:text="프로필 수정" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/mypage_option1"

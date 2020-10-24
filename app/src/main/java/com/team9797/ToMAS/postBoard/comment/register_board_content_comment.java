@@ -466,6 +466,7 @@ public class register_board_content_comment extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        finish();
                         Log.d("AAA", "DocumentSnapshot successfully written!");
                     }
                 })
@@ -475,7 +476,6 @@ public class register_board_content_comment extends AppCompatActivity {
                         Log.w("AAA", "Error writing document", e);
                     }
                 });
-        finish();
         // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
     }
 }

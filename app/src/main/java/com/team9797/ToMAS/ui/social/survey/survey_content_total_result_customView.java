@@ -67,7 +67,6 @@ public class survey_content_total_result_customView extends LinearLayout {
         num_textView = findViewById(R.id.custom_number);
         container = findViewById(R.id.custom_container);
         title_textView = findViewById(R.id.custom_question_title);
-        num_textView.setText(Integer.toString(index)+".");
 
         title_textView.setText(title);
         if (question_type == 1)
@@ -76,7 +75,7 @@ public class survey_content_total_result_customView extends LinearLayout {
             for (int i = 0; i< multi_chioce_question_list.size(); i++)
             {
                 RadioButton tmp_radio_button = new RadioButton(context);
-                tmp_radio_button.setText(multi_chioce_question_list.get(i)+"   " + Integer.toString(type1_answer_list[i]));
+                tmp_radio_button.setText(Integer.toString(index)+". " + multi_chioce_question_list.get(i)+"   " + Integer.toString(type1_answer_list[i]));
                 tmp_radio_button.setId(View.generateViewId());
                 tmp_radio_button.setEnabled(false);
                 type1_radioGroup.addView(tmp_radio_button);
