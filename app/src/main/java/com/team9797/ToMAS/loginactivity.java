@@ -90,9 +90,11 @@ public class loginactivity extends AppCompatActivity{
     private boolean isValidEmail() {
         if (email.isEmpty()) {
             // 이메일 공백
+            Toast.makeText(loginactivity.this,"모든 칸을 기입해주세요", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             // 이메일 형식 불일치
+            Toast.makeText(loginactivity.this,"이메일 형식을 따라야 합니다.", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -103,9 +105,11 @@ public class loginactivity extends AppCompatActivity{
     private boolean isValidPasswd() {
         if (password.isEmpty()) {
             // 비밀번호 공백
+            Toast.makeText(loginactivity.this,"모든 칸을 기입해주세요 ", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!PASSWORD_PATTERN.matcher(password).matches()) {
             // 비밀번호 형식 불일치
+            Toast.makeText(loginactivity.this,"비밀번호는 6자이상 16자리이하 입니다. ", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

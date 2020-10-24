@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     tools:context=".ui.mypage.MypageFragment">
 
     <LinearLayout
@@ -20,8 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="fitXY"
-             />
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:id="@+id/profile_container"
@@ -90,7 +91,10 @@
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:background="@drawable/buttonshape_type1"
         android:onClick="log_out"
         android:text="logout"
         tools:ignore="OnClick" />
