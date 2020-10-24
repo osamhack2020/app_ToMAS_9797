@@ -1,8 +1,7 @@
-package com.team9797.ToMAS.ui.home.market;
+package com.team9797.ToMAS.ui.social.social_board;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,23 +16,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
@@ -43,25 +32,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.comment.register_board_content_comment;
 import com.team9797.ToMAS.postBoard.register_board_content;
 import com.team9797.ToMAS.render_preview;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -69,93 +54,26 @@ import top.defaults.colorpicker.ColorPickerPopup;
 
 // github.irshulx 에서 코드 인용.
 
-public class register_market_content extends AppCompatActivity {
+public class register_social_board_content extends AppCompatActivity {
     Editor editor;
-    EditText edit_date;
     FirebaseStorage storage;
     StorageReference storageRef;
     String path;
     String title;
     Intent intent;
-    Spinner spinner_category;
     EditText edit_title;
-
-    public SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_market_content);
+        setContentView(R.layout.register_social_board_content);
 
-        // get shared preference
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        edit_title = findViewById(R.id.post_edit_title);
 
         editor =  findViewById(R.id.editor);
-        edit_date = findViewById(R.id.register_market_content_due_date);
-        edit_title = findViewById(R.id.register_market_content_title);
-
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
         intent = getIntent();
         path = intent.getExtras().getString("path");
-
-        edit_date.setFocusable(false);
-        edit_date.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    final Calendar calendar = Calendar.getInstance();
-                    int mYear = calendar.get(Calendar.YEAR);
-                    int mMonth = calendar.get(Calendar.MONTH);
-                    int mDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(register_market_content.this, new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                            month++;
-                            edit_date.setText(year + "-" + month + "-"+day);
-                        }
-                    }, mYear, mMonth, mDay);
-                    datePickerDialog.show();
-                }
-
-                return false;
-            }
-        });
-
-        // set spinner by list from firebase
-        spinner_category = (Spinner) findViewById(R.id.register_market_content_category_spinner);
-        FirebaseFirestore.getInstance().collection(path)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            List<String> items = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                items.add(document.getId());
-                            }
-                            ArrayAdapter<String> category_adapter = new ArrayAdapter<>(register_market_content.this, android.R.layout.simple_spinner_item, items);
-                            //category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-                            spinner_category.setAdapter(category_adapter);
-                            spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    //need to fix
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                }
-                            });
-                        } else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
         setUpEditor();
     }
 
@@ -241,7 +159,7 @@ public class register_market_content extends AppCompatActivity {
         findViewById(R.id.action_color).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ColorPickerPopup.Builder(register_market_content.this)
+                new ColorPickerPopup.Builder(register_social_board_content.this)
                         .initialColor(Color.RED) // Set initial color
                         .enableAlpha(true) // Enable alpha slider or not
                         .okTitle("Choose")
@@ -252,7 +170,7 @@ public class register_market_content extends AppCompatActivity {
                         .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                Toast.makeText(register_market_content.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
+                                Toast.makeText(register_social_board_content.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
                                 editor.updateTextColor(colorHex(color));
                             }
 
@@ -307,7 +225,7 @@ public class register_market_content extends AppCompatActivity {
 
             @Override
             public void onUpload(Bitmap image, final String uuid) {
-                Toast.makeText(register_market_content.this, uuid, Toast.LENGTH_LONG).show();
+                Toast.makeText(register_social_board_content.this, uuid, Toast.LENGTH_LONG).show();
                 /**
                  * TODO do your upload here from the bitmap received and all onImageUploadComplete(String url); to insert the result url to
                  * let the editor know the upload has completed
@@ -383,21 +301,21 @@ public class register_market_content extends AppCompatActivity {
         findViewById(R.id.btnRender).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //미리보기
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Intent intent = new Intent(register_market_content.this, render_preview.class);
+                Intent intent = new Intent(register_social_board_content.this, render_preview.class);
                 intent.putExtra("SERIALIZED", text);
                 intent.putExtra("title", edit_title.getText().toString());
                 startActivity(intent);
+
             }
         });
 
         findViewById(R.id.action_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(register_market_content.this)
+                new AlertDialog.Builder(register_social_board_content.this)
                         .setTitle("Exit Editor?")
                         .setMessage("Are you sure you want to exit the editor?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -528,36 +446,35 @@ public class register_market_content extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String string_html = editor.getContentAsHTML();
 
-        // get Views
         title = edit_title.getText().toString();
-        EditText edit_place = findViewById(R.id.register_market_content_place_editText);
-        String category = spinner_category.getSelectedItem().toString();
+
+        SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
+
+        ArrayList<String> readers = new ArrayList<>();
+
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
-        //example : need to fix
         post.put("title", title);
         post.put("timestamp", FieldValue.serverTimestamp());
-        post.put("due_date", edit_date.getText().toString());
-        post.put("price", 0);
-        post.put("place", edit_place.getText().toString());
-        post.put("category", category);
-        post.put("numpeople", 0);
-        post.put("writer", preferences.getString("이름", "홍길동"));
+        post.put("readers", readers);
+        post.put("writer", preferences.getString("이름", ""));
 
-        db.collection(path + "/" + category + "/" + category).document().set(post)
-            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    //Log.d("AAA", "DocumentSnapshot successfully written!");
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    //Log.w("AAA", "Error writing document", e);
-                }
-            });
+
+        db.collection(path).document()
+                .set(post)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("AAA", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("AAA", "Error writing document", e);
+                    }
+                });
         finish();
-        // need to fix : finish되서 돌아갈 때 게시판 리스트 최신화하기.
+        // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
     }
 }

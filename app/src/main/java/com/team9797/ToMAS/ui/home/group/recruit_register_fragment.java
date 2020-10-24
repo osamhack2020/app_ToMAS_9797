@@ -66,7 +66,7 @@ public class recruit_register_fragment extends Fragment {
         path = getArguments().getString("path");
 
         // edit_date 클릭 시 dialog나오게하고, 키보드는 숨기기.
-        edit_date.setShowSoftInputOnFocus(false);
+        edit_date.setFocusable(false);
         edit_date.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -91,7 +91,7 @@ public class recruit_register_fragment extends Fragment {
             }
         });
 
-        edit_start_time.setShowSoftInputOnFocus(false);
+        edit_start_time.setFocusable(false);
         edit_start_time.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -114,7 +114,7 @@ public class recruit_register_fragment extends Fragment {
             }
         });
 
-        edit_end_time.setShowSoftInputOnFocus(false);
+        edit_end_time.setFocusable(false);
         edit_end_time.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
