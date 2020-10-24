@@ -44,14 +44,8 @@
         android:layout_margin="8dp"
         android:gravity="center"
         android:padding="8dp"
-        android:text="대대 게시판"
+        android:text="대대 공지사항"
         android:textSize="14sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"></LinearLayout>
 
     <TextView
         android:id="@+id/social_notice_board_small"
@@ -60,12 +54,7 @@
         android:layout_margin="8dp"
         android:gravity="center"
         android:padding="8dp"
-        android:text="중대 게시판"
+        android:text="중대 공지사항"
         android:textSize="14sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"></LinearLayout>
 </LinearLayout>

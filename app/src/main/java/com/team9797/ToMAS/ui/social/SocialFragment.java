@@ -1,10 +1,12 @@
 package com.team9797.ToMAS.ui.social;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.signupactivity;
 import com.team9797.ToMAS.ui.social.survey.social_survey;
 import com.team9797.ToMAS.ui.social.social_board.social_board;
 
@@ -36,11 +39,10 @@ public class SocialFragment extends Fragment {
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
 
-        path = mainActivity.preferences.getString("소속", "5군단/5군단");
+        path = mainActivity.preferences.getString("소속", "armyunit/5군단/5군단");
         String[] tmp = path.split("/");
         path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
-        path += "설문조사";
-        mainActivity.db.collection(path)
+        mainActivity.db.collection(path + "설문조사")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -71,10 +73,16 @@ public class SocialFragment extends Fragment {
         board_big_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new social_board("big");
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+                if (path.split("/").length == 2)
+                {
+                    Toast.makeText(mainActivity, "상위 부대가 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
+                    Fragment change_fragment = new social_board("big");
+                    fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+                }
             }
         });
 

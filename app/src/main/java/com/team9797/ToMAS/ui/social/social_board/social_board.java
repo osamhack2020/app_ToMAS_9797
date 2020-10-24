@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -42,7 +43,7 @@ public class social_board extends Fragment {
     }
     public social_board(String tmp_union)
     {
-        String union = tmp_union;
+        union = tmp_union;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,14 +59,14 @@ public class social_board extends Fragment {
 
         if (union.equals("big"))
         {
-            path = "armyunit/" + mainActivity.preferences.getString("소속", "");
+            path = mainActivity.preferences.getString("소속", "");
             String[] tmp = path.split("/");
             path = path.substring(0, path.length() - tmp[tmp.length - 1].length()*2 - 2 - tmp[tmp.length - 3].length());
             path += "공지사항";
         }
         else
         {
-            path = "armyunit/" + mainActivity.preferences.getString("소속", "");
+            path = mainActivity.preferences.getString("소속", "");
             String[] tmp = path.split("/");
             path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
             path += "공지사항";
@@ -73,12 +74,10 @@ public class social_board extends Fragment {
 
         if (mainActivity.preferences.getString("권한", "").equals("사용자"))
         {
-            
+            fab.hide();
         }
         else
         {
-            fab.setEnabled(true);
-            fab.hide();
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -103,7 +102,7 @@ public class social_board extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
-                                String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                                String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                 ArrayList<String> reader_list = (ArrayList<String>)document.get("readers");
                                 adapter.add_item(document.get("title").toString(), document.get("writer").toString(), dateString, reader_list.indexOf(mainActivity.getUid())>-1, document.getId());
                             }

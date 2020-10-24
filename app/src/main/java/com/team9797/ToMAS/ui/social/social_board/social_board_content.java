@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -86,12 +87,12 @@ public class social_board_content extends Fragment implements Html.ImageGetter {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         html_textView.setText(Html.fromHtml(document.get("html", String.class), social_board_content.this, null));
-                        title_textView.setText(document.get("title", String.class));
-                        writer_textView.setText(document.get("writer", String.class));
+                        title_textView.setText("제목 : " + document.get("title", String.class));
+                        writer_textView.setText("작성자 : " + document.get("writer", String.class));
                         // get date from timestamp
                         SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
-                        String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
-                        date_textView.setText(dateString);
+                        String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
+                        date_textView.setText("작성일 : " + dateString);
                         ArrayList<String> read_list = (ArrayList<String>)document.get("readers");
                         show_unread_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
