@@ -8,17 +8,15 @@
     tools:context=".ui.calendar.CalendarFragment"
     android:orientation="vertical">
 
-    <com.applandeo.materialcalendarview.CalendarView
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:selectionColor="@color/colorAccent"
-        app:todayLabelColor="#cc0000"
-        app:type="range_picker"
-        app:maximumDaysRange="30">
-
-    </com.applandeo.materialcalendarview.CalendarView>
+        app:mcv_showOtherDates="all"
+        app:mcv_selectionColor="#00F"
+        app:mcv_selectionMode="range"
+        />
 
     <Button
         android:id="@+id/btn_calendar"
