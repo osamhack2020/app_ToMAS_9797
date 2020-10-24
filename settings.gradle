@@ -1,4 +1,3 @@
 include ':recyclertreeview-lib'
-include ':library'
 include ':app'
 rootProject.name = "ToMAS"
