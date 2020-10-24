@@ -189,7 +189,7 @@ public class fragment_template extends Fragment {
                         Intent intent = new Intent(mainActivity, register_board_content.class);
                         intent.putExtra("path", path);
                         intent.putExtra("post_id", "");
-                        startActivity(intent);
+                        startActivityForResult(intent, 11111);
                     }
                 });
 
@@ -220,8 +220,13 @@ public class fragment_template extends Fragment {
         mainActivity.set_title();
     }
 
-    public void refresh(){
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.detach(this).attach(this).commit();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 11111) && (resultCode == mainActivity.RESULT_OK)) {
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.detach(this).attach(this).commit();
+        }
     }
 }

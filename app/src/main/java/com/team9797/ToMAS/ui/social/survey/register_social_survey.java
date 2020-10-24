@@ -1,5 +1,6 @@
 package com.team9797.ToMAS.ui.social.survey;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -161,6 +162,8 @@ public class register_social_survey extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                    setResult(Activity.RESULT_OK);
+                                    finish();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -171,7 +174,6 @@ public class register_social_survey extends AppCompatActivity {
                             });
                 }
 
-                finish();
             }
         });
 

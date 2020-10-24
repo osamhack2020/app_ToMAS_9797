@@ -490,6 +490,7 @@ public class register_board_content extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            setResult(Activity.RESULT_OK);
                             finish();
                             Log.d("AAA", "DocumentSnapshot successfully written!");
                         }
@@ -508,6 +509,7 @@ public class register_board_content extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            setResult(Activity.RESULT_OK);
                             finish();
                             Log.d("AAA", "DocumentSnapshot successfully written!");
                         }

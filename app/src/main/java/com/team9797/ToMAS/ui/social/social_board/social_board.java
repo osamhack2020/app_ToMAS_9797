@@ -83,7 +83,7 @@ public class social_board extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(mainActivity, register_social_board_content.class);
                     intent.putExtra("path", path);
-                    startActivity(intent);
+                    startActivityForResult(intent, 11113);
                 }
             });
         }
@@ -116,6 +116,15 @@ public class social_board extends Fragment {
 
 
         return root;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 11113) && (resultCode == mainActivity.RESULT_OK)) {
+            fragmentManager.beginTransaction().detach(this).attach(this).commit();
+        }
     }
     @Override
     public void onResume() {

@@ -91,7 +91,7 @@ public class market_category_fragment extends Fragment {
                 String[] tmp = path.split("/");
                 String parent_path = path.substring(0, path.length() - tmp[tmp.length - 1].length()*2 -2);
                 intent.putExtra("path", parent_path);
-                startActivity(intent);
+                startActivityForResult(intent, 11115);
             }
         });
 
@@ -99,6 +99,15 @@ public class market_category_fragment extends Fragment {
 
         return root;
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 11115) && (resultCode == mainActivity.RESULT_OK)) {
+            fragmentManager.beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();

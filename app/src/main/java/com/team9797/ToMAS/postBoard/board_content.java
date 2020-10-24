@@ -110,7 +110,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
                                     Intent intent = new Intent(mainActivity, register_board_content.class);
                                     intent.putExtra("path", path);
                                     intent.putExtra("post_id", post_id);
-                                    startActivity(intent);
+                                    startActivityForResult(intent, 11112);
                                 }
                             });
                             delete_button.setOnClickListener(new View.OnClickListener() {
@@ -226,5 +226,14 @@ public class board_content extends Fragment implements Html.ImageGetter {
             }
         }
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 11112) && (resultCode == mainActivity.RESULT_OK)) {
+            fragmentManager.beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
 }
 //code from https://stackoverflow.com/questions/16179285/html-imagegetter-textview/16209680#16209680
