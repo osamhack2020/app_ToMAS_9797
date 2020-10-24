@@ -1,6 +1,7 @@
 package com.team9797.ToMAS;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -30,7 +31,7 @@ public class loginactivity extends AppCompatActivity{
     private String email = "";
     private String password = "";
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{6,16}$");
-
+    ProgressDialog customProgressDialog;
     int count = 0;
 
     @Override
@@ -66,6 +67,10 @@ public class loginactivity extends AppCompatActivity{
             }
         }) ;
 
+
+        customProgressDialog = new ProgressDialog(this);
+        //로딩창을 투명하게
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 
 
@@ -117,6 +122,7 @@ public class loginactivity extends AppCompatActivity{
     }
     private void loginUser(String email, String password)
     {
+        customProgressDialog.show();
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -127,11 +133,13 @@ public class loginactivity extends AppCompatActivity{
 
 
                             if(firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                customProgressDialog.dismiss();
                                 Intent intent = new Intent(loginactivity.this, MainActivity.class);
                                 // activiy 스택 삭제
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
+
                             }
                             else{
                                 Intent intent = new Intent(loginactivity.this, email_verify.class);

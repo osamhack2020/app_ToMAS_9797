@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -36,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.team9797.ToMAS.MainActivity;
+import com.team9797.ToMAS.ProgressDialog;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.loginactivity;
 import com.team9797.ToMAS.ui.home.market.belong_tree.File;
@@ -72,6 +74,7 @@ public class fixprofile extends Fragment {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     FirebaseStorage storage;
+    ProgressDialog customProgressDialog; //로딩창
     private static final int PICK_IMAGE = 1;
     ImageView profileimage;
     Bitmap img;
@@ -85,6 +88,10 @@ public class fixprofile extends Fragment {
         fragmentManager = getFragmentManager();
         mainActivity = (MainActivity)getActivity();
         View root = inflater.inflate(R.layout.fragment_fixprofile, container, false);
+
+        customProgressDialog = new ProgressDialog(mainActivity);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
 
 
         Button get_image=root.findViewById(R.id.get_image);
@@ -148,7 +155,7 @@ public class fixprofile extends Fragment {
                 if(checkEmpty(name)&&checkEmpty(birth)&&checkEmpty(anumber)&&checkEmpty(belong)&&checkEmpty(email)&&checkEmpty(pw)&&checkEmpty(ph)&&checkEmpty(a_class)){
                     if(isValidPasswd(pw)){
                         Fragment fixprofile = new fixprofile();
-
+                        customProgressDialog.show();
 
 
                         mainActivity.sp_editor.putString("birth",birth);
@@ -195,6 +202,7 @@ public class fixprofile extends Fragment {
                                 // ...
                                 Toast.makeText(mainActivity, "수정완료", Toast.LENGTH_SHORT).show();
 
+                                customProgressDialog.dismiss();
                                 fragmentTransaction = fragmentManager.beginTransaction();
                                 fragmentTransaction.remove(fixprofile.this);
                                 fragmentManager.popBackStack();

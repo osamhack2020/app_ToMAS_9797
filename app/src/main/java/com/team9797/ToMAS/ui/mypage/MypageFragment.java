@@ -3,6 +3,7 @@ package com.team9797.ToMAS.ui.mypage;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.team9797.ToMAS.MainActivity;
+import com.team9797.ToMAS.ProgressDialog;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.loginactivity;
 
@@ -44,7 +46,7 @@ public class MypageFragment extends Fragment {
     FirebaseStorage storage;
     ImageView profileimg_mypg;
     TextView point_textView;
-
+    ProgressDialog customProgressDialog; //로딩창
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -56,6 +58,10 @@ public class MypageFragment extends Fragment {
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
 
+//로딩창 객체 생성
+        customProgressDialog = new ProgressDialog(mainActivity);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        customProgressDialog.show();
 
         Button btn_logout = root.findViewById(R.id.btn_logout);
         point_textView = root.findViewById(R.id.mypage_option3);
@@ -140,8 +146,7 @@ public class MypageFragment extends Fragment {
             }
         });
 
-
-
+        customProgressDialog.dismiss();
         return root;
     }
 
