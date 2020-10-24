@@ -51,7 +51,7 @@ public class social_survey extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mainActivity, register_social_survey.class);
-                startActivity(intent);
+                startActivityForResult(intent, 11114);
             }
         });
 
@@ -105,6 +105,15 @@ public class social_survey extends Fragment {
 
         return root;
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 11114) && (resultCode == mainActivity.RESULT_OK)) {
+            fragmentManager.beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();

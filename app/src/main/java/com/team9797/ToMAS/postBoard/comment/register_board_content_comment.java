@@ -466,6 +466,7 @@ public class register_board_content_comment extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        setResult(Activity.RESULT_OK);
                         finish();
                         Log.d("AAA", "DocumentSnapshot successfully written!");
                     }
