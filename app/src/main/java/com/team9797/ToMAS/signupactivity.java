@@ -209,6 +209,13 @@ public class signupactivity extends AppCompatActivity{
         //사용자이름, 시간 등등 추가해야 함.
 
         //test
+        String tmp_path_list[] = belong_path.split("/");
+        String tmp_path = belong_path.substring(0, belong_path.length() - tmp_path_list[tmp_path_list.length - 1].length());
+        tmp_path += "부대원";
+        Log.d("AAA", tmp_path);
+        Map<String, Object> belong_upload = new HashMap<>();
+        belong_upload.put("name", name);
+        db.collection(tmp_path).document(firebaseAuth.getCurrentUser().getUid()).set(belong_upload);
 
         db.collection("user").document(firebaseAuth.getCurrentUser().getUid())
                 .set(upload)

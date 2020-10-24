@@ -61,7 +61,7 @@ public class social_survey extends Fragment {
         survey_listView.setAdapter(list_adapter);
 
         // firestore의 소속 path 내 설문조사 찾기
-        path = "armyunit/" + mainActivity.preferences.getString("소속", "5군단/5군단/105정보통신단/105정보통신단");
+        path = mainActivity.preferences.getString("소속", "5군단/5군단/105정보통신단/105정보통신단");
         String[] tmp = path.split("/");
         path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
         path += "설문조사";

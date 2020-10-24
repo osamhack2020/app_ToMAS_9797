@@ -36,7 +36,7 @@ public class SocialFragment extends Fragment {
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
 
-        path = "armyunit/" + mainActivity.preferences.getString("소속", "5군단/5군단");
+        path = mainActivity.preferences.getString("소속", "5군단/5군단");
         String[] tmp = path.split("/");
         path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
         path += "설문조사";
