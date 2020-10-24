@@ -74,8 +74,8 @@ public class marketFragment extends Fragment{
     public void default_setting()
     {
         // sharedPreference에서 가져와서 넣어주기
-        path = mainActivity.preferences.getString("소속", "");
-        tree_textView.setText(getPath(path));
+        String tmp_path = mainActivity.preferences.getString("소속", "");
+        tree_textView.setText(getPath(tmp_path));
         set_list();
     }
 
@@ -83,7 +83,8 @@ public class marketFragment extends Fragment{
     {
         String stringed_path = "";
         String[] tmp = str.split("/");
-        String market_path = str.substring(0, path.length() - tmp[tmp.length - 1].length());
+        String market_path = str.substring(0, str.length() - tmp[tmp.length - 1].length());
+        market_path += "market";
         for (int i = 1; i<tmp.length; i++)
         {
             // document를 만들기 위해 tmp로 사용했던 path를 무시한다.
@@ -101,7 +102,6 @@ public class marketFragment extends Fragment{
         market_listView.setAdapter(list_adapter);
 
         // firestore에서 market list 불러오기.
-        path += "market";
         mainActivity.db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
