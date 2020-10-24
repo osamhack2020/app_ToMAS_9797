@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     tools:context=".ui.mypage.MypageFragment">
 
     <LinearLayout
@@ -25,8 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="fitXY"
-             />
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:id="@+id/profile_container"
@@ -52,12 +53,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+
                 android:paddingLeft="24dp"
                 android:paddingTop="8dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="8dp"
                 android:text="소속 체계중대"
                 android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/button_profilefix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape_type1"
+                android:text="프로필 수정" />
 
         </LinearLayout>
 
@@ -95,7 +106,10 @@
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:background="@drawable/buttonshape_type1"
         android:onClick="log_out"
         android:text="logout"
         tools:ignore="OnClick" />

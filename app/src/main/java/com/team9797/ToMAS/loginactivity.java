@@ -1,6 +1,7 @@
 package com.team9797.ToMAS;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -30,7 +31,7 @@ public class loginactivity extends AppCompatActivity{
     private String email = "";
     private String password = "";
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{6,16}$");
-
+    ProgressDialog customProgressDialog;
     int count = 0;
 
     @Override
@@ -66,6 +67,10 @@ public class loginactivity extends AppCompatActivity{
             }
         }) ;
 
+
+        customProgressDialog = new ProgressDialog(this);
+        //로딩창을 투명하게
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 
 
@@ -90,9 +95,11 @@ public class loginactivity extends AppCompatActivity{
     private boolean isValidEmail() {
         if (email.isEmpty()) {
             // 이메일 공백
+            Toast.makeText(loginactivity.this,"이메일 칸을 기입해주세요", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             // 이메일 형식 불일치
+            Toast.makeText(loginactivity.this,"이메일 형식을 따라야 합니다.", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -103,9 +110,11 @@ public class loginactivity extends AppCompatActivity{
     private boolean isValidPasswd() {
         if (password.isEmpty()) {
             // 비밀번호 공백
+            Toast.makeText(loginactivity.this,"비밀번호 칸을 기입해주세요 ", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!PASSWORD_PATTERN.matcher(password).matches()) {
             // 비밀번호 형식 불일치
+            Toast.makeText(loginactivity.this,"비밀번호는 6자이상 16자리이하 입니다. ", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -113,6 +122,7 @@ public class loginactivity extends AppCompatActivity{
     }
     private void loginUser(String email, String password)
     {
+        customProgressDialog.show();
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -123,13 +133,16 @@ public class loginactivity extends AppCompatActivity{
 
 
                             if(firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                customProgressDialog.dismiss();
                                 Intent intent = new Intent(loginactivity.this, MainActivity.class);
                                 // activiy 스택 삭제
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
+
                             }
                             else{
+                                customProgressDialog.dismiss();
                                 Intent intent = new Intent(loginactivity.this, email_verify.class);
 
                                 startActivity(intent);

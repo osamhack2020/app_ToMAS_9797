@@ -3,6 +3,7 @@ package com.team9797.ToMAS.ui.mypage;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,31 +33,36 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.team9797.ToMAS.MainActivity;
+import com.team9797.ToMAS.ProgressDialog;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.loginactivity;
 
 public class MypageFragment extends Fragment {
 
     MainActivity mainActivity;
-    LinearLayout profile_container;
+    Button profilefix;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     FirebaseStorage storage;
     ImageView profileimg_mypg;
     TextView point_textView;
-
+    ProgressDialog customProgressDialog; //로딩창
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        Log.d("test","온크리에트실해중");
+
         View root = inflater.inflate(R.layout.fragment_mypage, container, false);
 
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
 
-        profile_container = root.findViewById(R.id.profile_container);
+//로딩창 객체 생성
+        customProgressDialog = new ProgressDialog(mainActivity);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        customProgressDialog.show();
+
         Button btn_logout = root.findViewById(R.id.btn_logout);
         point_textView = root.findViewById(R.id.mypage_option3);
 
@@ -126,8 +132,8 @@ public class MypageFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        profile_container.setOnClickListener(new OnClickListener() {
+        Button profilefix=root.findViewById(R.id.button_profilefix);
+        profilefix.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
@@ -140,8 +146,7 @@ public class MypageFragment extends Fragment {
             }
         });
 
-
-
+        customProgressDialog.dismiss();
         return root;
     }
 

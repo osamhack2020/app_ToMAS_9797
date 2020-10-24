@@ -59,4 +59,5 @@ $ yarn start or npm run start
  - 아래에서 올라오는 layout : https://github.com/umano/AndroidSlidingUpPanel
  - 로그인 ui 구현 참고 : https://github.com/Shashank02051997/LoginUI-Android
  - 안드로이드 갤러리에서 비트맵형식으로 이미지 가져오기 :https://lktprogrammer.tistory.com/188
+ - 로딩화면 구현 : https://andro-jinu.tistory.com/entry/androidstudio2
  
