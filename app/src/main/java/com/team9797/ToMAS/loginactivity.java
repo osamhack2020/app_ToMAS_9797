@@ -142,6 +142,7 @@ public class loginactivity extends AppCompatActivity{
 
                             }
                             else{
+                                customProgressDialog.dismiss();
                                 Intent intent = new Intent(loginactivity.this, email_verify.class);
 
                                 startActivity(intent);

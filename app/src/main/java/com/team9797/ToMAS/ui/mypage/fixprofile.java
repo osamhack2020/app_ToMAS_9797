@@ -94,7 +94,7 @@ public class fixprofile extends Fragment {
 
 
 
-        Button get_image=root.findViewById(R.id.get_image);
+       Button get_image=root.findViewById(R.id.get_image);
         profileimage=root.findViewById(R.id.profileimage);
         StorageReference storageRef =storage.getReference();
         StorageReference profileRef=storageRef.child("profiles/"+mainActivity.getUid());
@@ -188,11 +188,12 @@ public class fixprofile extends Fragment {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
-                                Toast.makeText(mainActivity, "수정완료", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mainActivity, "수정실패", Toast.LENGTH_SHORT).show();
 
                                 fragmentTransaction = fragmentManager.beginTransaction();
                                 fragmentTransaction.remove(fixprofile.this);
                                 fragmentManager.popBackStack();
+                                customProgressDialog.dismiss();
                                 // Handle unsuccessful uploads
                             }
                         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
