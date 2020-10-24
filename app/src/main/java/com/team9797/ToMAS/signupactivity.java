@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -49,6 +50,8 @@ public class signupactivity extends AppCompatActivity{
     belong_tree_dialog tree_dialog;
     String belong_path;
 
+    ProgressDialog customProgressDialog;
+
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{6,16}$");
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,10 @@ public class signupactivity extends AppCompatActivity{
         editbirth=findViewById(R.id.edit_birth);
         editname=findViewById(R.id.edit_name);
         editphone=findViewById(R.id.edit_phone);
+
+        customProgressDialog = new ProgressDialog(this);
+        //로딩창을 투명하게
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         editbelong.setFocusable(false);
         editbelong.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +165,7 @@ public class signupactivity extends AppCompatActivity{
             return true;
     }
     private void createUser(String email, String password) {
+        customProgressDialog.show();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -165,15 +173,19 @@ public class signupactivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             // 회원가입 성공
                             updateuser();
+                            customProgressDialog.dismiss();
                             Intent intent=new Intent(signupactivity.this,email_verify.class);
                             startActivity(intent);
                             Toast.makeText(signupactivity.this, R.string.success_signup, Toast.LENGTH_SHORT).show();
+
                         } else {
                             // 회원가입 실패
                             Toast.makeText(signupactivity.this, "중복된 아이디 입니다.", Toast.LENGTH_SHORT).show();
+                            customProgressDialog.dismiss();
                         }
                     }
                 });
+
     }
 
     private void updateuser(){
