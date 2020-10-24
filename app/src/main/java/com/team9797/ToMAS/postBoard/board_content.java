@@ -153,7 +153,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
-                                String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                                String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                 adapter.add_item(document.get("title", String.class), document.get("writer", String.class), dateString, document.get("html", String.class), document.getId(), document.get("user_id", String.class));
                             }
                             adapter.notifyDataSetChanged();

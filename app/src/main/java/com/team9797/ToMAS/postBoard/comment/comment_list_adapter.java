@@ -104,10 +104,10 @@ public class comment_list_adapter extends RecyclerView.Adapter<comment_list_adap
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.item_title.setText(mDataset.get(position).getTitle());
-        holder.item_writer.setText(mDataset.get(position).getWriter());
+        holder.item_title.setText("제목 : " + mDataset.get(position).getTitle());
+        holder.item_writer.setText("작성자 : " + mDataset.get(position).getWriter());
         holder.item_html.setText(Html.fromHtml(mDataset.get(position).getHtml(), comment_list_adapter.this, null));
-        holder.item_date.setText(mDataset.get(position).getDate());
+        holder.item_date.setText("작성일 : " + mDataset.get(position).getDate());
 
         if (user_id.equals(mDataset.get(position).getWriterId()))
         {
