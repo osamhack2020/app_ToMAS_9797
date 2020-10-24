@@ -172,6 +172,8 @@ public class recruit_register_fragment extends Fragment {
                 Map<String, Object> post = new HashMap<>();
                 //example : need to fix
                 post.put("title", edit_title.getText().toString());
+                post.put("writer", mainActivity.preferences.getString("이름", ""));
+                post.put("writer_id", mainActivity.preferences.getString("user_id", ""));
                 post.put("timestamp", FieldValue.serverTimestamp());
                 post.put("date", edit_date.getText().toString());
                 post.put("place", edit_place.getText().toString());
