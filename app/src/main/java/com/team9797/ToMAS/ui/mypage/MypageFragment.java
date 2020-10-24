@@ -38,7 +38,7 @@ import com.team9797.ToMAS.loginactivity;
 public class MypageFragment extends Fragment {
 
     MainActivity mainActivity;
-    LinearLayout profile_container;
+    Button profilefix;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     FirebaseStorage storage;
@@ -50,13 +50,13 @@ public class MypageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        Log.d("test","온크리에트실해중");
+
         View root = inflater.inflate(R.layout.fragment_mypage, container, false);
 
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
 
-        profile_container = root.findViewById(R.id.profile_container);
+
         Button btn_logout = root.findViewById(R.id.btn_logout);
         point_textView = root.findViewById(R.id.mypage_option3);
 
@@ -126,8 +126,8 @@ public class MypageFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        profile_container.setOnClickListener(new OnClickListener() {
+        Button profilefix=root.findViewById(R.id.button_profilefix);
+        profilefix.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();

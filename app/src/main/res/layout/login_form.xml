@@ -5,22 +5,9 @@
     android:id="@+id/sa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:focusableInTouchMode="true"
     tools:context=".MainActivity">
-
-    <FrameLayout
-        android:id="@+id/here"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/profileimage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/good_night_img" />
-
-    </FrameLayout>
 
 
     <LinearLayout
@@ -114,7 +101,8 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/widget_edittext_dark"
+                android:textColorHint="#0C0505"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +123,7 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/widget_edittext_dark"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
