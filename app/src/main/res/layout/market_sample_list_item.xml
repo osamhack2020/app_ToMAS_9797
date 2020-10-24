@@ -20,7 +20,8 @@
         <ListView
             android:id="@+id/market_sample_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:padding="@dimen/list_padding" />
     </LinearLayout>
 
 </LinearLayout>

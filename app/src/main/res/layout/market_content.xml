@@ -106,7 +106,8 @@
                 android:id="@+id/market_content_tender_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="8dp">
 
             </ListView>
         </LinearLayout>
