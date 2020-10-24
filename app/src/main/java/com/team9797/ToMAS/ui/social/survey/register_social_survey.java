@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -102,7 +103,7 @@ public class register_social_survey extends AppCompatActivity {
 
                 // firestore의 소속 부대 내 설문조사 경로 찾기
                 SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
-                String path = "armyunit/" + preferences.getString("소속", "5군단/5군단/105정보통신단/105정보통신단");
+                String path = preferences.getString("소속", "5군단/5군단/105정보통신단/105정보통신단");
                 String[] tmp = path.split("/");
                 path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
                 path += "설문조사";
@@ -114,8 +115,9 @@ public class register_social_survey extends AppCompatActivity {
 
                 Map<String, Object> post = new HashMap<>();
                 post.put("title", title);
+                post.put("timestamp", FieldValue.serverTimestamp());
                 post.put("due_date", edit_date.getText().toString());
-                post.put("writer", preferences.getString("이름", "홍길동"));
+                post.put("writer", preferences.getString("이름", ""));
                 post.put("numpeople", 0);
 
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection(path).document();
@@ -144,7 +146,6 @@ public class register_social_survey extends AppCompatActivity {
                         Log.d("question number : " , Integer.toString(question_list.get(i).multi_chice_selection_list.size()));
                         for (int j = 0; j < question_list.get(i).multi_chice_selection_list.size(); j++)
                         {
-                            Log.d("QQ", "AAA");
                             tmp_multi_choice_item_list.add(question_list.get(i).multi_chice_selection_list.get(j).selection_editText.getText().toString());
                         }
                         tmp_question.put("multi_choice_questions", tmp_multi_choice_item_list);

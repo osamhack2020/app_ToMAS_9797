@@ -51,7 +51,7 @@ public class survey_list_adapter extends BaseAdapter {
         item_title.setText(listViewItem.getTitle());
         item_numpeople.setText(Integer.toString(listViewItem.getNumpeople()));
         item_date.setText("마감일 : " + listViewItem.getDate());
-        item_name.setText(listViewItem.getName());
+        item_name.setText("작성자 : " + listViewItem.getName());
         return convertView;
     }
 

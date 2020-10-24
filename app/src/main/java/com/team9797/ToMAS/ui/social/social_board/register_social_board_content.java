@@ -1,4 +1,4 @@
-package com.team9797.ToMAS.postBoard.comment;
+package com.team9797.ToMAS.ui.social.social_board;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,9 +23,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
@@ -47,6 +44,7 @@ import com.team9797.ToMAS.render_preview;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -56,12 +54,11 @@ import top.defaults.colorpicker.ColorPickerPopup;
 
 // github.irshulx 에서 코드 인용.
 
-public class register_board_content_comment extends AppCompatActivity {
+public class register_social_board_content extends AppCompatActivity {
     Editor editor;
     FirebaseStorage storage;
     StorageReference storageRef;
     String path;
-    String post_id;
     String title;
     Intent intent;
     EditText edit_title;
@@ -69,14 +66,14 @@ public class register_board_content_comment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_board_content_comment);
+        setContentView(R.layout.register_social_board_content);
+
+        edit_title = findViewById(R.id.post_edit_title);
 
         editor =  findViewById(R.id.editor);
         storage = FirebaseStorage.getInstance("gs://tomas-47250.appspot.com/");
         intent = getIntent();
         path = intent.getExtras().getString("path");
-        post_id = intent.getExtras().getString("post_id");
-        edit_title = findViewById(R.id.post_edit_title);
         setUpEditor();
     }
 
@@ -162,7 +159,7 @@ public class register_board_content_comment extends AppCompatActivity {
         findViewById(R.id.action_color).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ColorPickerPopup.Builder(register_board_content_comment.this)
+                new ColorPickerPopup.Builder(register_social_board_content.this)
                         .initialColor(Color.RED) // Set initial color
                         .enableAlpha(true) // Enable alpha slider or not
                         .okTitle("Choose")
@@ -173,7 +170,7 @@ public class register_board_content_comment extends AppCompatActivity {
                         .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                Toast.makeText(register_board_content_comment.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
+                                Toast.makeText(register_social_board_content.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
                                 editor.updateTextColor(colorHex(color));
                             }
 
@@ -228,7 +225,7 @@ public class register_board_content_comment extends AppCompatActivity {
 
             @Override
             public void onUpload(Bitmap image, final String uuid) {
-                Toast.makeText(register_board_content_comment.this, uuid, Toast.LENGTH_LONG).show();
+                Toast.makeText(register_social_board_content.this, uuid, Toast.LENGTH_LONG).show();
                 /**
                  * TODO do your upload here from the bitmap received and all onImageUploadComplete(String url); to insert the result url to
                  * let the editor know the upload has completed
@@ -307,17 +304,18 @@ public class register_board_content_comment extends AppCompatActivity {
                 //미리보기
                 String text = editor.getContentAsSerialized();
                 editor.getContentAsHTML();
-                Intent intent = new Intent(register_board_content_comment.this, render_preview.class);
-                intent.putExtra("title", edit_title.getText().toString());
+                Intent intent = new Intent(register_social_board_content.this, render_preview.class);
                 intent.putExtra("SERIALIZED", text);
+                intent.putExtra("title", edit_title.getText().toString());
                 startActivity(intent);
+
             }
         });
 
         findViewById(R.id.action_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(register_board_content_comment.this)
+                new AlertDialog.Builder(register_social_board_content.this)
                         .setTitle("Exit Editor?")
                         .setMessage("Are you sure you want to exit the editor?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -443,25 +441,26 @@ public class register_board_content_comment extends AppCompatActivity {
         return typefaceMap;
     }
 
-    public void comment_to_server(View view)
+    public void post_to_server(View view)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String string_html = editor.getContentAsHTML();
 
-        SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
         title = edit_title.getText().toString();
+
+        SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
+
+        ArrayList<String> readers = new ArrayList<>();
 
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
         post.put("title", title);
         post.put("timestamp", FieldValue.serverTimestamp());
+        post.put("readers", readers);
         post.put("writer", preferences.getString("이름", ""));
-        post.put("user_id", preferences.getString("user_id", ""));
 
 
-        //test
-        db.collection(path).document(post_id).update("num_comments", FieldValue.increment(1));
-        db.collection( path + "/" + post_id + "/comments").document()
+        db.collection(path).document()
                 .set(post)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

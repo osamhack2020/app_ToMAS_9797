@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -39,6 +40,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class board_content extends Fragment implements Html.ImageGetter {
 
@@ -51,7 +54,11 @@ public class board_content extends Fragment implements Html.ImageGetter {
     TextView date_textView;
     TextView num_comments_textView;
     Button comment_button;
+    Button delete_button;
+    Button update_button;
     RecyclerView comment_recyclerView;
+    String writer_id;
+    FragmentManager fragmentManager;
 
     // need to fix 댓글 보기 기능 추가해야 함.
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -60,6 +67,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
         View root = inflater.inflate(R.layout.board_content, container, false);
 
         mainActivity = (MainActivity)getActivity();
+        fragmentManager = getFragmentManager();
         post_id = getArguments().getString("post_id");
         path = getArguments().getString("path");
         title_textView = root.findViewById(R.id.board_content_title);
@@ -69,6 +77,8 @@ public class board_content extends Fragment implements Html.ImageGetter {
         writer_textView = root.findViewById(R.id.board_content_writer);
         date_textView = root.findViewById(R.id.board_content_date);
         num_comments_textView = root.findViewById(R.id.board_content_num_comments);
+        delete_button = root.findViewById(R.id.board_content_delete_btn);
+        update_button = root.findViewById(R.id.board_content_update_btn);
 
 
         // 선택한 게시물 document reference
@@ -80,12 +90,50 @@ public class board_content extends Fragment implements Html.ImageGetter {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d("QQQ", "문서 있음");
                         html_textView.setText(Html.fromHtml(document.get("html", String.class), board_content.this, null));
                         title_textView.setText(document.get("title", String.class));
                         writer_textView.setText(document.get("writer", String.class));
-                        date_textView.setText(document.get("date", String.class));
+                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
+                        date_textView.setText("작성일 : " + dateString);
                         num_comments_textView.setText("댓글 수 : " + Integer.toString(document.get("num_comments", Integer.class)));
+                        writer_id = document.get("user_id", String.class);
+                        if (writer_id.equals(mainActivity.getUid()))
+                        {
+                            update_button.setVisibility(View.VISIBLE);
+                            update_button.setEnabled(true);
+                            delete_button.setVisibility(View.VISIBLE);
+                            delete_button.setEnabled(true);
+                            update_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(mainActivity, register_board_content.class);
+                                    intent.putExtra("path", path);
+                                    intent.putExtra("post_id", post_id);
+                                    startActivity(intent);
+                                }
+                            });
+                            delete_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mPostReference.collection("comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    mPostReference.collection("comments").document(document.getId()).delete();
+                                                }
+                                                mPostReference.delete();
+                                            } else {
+                                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                                    fragmentManager.beginTransaction().remove(board_content.this).commit();
+                                    fragmentManager.popBackStack();
+                                }
+                            });
+                        }
                     } else {
 
                     }
@@ -104,7 +152,9 @@ public class board_content extends Fragment implements Html.ImageGetter {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                adapter.add_item(document.get("title", String.class), document.get("writer", String.class), document.get("date", String.class), document.get("html", String.class), document.getId(), document.get("user_id", String.class));
+                                SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                                String dateString = formatter.format(new Date(document.get("timestamp", Long.class)));
+                                adapter.add_item(document.get("title", String.class), document.get("writer", String.class), dateString, document.get("html", String.class), document.getId(), document.get("user_id", String.class));
                             }
                             adapter.notifyDataSetChanged();
                         } else {

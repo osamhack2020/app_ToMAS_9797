@@ -31,6 +31,8 @@
         <activity android:name=".email_verify"/>
         <activity android:name=".ui.home.market.register_market_content"/>
         <activity android:name=".postBoard.comment.register_board_content_comment"/>
+        <activity android:name=".render_preview"/>
+        <activity android:name=".ui.social.social_board.register_social_board_content"/>
     </application>
 
 </manifest>

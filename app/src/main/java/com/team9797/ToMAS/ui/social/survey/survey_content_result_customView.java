@@ -19,7 +19,6 @@ import com.team9797.ToMAS.R;
 import java.util.ArrayList;
 
 public class survey_content_result_customView extends LinearLayout {
-    TextView num_textView;
     TextView title_textView;
     RadioGroup type1_radioGroup;
     EditText type2_editText;
@@ -54,12 +53,10 @@ public class survey_content_result_customView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.survey_content_customview, this);
-        num_textView = findViewById(R.id.custom_number);
         container = findViewById(R.id.custom_container);
         title_textView = findViewById(R.id.custom_question_title);
-        num_textView.setText(Integer.toString(index)+".");
 
-        title_textView.setText(title);
+        title_textView.setText(Integer.toString(index)+". " +title);
         if (question_type == 1)
         {// 객관식
             type1_radioGroup = new RadioGroup(context);

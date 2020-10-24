@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -44,7 +45,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +60,7 @@ public class survey_content extends Fragment {
     TextView title_textView;
     TextView writer_textView;
     TextView due_date_textView;
+    TextView date_textView;
     Button enroll_button;
     LinearLayout container_linearLayout;
     ArrayList<survey_content_customView> customView_list;
@@ -77,6 +81,7 @@ public class survey_content extends Fragment {
         title_textView = root.findViewById(R.id.survey_content_title);
         writer_textView = root.findViewById(R.id.survey_content_writer);
         due_date_textView = root.findViewById(R.id.survey_content_due_date);
+        date_textView = root.findViewById(R.id.survey_content_date);
         enroll_button = root.findViewById(R.id.survey_content_enroll_button);
         container_linearLayout = root.findViewById(R.id.survey_content_container);
 
@@ -93,6 +98,9 @@ public class survey_content extends Fragment {
                     if (document.exists()) {
                         title_textView.setText(document.get("title", String.class));
                         due_date_textView.setText(document.get("due_date", String.class));
+                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
+                        date_textView.setText("작성일 : " + dateString);
                         writer_textView.setText(document.get("writer", String.class));
                         mPostReference.collection("questions").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override

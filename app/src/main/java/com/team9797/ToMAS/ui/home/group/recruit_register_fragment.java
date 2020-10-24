@@ -23,6 +23,7 @@ import android.widget.TimePicker;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
@@ -65,7 +66,7 @@ public class recruit_register_fragment extends Fragment {
         path = getArguments().getString("path");
 
         // edit_date 클릭 시 dialog나오게하고, 키보드는 숨기기.
-        edit_date.setShowSoftInputOnFocus(false);
+        edit_date.setFocusable(false);
         edit_date.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -90,7 +91,7 @@ public class recruit_register_fragment extends Fragment {
             }
         });
 
-        edit_start_time.setShowSoftInputOnFocus(false);
+        edit_start_time.setFocusable(false);
         edit_start_time.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -113,7 +114,7 @@ public class recruit_register_fragment extends Fragment {
             }
         });
 
-        edit_end_time.setShowSoftInputOnFocus(false);
+        edit_end_time.setFocusable(false);
         edit_end_time.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -171,6 +172,7 @@ public class recruit_register_fragment extends Fragment {
                 Map<String, Object> post = new HashMap<>();
                 //example : need to fix
                 post.put("title", edit_title.getText().toString());
+                post.put("timestamp", FieldValue.serverTimestamp());
                 post.put("date", edit_date.getText().toString());
                 post.put("place", edit_place.getText().toString());
                 post.put("category", spinner_category.getSelectedItem().toString());
