@@ -7,13 +7,15 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     app:umanoDragView="@id/group_content_drawer"
-    app:umanoPanelHeight="40dp"
+    app:umanoPanelHeight="56dp"
     app:umanoShadowHeight="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/content_padding"
         android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,10 +24,56 @@
 
             <TextView
                 android:id="@+id/group_content_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:paddingLeft="4dp"
+                android:text="제목입니다"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="@dimen/title_textsize" />
+
+            <Button
+                android:id="@+id/group_content_update_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/buttonshape_type1"
+                android:enabled="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="@dimen/small_button_padding"
+                android:text="수정"
+                android:textColor="@color/colorAccent"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/group_content_delete_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/buttonshape_type1"
+                android:enabled="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="@dimen/small_button_padding"
+                android:text="삭제"
+                android:textColor="@color/colorAccent"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin"
+            android:layout_marginBottom="@dimen/content_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/group_content_writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="제목" />
+                android:text="작성자" />
 
             <TextView
                 android:id="@+id/group_content_category"
@@ -39,31 +87,21 @@
             android:id="@+id/group_content_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin"
             android:text="장소" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/group_content_enroll_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/group_content_enroll_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="등록일" />
-
-            <TextView
-                android:id="@+id/group_content_writer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="작성자" />
-        </LinearLayout>
+            android:layout_marginTop="@dimen/content_margin"
+            android:text="등록일" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin"
+            android:layout_marginBottom="@dimen/content_margin"
             android:orientation="horizontal">
 
             <TextView
@@ -85,6 +123,7 @@
             android:id="@+id/group_content_numpeople"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin"
             android:text="인원 수" />
 
         <GridView
@@ -101,17 +140,22 @@
         android:id="@+id/group_content_drawer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/layout_corner_radius1"
+        android:padding="@dimen/content_padding"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/group_content_enroll"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:background="@color/accent"
+            android:minHeight="30dp"
             android:text="참가신청" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="포지션" />
 
         <EditText

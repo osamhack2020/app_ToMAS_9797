@@ -93,7 +93,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
                         html_textView.setText(Html.fromHtml(document.get("html", String.class), board_content.this, null));
                         title_textView.setText(document.get("title", String.class));
                         writer_textView.setText(document.get("writer", String.class));
-                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         date_textView.setText("작성일 : " + dateString);
                         num_comments_textView.setText("댓글 수 : " + Integer.toString(document.get("num_comments", Integer.class)));
@@ -152,7 +152,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                 String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                 adapter.add_item(document.get("title", String.class), document.get("writer", String.class), dateString, document.get("html", String.class), document.getId(), document.get("user_id", String.class));
                             }
@@ -170,7 +170,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
                 Intent intent = new Intent(mainActivity, register_board_content_comment.class);
                 intent.putExtra("path", path);
                 intent.putExtra("post_id", post_id);
-                startActivity(intent);
+                startActivityForResult(intent, 11112);
             }
         });
 

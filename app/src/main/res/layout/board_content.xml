@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="@dimen/content_padding"
     tools:context=".postBoard.fragment_template">
 
 
@@ -14,33 +15,49 @@
         android:orientation="horizontal">
 
         <TextView
-        android:id="@+id/board_content_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10" />
+            android:id="@+id/board_content_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:paddingLeft="4dp"
+            android:text="제목입니다"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/board_content_update_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="10"
+            android:background="@drawable/buttonshape_type1"
             android:enabled="false"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="@dimen/small_button_padding"
             android:text="수정"
+            android:textColor="@color/colorAccent"
             android:visibility="invisible" />
 
         <Button
             android:id="@+id/board_content_delete_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="10"
+            android:background="@drawable/buttonshape_type1"
             android:enabled="false"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="@dimen/small_button_padding"
             android:text="삭제"
+            android:textColor="@color/colorAccent"
             android:visibility="invisible" />
-    </LinearLayout>    
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -53,7 +70,8 @@
             android:id="@+id/board_content_writer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textAlignment="viewEnd" />
 
     </LinearLayout>
 
@@ -70,18 +88,36 @@
             <TextView
                 android:id="@+id/board_content_textview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp" />
 
-            <TextView
-                android:id="@+id/board_content_num_comments"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:background="@drawable/buttonshape_type2"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
 
-            <Button
-                android:id="@+id/board_content_add_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="댓글 추가" />
+                <TextView
+                    android:id="@+id/board_content_num_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/board_content_add_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:background="@drawable/buttonshape_type1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="@dimen/small_button_padding"
+                    android:text="댓글 추가"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/board_content_comments_recylcerView"

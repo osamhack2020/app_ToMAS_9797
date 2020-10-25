@@ -98,7 +98,7 @@ public class survey_content extends Fragment {
                     if (document.exists()) {
                         title_textView.setText(document.get("title", String.class));
                         due_date_textView.setText(document.get("due_date", String.class));
-                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         date_textView.setText("작성일 : " + dateString);
                         writer_textView.setText(document.get("writer", String.class));

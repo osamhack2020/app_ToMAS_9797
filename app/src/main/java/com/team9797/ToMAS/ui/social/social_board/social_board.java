@@ -101,7 +101,7 @@ public class social_board extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
+                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                 String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                 ArrayList<String> reader_list = (ArrayList<String>)document.get("readers");
                                 adapter.add_item(document.get("title").toString(), document.get("writer").toString(), dateString, reader_list.indexOf(mainActivity.getUid())>-1, document.getId());

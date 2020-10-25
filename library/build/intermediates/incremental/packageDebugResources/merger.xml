@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res"/><source path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\build\generated\res\rs\debug"/><source path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res"><file name="day_item_background_state_color" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\color\day_item_background_state_color.xml" qualifiers="" type="color"/><file name="background_color_circle_selector" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable\background_color_circle_selector.xml" qualifiers="" type="drawable"/><file name="background_transparent" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable\background_transparent.xml" qualifiers="" type="drawable"/><file name="day_item_background" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable\day_item_background.xml" qualifiers="" type="drawable"/><file name="day_picker_item_background" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable\day_picker_item_background.xml" qualifiers="" type="drawable"/><file name="ic_arrow_left" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-hdpi\ic_arrow_left.png" qualifiers="hdpi-v4" type="drawable"/><file name="ic_arrow_right" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-hdpi\ic_arrow_right.png" qualifiers="hdpi-v4" type="drawable"/><file name="ic_arrow_left" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-mdpi\ic_arrow_left.png" qualifiers="mdpi-v4" type="drawable"/><file name="ic_arrow_right" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-mdpi\ic_arrow_right.png" qualifiers="mdpi-v4" type="drawable"/><file name="day_item_background" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-v21\day_item_background.xml" qualifiers="v21" type="drawable"/><file name="day_picker_item_background" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-v21\day_picker_item_background.xml" qualifiers="v21" type="drawable"/><file name="ic_arrow_left" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-xhdpi\ic_arrow_left.png" qualifiers="xhdpi-v4" type="drawable"/><file name="ic_arrow_right" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-xhdpi\ic_arrow_right.png" qualifiers="xhdpi-v4" type="drawable"/><file name="ic_arrow_left" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-xxhdpi\ic_arrow_left.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ic_arrow_right" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-xxhdpi\ic_arrow_right.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ic_arrow_left" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-xxxhdpi\ic_arrow_left.png" qualifiers="xxxhdpi-v4" type="drawable"/><file name="ic_arrow_right" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\drawable-xxxhdpi\ic_arrow_right.png" qualifiers="xxxhdpi-v4" type="drawable"/><file name="calendar_view" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\layout\calendar_view.xml" qualifiers="" type="layout"/><file name="calendar_view_day" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\layout\calendar_view_day.xml" qualifiers="" type="layout"/><file name="calendar_view_grid" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\layout\calendar_view_grid.xml" qualifiers="" type="layout"/><file name="calendar_view_picker_day" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\layout\calendar_view_picker_day.xml" qualifiers="" type="layout"/><file name="date_picker_dialog" path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\layout\date_picker_dialog.xml" qualifiers="" type="layout"/><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values\attrs.xml" qualifiers=""><declare-styleable name="CalendarView">
+        <attr format="color" name="headerColor"/>
+        <attr format="color" name="headerLabelColor"/>
+        <attr format="integer" name="previousButtonSrc"/>
+        <attr format="integer" name="forwardButtonSrc"/>
+        <attr format="color" name="todayLabelColor"/>
+        <attr format="color" name="selectionColor"/>
+        <attr format="color" name="selectionLabelColor"/>
+        <attr format="color" name="disabledDaysLabelsColor"/>
+        <attr format="color" name="highlightedDaysLabelsColor"/>
+        <attr format="color" name="pagesColor"/>
+        <attr format="color" name="abbreviationsBarColor"/>
+        <attr format="color" name="abbreviationsLabelsColor"/>
+        <attr format="color" name="daysLabelsColor"/>
+        <attr format="color" name="anotherMonthsDaysLabelsColor"/>
+        <attr format="boolean" name="datePicker"/>
+        <attr format="boolean" name="eventsEnabled"/>
+        <attr format="boolean" name="swipeEnabled"/>
+        <attr format="integer" name="maximumDaysRange"/>
+        <attr name="type"/>
+    </declare-styleable><attr format="enum" name="type">
+        <enum name="classic" value="0"/>
+        <enum name="one_day_picker" value="1"/>
+        <enum name="many_days_picker" value="2"/>
+        <enum name="range_picker" value="3"/>
+    </attr></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values\colors.xml" qualifiers=""><color name="daysLabelColor">#8A000000</color><color name="currentMonthDayColor">#de000000</color><color name="nextMonthDayColor">#1F000000</color><color name="disabledDialogButtonColor">#1F000000</color><color name="itemHighlightColor">#1F000000</color><color name="itemFocusedColor">#1A000000</color><color name="defaultColor">#2962FF</color></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values\dimens.xml" qualifiers=""><dimen name="row_height">44dp</dimen><dimen name="day_label_size_events_enabled">30dp</dimen><dimen name="day_label_focus_size_events_enabled">34dp</dimen><dimen name="day_label_size_events_disabled">38dp</dimen><dimen name="day_label_focus_size_events_disabled">42dp</dimen></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values\strings.xml" qualifiers=""><string name="material_calendar_monday">M</string><string name="material_calendar_tuesday">T</string><string name="material_calendar_wednesday">W</string><string name="material_calendar_thursday">T</string><string name="material_calendar_friday">F</string><string name="material_calendar_saturday">S</string><string name="material_calendar_sunday">S</string><array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array><array name="material_calendar_months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </array><string name="material_calendar_today_button">Today</string><string name="material_calendar_positive_button">OK</string><string name="material_calendar_negative_button">Cancel</string></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values-es\strings.xml" qualifiers="es"><string name="material_calendar_monday">L</string><string name="material_calendar_tuesday">M</string><string name="material_calendar_wednesday">M</string><string name="material_calendar_thursday">J</string><string name="material_calendar_friday">V</string><string name="material_calendar_saturday">S</string><string name="material_calendar_sunday">D</string><array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array><array name="material_calendar_months_array">
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+    </array><string name="material_calendar_today_button">Hoy</string><string name="material_calendar_positive_button">OK</string><string name="material_calendar_negative_button">Cancelar</string></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values-fr\strings.xml" qualifiers="fr"><string name="material_calendar_monday">L</string><string name="material_calendar_tuesday">M</string><string name="material_calendar_wednesday">M</string><string name="material_calendar_thursday">J</string><string name="material_calendar_friday">V</string><string name="material_calendar_saturday">S</string><string name="material_calendar_sunday">D</string><array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array><array name="material_calendar_months_array">
+        <item>Janvier</item>
+        <item>Février</item>
+        <item>Mars</item>
+        <item>Avril</item>
+        <item>Mai</item>
+        <item>Juin</item>
+        <item>Juillet</item>
+        <item>Août</item>
+        <item>Septembre</item>
+        <item>Octobre</item>
+        <item>Novembre</item>
+        <item>Décembre</item>
+    </array><string name="material_calendar_today_button">Aujourd\'hui</string><string name="material_calendar_positive_button">OK</string><string name="material_calendar_negative_button">Annuler</string></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values-it\strings.xml" qualifiers="it"><string name="material_calendar_monday">L</string><string name="material_calendar_tuesday">M</string><string name="material_calendar_wednesday">M</string><string name="material_calendar_thursday">G</string><string name="material_calendar_friday">V</string><string name="material_calendar_saturday">S</string><string name="material_calendar_sunday">D</string><array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array><array name="material_calendar_months_array">
+        <item>Gennaio</item>
+        <item>Febbraio</item>
+        <item>Marzo</item>
+        <item>Aprile</item>
+        <item>Maggio</item>
+        <item>Giugno</item>
+        <item>Luglio</item>
+        <item>Agosto</item>
+        <item>Settembre</item>
+        <item>Ottobre</item>
+        <item>Novembre</item>
+        <item>Dicembre</item>
+    </array><string name="material_calendar_today_button">Oggi</string><string name="material_calendar_positive_button">OK</string><string name="material_calendar_negative_button">Annulla</string></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values-ko\strings.xml" qualifiers="ko"><string name="material_calendar_monday">월</string><string name="material_calendar_tuesday">화</string><string name="material_calendar_wednesday">수</string><string name="material_calendar_thursday">목</string><string name="material_calendar_friday">금</string><string name="material_calendar_saturday">토</string><string name="material_calendar_sunday">일</string><array name="material_calendar_months_array">
+        <item>1월</item>
+        <item>2월</item>
+        <item>3월</item>
+        <item>4월</item>
+        <item>5월</item>
+        <item>6월</item>
+        <item>7월</item>
+        <item>8월</item>
+        <item>9월</item>
+        <item>10월</item>
+        <item>11월</item>
+        <item>12월</item>
+    </array><string name="material_calendar_today_button">오늘</string><string name="material_calendar_positive_button">확인</string><string name="material_calendar_negative_button">취소</string></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values-nl-rNL\strings.xml" qualifiers="nl-rNL"><string name="material_calendar_monday">M</string><string name="material_calendar_tuesday">D</string><string name="material_calendar_wednesday">W</string><string name="material_calendar_thursday">D</string><string name="material_calendar_friday">V</string><string name="material_calendar_saturday">Z</string><string name="material_calendar_sunday">Z</string><array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array><array name="material_calendar_months_array">
+        <item>Januari</item>
+        <item>Februari</item>
+        <item>Maart</item>
+        <item>April</item>
+        <item>Mei</item>
+        <item>Juni</item>
+        <item>Juli</item>
+        <item>Augustus</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>December</item>
+    </array><string name="material_calendar_today_button">Vandaag</string><string name="material_calendar_positive_button">OK</string><string name="material_calendar_negative_button">Annuleren</string></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values-pt-rBR\strings.xml" qualifiers="pt-rBR"><string name="material_calendar_monday">S</string><string name="material_calendar_tuesday">T</string><string name="material_calendar_wednesday">Q</string><string name="material_calendar_thursday">Q</string><string name="material_calendar_friday">S</string><string name="material_calendar_saturday">S</string><string name="material_calendar_sunday">D</string><array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array><array name="material_calendar_months_array">
+        <item>Janeiro</item>
+        <item>Fevereiro</item>
+        <item>Março</item>
+        <item>Abril</item>
+        <item>Maio</item>
+        <item>Junho</item>
+        <item>Julho</item>
+        <item>Agosto</item>
+        <item>Setembro</item>
+        <item>Outubro</item>
+        <item>Novembro</item>
+        <item>Dezembro</item>
+    </array><string name="material_calendar_today_button">Hoje</string><string name="material_calendar_positive_button">OK</string><string name="material_calendar_negative_button">Cancel</string></file><file path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\main\res\values-uk-rUA\strings.xml" qualifiers="uk-rUA"><string name="material_calendar_monday">Пн</string><string name="material_calendar_tuesday">Вт</string><string name="material_calendar_wednesday">Ср</string><string name="material_calendar_thursday">Чт</string><string name="material_calendar_friday">Пт</string><string name="material_calendar_saturday">Сб</string><string name="material_calendar_sunday">Нд</string><array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array><array name="material_calendar_months_array">
+        <item>Січень</item>
+        <item>Лютий</item>
+        <item>Березень</item>
+        <item>Квітень</item>
+        <item>Травень</item>
+        <item>Червень</item>
+        <item>Липень</item>
+        <item>Серпень</item>
+        <item>Вересень</item>
+        <item>Жовтень</item>
+        <item>Листопад</item>
+        <item>Грудень</item>
+    </array><string name="material_calendar_today_button">Сьогодні</string><string name="material_calendar_positive_button">ОК</string><string name="material_calendar_negative_button">Відмінити</string></file></source><source path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\build\generated\res\rs\debug"/><source path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\User\AndroidStudioProjects\app_ToMAS_9797\library\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="CalendarView">
+        <attr format="color" name="headerColor"/>
+        <attr format="color" name="headerLabelColor"/>
+        <attr format="integer" name="previousButtonSrc"/>
+        <attr format="integer" name="forwardButtonSrc"/>
+        <attr format="color" name="todayLabelColor"/>
+        <attr format="color" name="selectionColor"/>
+        <attr format="color" name="selectionLabelColor"/>
+        <attr format="color" name="disabledDaysLabelsColor"/>
+        <attr format="color" name="highlightedDaysLabelsColor"/>
+        <attr format="color" name="pagesColor"/>
+        <attr format="color" name="abbreviationsBarColor"/>
+        <attr format="color" name="abbreviationsLabelsColor"/>
+        <attr format="color" name="daysLabelsColor"/>
+        <attr format="color" name="anotherMonthsDaysLabelsColor"/>
+        <attr format="boolean" name="datePicker"/>
+        <attr format="boolean" name="eventsEnabled"/>
+        <attr format="boolean" name="swipeEnabled"/>
+        <attr format="integer" name="maximumDaysRange"/>
+        <attr name="type"/>
+    </declare-styleable></configuration></mergedItems></merger>

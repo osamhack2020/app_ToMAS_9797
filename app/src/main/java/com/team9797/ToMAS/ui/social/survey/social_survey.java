@@ -31,6 +31,8 @@ import com.team9797.ToMAS.ui.social.survey.survey_content;
 import com.team9797.ToMAS.ui.social.survey.survey_content_result;
 import com.team9797.ToMAS.ui.social.survey.survey_list_adapter;
 
+import java.util.ArrayList;
+
 public class social_survey extends Fragment {
 
     MainActivity mainActivity;
@@ -71,9 +73,21 @@ public class social_survey extends Fragment {
                 if (task.isSuccessful()) {
                     int count = 0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), document.getId());
+                        ArrayList<String> participants_list = new ArrayList<>();
+                        mainActivity.db.collection(path).document(document.getId()).collection("participants").get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                           @Override
+                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                               if (task.isSuccessful()) {
+                                   for (QueryDocumentSnapshot tmp_document : task.getResult()) {
+                                        participants_list.add(tmp_document.getId());
+                                   }
+                               }
+                               list_adapter.addItem(document.get("title").toString(), document.get("due_date").toString(), document.get("writer").toString(), participants_list.indexOf(mainActivity.getUid())>-1, document.getId());
+                               list_adapter.notifyDataSetChanged();
+                           }
+                       });
                     }
-                    list_adapter.notifyDataSetChanged();
 
                     survey_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override

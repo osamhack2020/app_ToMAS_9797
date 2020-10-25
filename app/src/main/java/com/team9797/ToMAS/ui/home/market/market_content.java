@@ -112,7 +112,7 @@ public class market_content extends Fragment implements Html.ImageGetter {
                         title_textView.setText(document.get("title", String.class));
                         category_textView.setText(document.get("category", String.class));
                         place_textView.setText(document.get("place", String.class));
-                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         date_textView.setText("등록일 : " + dateString);
                         due_date_textView.setText("마감일 : " + document.get("due_date", String.class));
@@ -125,7 +125,7 @@ public class market_content extends Fragment implements Html.ImageGetter {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         if (tmp_counter == 1)
                                         {
-                                            highest_price_textView.setText(Integer.toString(document.get("price", Integer.class)));
+                                            highest_price_textView.setText("최고가 : " + Integer.toString(document.get("price", Integer.class)));
                                         }
                                         adapter.addItem(tmp_counter++, document.get("name").toString(), document.get("price", Integer.class));
                                         tmp_participants.add(document.getId());
@@ -187,13 +187,17 @@ public class market_content extends Fragment implements Html.ImageGetter {
                         Map<String, Object> tender = new HashMap<>();
                         //example : need to fix
                         tender.put("name", mainActivity.preferences.getString("이름", "홍길동"));
-                        tender.put("price", Integer.parseInt(price_editText.getText().toString()));
+                        int tmp_price = Integer.parseInt(price_editText.getText().toString());
+                        tender.put("price", tmp_price);
                         mPostReference.collection("participants").document(mainActivity.getUid())
                                 .set(tender)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
+                                        // fragment 새로고침
+                                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                                        fragmentTransaction.detach(market_content.this).attach(market_content.this).commit();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -201,10 +205,6 @@ public class market_content extends Fragment implements Html.ImageGetter {
                                     public void onFailure(@NonNull Exception e) {
                                     }
                                 });
-
-                        // fragment 새로고침
-                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        fragmentTransaction.detach(market_content.this).attach(market_content.this).commit();
                     }
                 }
                 else

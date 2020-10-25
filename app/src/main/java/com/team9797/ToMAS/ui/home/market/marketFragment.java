@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -112,20 +114,24 @@ public class marketFragment extends Fragment{
                         final market_list_adapter tmp_sample_list_adapter = new market_list_adapter();
                         // firestore sample list 불러오기
                         String tmp_path = path + "/" + tmp + "/" + tmp;
-                        mainActivity.db.collection(tmp_path)
-                                .get()
+                        mainActivity.db.collection(tmp_path).orderBy("timestamp", Query.Direction.DESCENDING).limit(5).get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
-                                            int count = 0;
                                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                                if (count > 5)
-                                                    break;
-                                                tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), document.get("price", Integer.class), document.getId());
-                                                count++;
+                                                mainActivity.db.collection(tmp_path).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            for (QueryDocumentSnapshot price_document : task.getResult()) {
+                                                                tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), price_document.get("price", Integer.class), document.getId());
+                                                            }
+                                                            tmp_sample_list_adapter.notifyDataSetChanged();
+                                                        }
+                                                    }
+                                                });
                                             }
-                                            tmp_sample_list_adapter.notifyDataSetChanged();
                                         } else {
                                             //Log.d(TAG, "Error getting documents: ", task.getException());
                                         }
