@@ -5,7 +5,7 @@
 설명이 부족하거나 추가하고싶은 부분이 있으면 개발자님이 추가해서 작성해주세요!
 동영상, 이미지, 텍스트 전부 자유입니다.
 
-# Smaple Logo
+# Sample Logo
 ![Logo](https://user-images.githubusercontent.com/72395020/97101118-e88bed80-16dd-11eb-82b4-79b384c4992e.PNG)
 
 팀명 텍스트 및 팀명 로고 이미지 **(택1)**
