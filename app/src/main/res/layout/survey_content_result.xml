@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
+    android:padding="@dimen/content_padding"
     tools:context=".postBoard.fragment_template">
 
 
@@ -13,6 +14,8 @@
         android:id="@+id/survey_all_result_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/accent"
+        android:minHeight="36dp"
         android:text="전체 설문조사 결과 보기" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/content_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -122,5 +123,7 @@
         android:id="@+id/btn_recruit_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/accent"
+        android:minHeight="@dimen/min_button_height"
         android:text="모집신청" />
 </LinearLayout>

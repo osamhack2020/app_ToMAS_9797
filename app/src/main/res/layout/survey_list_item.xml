@@ -17,7 +17,7 @@ android:padding="@dimen/list_item_padding">
         android:id="@+id/survey_list_item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"/>
+        android:textSize="@dimen/list_title_textSize" />
 
     <LinearLayout
         android:layout_width="match_parent"

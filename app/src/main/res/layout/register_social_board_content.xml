@@ -31,22 +31,29 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="4dp"
                 android:layout_marginRight="10dp"
                 android:height="32dp"
-                android:padding="4dp"
+                android:background="@drawable/buttonshape_type4"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
                 android:onClick="post_to_server"
-                android:text="글쓰기" />
+                android:text="글쓰기"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btnRender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
                 android:layout_toLeftOf="@id/btn_register_board_content"
                 android:height="32dp"
-                android:padding="4dp"
-                android:layout_marginRight="8dp"
+                android:background="@drawable/buttonshape_type4"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
                 android:text="미리보기"
-                android:textColor="@color/f5f5f5" />
+                android:textColor="#FFFFFF" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFFFFF"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/content_padding">
 
     <LinearLayout
         android:id="@+id/survey_content_container"
@@ -44,6 +45,8 @@
             android:id="@+id/survey_content_enroll_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/accent"
+            android:minHeight="@dimen/min_button_height"
             android:text="설문조사 제출" />
     </LinearLayout>
 </ScrollView>
