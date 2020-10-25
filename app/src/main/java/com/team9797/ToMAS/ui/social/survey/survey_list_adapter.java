@@ -5,9 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.team9797.ToMAS.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -42,6 +47,7 @@ public class survey_list_adapter extends BaseAdapter {
         TextView item_title = (TextView) convertView.findViewById(R.id.survey_list_item_title);
         TextView item_date = (TextView) convertView.findViewById(R.id.survey_list_item_due_date);
         TextView item_name = (TextView) convertView.findViewById(R.id.survey_list_item_writer);
+        ImageView item_check = convertView.findViewById(R.id.check_icon_view);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         survey_list_item listViewItem = listViewItemList.get(position);
@@ -50,6 +56,10 @@ public class survey_list_adapter extends BaseAdapter {
         item_title.setText(listViewItem.getTitle());
         item_date.setText("마감일 : " + listViewItem.getDate());
         item_name.setText("작성자 : " + listViewItem.getName());
+        if (listViewItem.getCheck())
+        {
+            item_check.setColorFilter(ContextCompat.getColor(context, R.color.green));
+        }
         return convertView;
     }
 
@@ -66,12 +76,13 @@ public class survey_list_adapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String title, String date, String name, String post_id) {
+    public void addItem(String title, String date, String name, boolean isCheck, String post_id) {
         survey_list_item item = new survey_list_item();
 
         item.setTitle(title);
         item.setDate(date);
         item.setName(name);
+        item.setCheck(isCheck);
         item.setId(post_id);
 
         listViewItemList.add(item);

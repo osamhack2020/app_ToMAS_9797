@@ -4,6 +4,7 @@ public class survey_list_item {
     private String title ;
     private String date ;
     private String name ;
+    private boolean isCheck;
     private String post_id;
 
 
@@ -16,6 +17,7 @@ public class survey_list_item {
     public void setName(String a) {
         name = a ;
     }
+    public void setCheck(boolean a){isCheck = a;}
     public void setId(String a){post_id = a;}
 
     public String getTitle() {
@@ -27,6 +29,7 @@ public class survey_list_item {
     public String getDate() {
         return this.date ;
     }
+    public boolean getCheck() { return this.isCheck;}
     public String getId() {return this.post_id ;}
 
 }
