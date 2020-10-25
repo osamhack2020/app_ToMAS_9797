@@ -5,5 +5,7 @@
     <dimen name="list_padding">4dp</dimen>
     <dimen name="list_margin">16dp</dimen>
     <dimen name="linear_padding">8dp</dimen>
+    <dimen name="list_item_margin">12dp</dimen>
+    <dimen name="list_item_padding">12dp</dimen>
 
 </resources>

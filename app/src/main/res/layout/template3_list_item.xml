@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/list_item_padding">
 
 
     <LinearLayout
@@ -14,17 +15,18 @@
 
         <TextView
             android:id="@+id/template3_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
+            android:layout_weight="1"
             android:text="제목" />
 
         <TextView
             android:id="@+id/template3_sub"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="댓글" />
+            android:layout_weight="6"
+            android:text="댓글"
+            android:textAlignment="viewEnd" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,24 +36,25 @@
 
         <TextView
             android:id="@+id/template3_date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="날짜" />
 
         <TextView
             android:id="@+id/template3_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="이름" />
 
         <TextView
             android:id="@+id/template3_clicks"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="조회수" />
+            android:text="조회수"
+            android:textAlignment="viewEnd" />
 
     </LinearLayout>
 
