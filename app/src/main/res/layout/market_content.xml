@@ -5,6 +5,7 @@
     android:id="@+id/market_content_sliding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:gravity="bottom"
     app:umanoDragView="@id/market_content_drawer"
     app:umanoPanelHeight="88dp"
