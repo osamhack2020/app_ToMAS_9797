@@ -100,10 +100,6 @@ public class HomeFragment extends Fragment {
                 case R.id.home_btn4:
                     change_fragment = new groupFragment();
                     title = "인원모집";
-                    args = new Bundle();
-                    args.putString("title", title);
-                    args.putString("path", "mainpage/인원모집/인원모집");
-                    change_fragment.setArguments(args);
                     break;
                 default:
                     break;

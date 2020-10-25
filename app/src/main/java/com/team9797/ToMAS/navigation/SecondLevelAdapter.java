@@ -109,6 +109,8 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
                 Fragment change_fragment = new fragment_template();
                 Bundle args = new Bundle();
                 args.putString("title", childText);
+                mainActivity.push_title(childText);
+                mainActivity.set_title();
                 args.putInt("fragment_style", 3);
                 args.putString("path", path_map.get(childText));
                 change_fragment.setArguments(args);

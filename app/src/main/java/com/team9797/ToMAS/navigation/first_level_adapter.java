@@ -10,6 +10,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +20,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.ui.home.group.groupFragment;
+import com.team9797.ToMAS.ui.home.market.marketFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,8 +53,7 @@ public class first_level_adapter extends BaseExpandableListAdapter {
         list_third_level_path = new HashMap<>();
         list_second_child = new ArrayList<>();
         list_third_level_map = new HashMap<>(); // 이거 채워주면 됨
-        int num_first_layer = listDataHeader.size();
-        for (int i = 0; i < num_first_layer; i++)
+        for (int i = 0; i < 2; i++)
         {
             String second_content = listDataHeader.get(i);
             switch (second_content)
@@ -206,17 +208,53 @@ public class first_level_adapter extends BaseExpandableListAdapter {
         TextView txtListHeader = (TextView)convertView.findViewById(R.id.lblListHeader);
         txtListHeader.setTypeface(null, Typeface.BOLD);
         txtListHeader.setText(headerTitle);
+        if (i == 2)
+        {
+            txtListHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mainActivity.closeDrawer();
+                    mainActivity.push_title(headerTitle);
+                    mainActivity.set_title();
+                    Fragment change_fragment = new marketFragment();
+                    FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+                    fragmentManager.beginTransaction().addToBackStack(null);
+                    fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, change_fragment).commit();
+                }
+            });
+        }
+        else if (i == 3)
+        {
+            txtListHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mainActivity.closeDrawer();
+                    mainActivity.push_title(headerTitle);
+                    mainActivity.set_title();
+                    Fragment change_fragment = new groupFragment();
+                    FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+                    fragmentManager.beginTransaction().addToBackStack(null);
+                    fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, change_fragment).commit();
+                }
+            });
+        }
         return convertView;
 
     }
 
     @Override
     public View getChildView(int i, int i1, boolean b, View convertView, ViewGroup parent) {
-        final CustomExpListView secondLevelExpListView = new CustomExpListView(this.context);
-        String parentNode = (String)getGroup(i);
-        secondLevelExpListView.setAdapter(new SecondLevelAdapter(this.context, list_second_level_map.get(parentNode), list_third_level_map, list_third_level_path, mainActivity));
-        secondLevelExpListView.setGroupIndicator(null);
-        return secondLevelExpListView;
+        if (i < 2) {
+            final CustomExpListView secondLevelExpListView = new CustomExpListView(this.context);
+            String parentNode = (String) getGroup(i);
+            secondLevelExpListView.setAdapter(new SecondLevelAdapter(this.context, list_second_level_map.get(parentNode), list_third_level_map, list_third_level_path, mainActivity));
+            secondLevelExpListView.setGroupIndicator(null);
+            return secondLevelExpListView;
+        }
+        else
+        {
+            return convertView;
+        }
         /*
         final String childText = getChild(i, i1);
         if (view == null){
