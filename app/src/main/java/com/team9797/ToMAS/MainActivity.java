@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +35,7 @@ import androidx.preference.PreferenceManager;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ExpandableListView expandableListView;
     List<String> headerList = new ArrayList<>();
     String title;
+    DrawerLayout drawer;
 
     //firebase
     public FirebaseFirestore db;
@@ -107,18 +110,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         // 오른쪽 drawable total_navi 세팅
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
         // 임시 firebase에서 받아와서 넣어줘야함.
-        /*
+
         String[] ItemHeaders = new String[]{"자기개발", "소통게시판", "플리마켓", "인원모집"};
         Collections.addAll(headerList, ItemHeaders);
-         */
+
 
         expandableListView = findViewById(R.id.total_right_menu);
         if (expandableListView != null)
         {
-            first_level_adapter first_adapter = new first_level_adapter(this, headerList);
+            first_level_adapter first_adapter = new first_level_adapter(this, headerList, this);
             expandableListView.setAdapter(first_adapter);
         }
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -139,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView)findViewById(R.id.total_navi_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -157,6 +159,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public String getUid() {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
+    }
+
+    public void closeDrawer()
+    {
+        drawer.closeDrawers();
     }
 
     @Override

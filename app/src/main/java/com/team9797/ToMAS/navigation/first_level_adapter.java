@@ -2,12 +2,22 @@ package com.team9797.ToMAS.navigation;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 
 import java.util.ArrayList;
@@ -18,74 +28,115 @@ import java.util.List;
 import java.util.Map;
 
 public class first_level_adapter extends BaseExpandableListAdapter {
-    private Context context; //final 붙여야 했는데 문법오류
+    private Context context;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> list_second_level_map;
+    private HashMap<String, String> list_second_level_path;
     private HashMap<String, List<String>> list_third_level_map;
+    private HashMap<String, String> list_third_level_path;
+    private List<String> list_first_child;
+    private List<String> list_second_child;
+    MainActivity mainActivity;
 
-    public first_level_adapter(Context context, List<String> listDataHeader) {
+    public first_level_adapter(Context context, List<String> listDataHeader, MainActivity tmp_mainActivity) {
         this.context = context;
         this.listDataHeader = new ArrayList<>();
         this.listDataHeader.addAll(listDataHeader);
+        mainActivity = tmp_mainActivity;
         //init second level
-        String[] second_header = null;
-        list_second_level_map = new HashMap<>();
+        list_first_child = new ArrayList<>();
+        list_second_level_map = new HashMap<>(); // 이거 채워주면 됨
+        list_second_level_path = new HashMap<>();
+        list_third_level_path = new HashMap<>();
+        list_second_child = new ArrayList<>();
+        list_third_level_map = new HashMap<>(); // 이거 채워주면 됨
         int num_first_layer = listDataHeader.size();
         for (int i = 0; i < num_first_layer; i++)
         {
-            String second_content = listDataHeader.get(i); // need to fix
+            String second_content = listDataHeader.get(i);
             switch (second_content)
             {
                 case "자기개발":
-                    second_header = new String[]{"수능", "자격증", "전공", "언어시험"}; // need to fix
+                    FirebaseFirestore.getInstance().collection("mainpage/자기개발/자기개발").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                list_first_child = new ArrayList<>();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    list_first_child.add(document.getId());
+                                    String tmp_path = "mainpage/자기개발/자기개발/" + document.getId() + "/" + document.getId();
+                                    list_second_level_path.put(document.getId(), tmp_path);
+                                }
+                                Log.d("second_content", second_content);
+                                list_second_level_map.put(second_content, list_first_child);
+                                for (int i = 0; i < list_first_child.size(); i++)
+                                {
+                                    String third_content = list_first_child.get(i); // need to fix
+                                    Log.d("AA", third_content);
+                                    FirebaseFirestore.getInstance().collection(list_second_level_path.get(third_content)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                list_second_child = new ArrayList<>();
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    list_second_child.add(document.getId());
+                                                    list_third_level_path.put(document.getId(), list_second_level_path.get(third_content));
+                                                }
+                                                list_third_level_map.put(third_content, list_second_child);
+                                            } else {
+                                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                                }
+                            } else {
+                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
                     break;
                 case "소통게시판":
-                    second_header = new String[]{"IT", "운동", "음악", "오토바이"};
-                    break;
-                case "플리마켓":
-                    second_header = new String[]{"플리"};
-                    break;
-                case "인원모집":
-                    second_header = new String[]{"운동", "동아리", "대회", "기타"};
+                    FirebaseFirestore.getInstance().collection("mainpage/소통게시판/소통게시판").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                list_first_child = new ArrayList<>();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    list_first_child.add(document.getId());
+                                    String tmp_path = "mainpage/소통게시판/소통게시판/" + document.getId() + "/" + document.getId();
+                                    list_second_level_path.put(document.getId(), tmp_path);
+                                }
+                                Log.d("second_content", second_content);
+                                list_second_level_map.put(second_content, list_first_child);
+                                for (int i = 0; i < list_first_child.size(); i++)
+                                {
+                                    String third_content = list_first_child.get(i); // need to fix
+                                    Log.d("AA", third_content);
+                                    FirebaseFirestore.getInstance().collection(list_second_level_path.get(third_content)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                list_second_child = new ArrayList<>();
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    list_second_child.add(document.getId());
+                                                    list_third_level_path.put(document.getId(), list_second_level_path.get(third_content));
+                                                }
+                                                list_third_level_map.put(third_content, list_second_child);
+                                            } else {
+                                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                                }
+                            } else {
+                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
                     break;
             }
-            list_second_level_map.put(listDataHeader.get(i), Arrays.asList(second_header));
         }
 
-        //init third level
-        String[] third_header = null;
-        List<String> listChild;
-        list_third_level_map = new HashMap<>();
-        for (Object o : list_second_level_map.entrySet()){
-            Map.Entry entry = (Map.Entry)o;
-            Object object = entry.getValue();
-            if (object instanceof List)
-            {
-                List<String> stringList = new ArrayList<>();
-                Collections.addAll(stringList,(String[])((List) object).toArray());
-                for (int i = 0; i < stringList.size(); i++)
-                {
-                    String third_content = stringList.get(i); // need to fix
-                    switch (third_content)
-                    {
-                        case "수능":
-                            third_header = new String[]{"국어", "수학", "영어", "과학탐구", "사회탐구", "한국사", "제2외국어"}; // need to fix
-                            break;
-                        case "자격증":
-                            third_header = new String[]{"컴퓨터활용능력", "정보처리기사"};
-                            break;
-                        case "전공":
-                            third_header = new String[]{"대학수학", "대학물리", "코딩"};
-                            break;
-                        default:
-                            third_header = new String[]{"토익", "토플"};
-                            break;
-                    }
-                    listChild = Arrays.asList(third_header);
-                    list_third_level_map.put(stringList.get(i), listChild);
-                }
-            }
-        }
     }
 
     @Override
@@ -163,7 +214,7 @@ public class first_level_adapter extends BaseExpandableListAdapter {
     public View getChildView(int i, int i1, boolean b, View convertView, ViewGroup parent) {
         final CustomExpListView secondLevelExpListView = new CustomExpListView(this.context);
         String parentNode = (String)getGroup(i);
-        secondLevelExpListView.setAdapter(new SecondLevelAdapter(this.context, list_second_level_map.get(parentNode), list_third_level_map));
+        secondLevelExpListView.setAdapter(new SecondLevelAdapter(this.context, list_second_level_map.get(parentNode), list_third_level_map, list_third_level_path, mainActivity));
         secondLevelExpListView.setGroupIndicator(null);
         return secondLevelExpListView;
         /*

@@ -1,6 +1,8 @@
 package com.team9797.ToMAS.navigation;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +10,14 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.team9797.ToMAS.R;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.team9797.ToMAS.MainActivity;
+import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.postBoard.fragment_template;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +25,15 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> ListDataHeader;
     private Map<String, List<String>> ListDataChild;
-    public SecondLevelAdapter(Context context, List<String> ListDataHeader, Map<String, List<String>>ListDataChild) {
+    MainActivity mainActivity;
+    HashMap<String, String> path_map;
+    public SecondLevelAdapter(Context context, List<String> ListDataHeader, Map<String, List<String>>ListDataChild, HashMap<String, String> tmp_path_map, MainActivity tmp_mainActivity) {
         this.context = context;
         this.ListDataHeader = ListDataHeader;
         this.ListDataChild = ListDataChild;
+        mainActivity = tmp_mainActivity;
+        path_map = tmp_path_map;
+
     }
 
 
@@ -89,6 +102,21 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         TextView txtListChild = (TextView)convertView.findViewById(R.id.lblListItem);
         //txtListChild.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
         txtListChild.setText(childText);
+        txtListChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.closeDrawer();
+                Fragment change_fragment = new fragment_template();
+                Bundle args = new Bundle();
+                args.putString("title", childText);
+                args.putInt("fragment_style", 3);
+                args.putString("path", path_map.get(childText));
+                change_fragment.setArguments(args);
+                FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+                fragmentManager.beginTransaction().addToBackStack("TAG");
+                fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, change_fragment, "TAG").commit();
+            }
+        });
         return convertView;
     }
 
