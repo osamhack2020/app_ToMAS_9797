@@ -1,17 +1,21 @@
 
 
 
+
 아래의 **샘플 양식은 필수**입니다.
 설명이 부족하거나 추가하고싶은 부분이 있으면 개발자님이 추가해서 작성해주세요!
 동영상, 이미지, 텍스트 전부 자유입니다.
 
-# Sample Logo
-![Logo](https://user-images.githubusercontent.com/72395020/97101118-e88bed80-16dd-11eb-82b4-79b384c4992e.PNG)
+# Team Logo
+![logo](https://user-images.githubusercontent.com/72395020/97108505-661d2100-1711-11eb-9620-b723f31e99e8.PNG)
 
-팀명 텍스트 및 팀명 로고 이미지 **(택1)**
+
 
 ## 팀소개 및 프로잭트 설명 동영상
 [![Watch the video](https://img.youtube.com/vi/LjX3eVQdIyk/0.jpg)](https://www.youtube.com/watch?time_continue=117&v=LjX3eVQdIyk)
+
+ - ToMAS(Total Military Assistance Service) 
+  
 
 ## 기능 설계
  -  발사믹, 카카오 오븐 등 본인이 편한 목업 프레임워크를 이용하여 제작 후 링크 
