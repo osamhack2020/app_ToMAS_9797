@@ -6,7 +6,7 @@
 동영상, 이미지, 텍스트 전부 자유입니다.
 
 # Smaple Logo
-![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
+![Logo](https://user-images.githubusercontent.com/72395020/97101118-e88bed80-16dd-11eb-82b4-79b384c4992e.PNG)
 
 팀명 텍스트 및 팀명 로고 이미지 **(택1)**
 
