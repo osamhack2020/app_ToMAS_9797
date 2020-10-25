@@ -15,7 +15,8 @@ android:padding="@dimen/list_item_padding">
     <TextView
         android:id="@+id/survey_list_item_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
