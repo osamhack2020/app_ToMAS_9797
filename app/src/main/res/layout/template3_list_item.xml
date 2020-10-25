@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="제목" />
+            android:text="제목"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/template3_sub"

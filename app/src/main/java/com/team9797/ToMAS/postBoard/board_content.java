@@ -170,7 +170,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
                 Intent intent = new Intent(mainActivity, register_board_content_comment.class);
                 intent.putExtra("path", path);
                 intent.putExtra("post_id", post_id);
-                startActivity(intent);
+                startActivityForResult(intent, 11112);
             }
         });
 

@@ -83,7 +83,7 @@ public class comment_list_adapter extends RecyclerView.Adapter<comment_list_adap
             item_writer = (TextView) view.findViewById(R.id.comment_list_item_writer);
             item_html = (TextView) view.findViewById(R.id.comment_list_item_html);
             item_date = (TextView) view.findViewById(R.id.comment_list_item_date);
-            btn_fix = view.findViewById(R.id.btn_comment_fix);
+            btn_fix = view.findViewById(R.id.btn_comment_update);
             btn_delete = view.findViewById(R.id.btn_comment_delete);
         }
     }

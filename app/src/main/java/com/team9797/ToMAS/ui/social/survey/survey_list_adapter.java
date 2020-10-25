@@ -40,7 +40,6 @@ public class survey_list_adapter extends BaseAdapter {
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView item_title = (TextView) convertView.findViewById(R.id.survey_list_item_title);
-        TextView item_numpeople = (TextView) convertView.findViewById(R.id.survey_list_item_num_people);
         TextView item_date = (TextView) convertView.findViewById(R.id.survey_list_item_due_date);
         TextView item_name = (TextView) convertView.findViewById(R.id.survey_list_item_writer);
 
@@ -49,7 +48,6 @@ public class survey_list_adapter extends BaseAdapter {
 
         // 아이템 내 각 위젯에 데이터 반영
         item_title.setText(listViewItem.getTitle());
-        item_numpeople.setText(Integer.toString(listViewItem.getNumpeople()));
         item_date.setText("마감일 : " + listViewItem.getDate());
         item_name.setText("작성자 : " + listViewItem.getName());
         return convertView;
@@ -68,11 +66,10 @@ public class survey_list_adapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String title, int numpeople, String date, String name, String post_id) {
+    public void addItem(String title, String date, String name, String post_id) {
         survey_list_item item = new survey_list_item();
 
         item.setTitle(title);
-        item.setNumpeople(numpeople);
         item.setDate(date);
         item.setName(name);
         item.setId(post_id);

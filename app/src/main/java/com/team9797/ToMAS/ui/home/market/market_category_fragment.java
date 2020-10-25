@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -51,16 +52,25 @@ public class market_category_fragment extends Fragment {
         market_listView.setAdapter(list_adapter);
 
         // firestore에서 market list 불러오기.
-        mainActivity.db.collection(path)
+        mainActivity.db.collection(path).orderBy("timestamp", Query.Direction.DESCENDING).limit(5)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), document.get("price", Integer.class), document.getId());
+                                mainActivity.db.collection(path).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot price_document : task.getResult()) {
+                                                list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), price_document.get("price", Integer.class), document.getId());
+                                            }
+                                            list_adapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                });
                             }
-                            list_adapter.notifyDataSetChanged();
                         } else {
                             //Log.d(TAG, "Error getting documents: ", task.getException());
                         }

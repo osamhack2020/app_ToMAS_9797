@@ -71,7 +71,7 @@ public class social_survey extends Fragment {
                 if (task.isSuccessful()) {
                     int count = 0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), document.getId());
+                        list_adapter.addItem(document.get("title").toString(), document.get("due_date").toString(), document.get("writer").toString(), document.getId());
                     }
                     list_adapter.notifyDataSetChanged();
 
