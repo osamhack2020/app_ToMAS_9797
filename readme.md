@@ -1,9 +1,9 @@
+
+
+
 아래의 **샘플 양식은 필수**입니다.
 설명이 부족하거나 추가하고싶은 부분이 있으면 개발자님이 추가해서 작성해주세요!
 동영상, 이미지, 텍스트 전부 자유입니다.
-
-[https://github.com/osam2019](https://github.com/osam2019)
-**2019프로젝트, readme.md를 참고하여 개발자님의 새로운 프로젝트를 만들어주세요!**
 
 # Smaple Logo
 ![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
@@ -23,31 +23,24 @@
 
 ## 기술 스택 (Technique Used) (예시)
 ### Server(back-end)
- -  nodejs, php, java 등 서버 언어 버전 
- - express, laravel, sptring boot 등 사용한 프레임워크 
- - DB 등 사용한 다른 프로그램 
+ -  FireBase Authentication
+ -  FireBase CloudFirestore
+ -  FireBase Storage
+ - 자바
  
 ### front-end
- -  react.js, vue.js 등 사용한 front-end 프레임워크 
- -  UI framework
- - 기타 사용한 라이브러리
+ -  xml 
+ 
 
 ## 설치 안내 (Installation Process)
 ```bash
-$ git clone git주소
+$ git clone https://github.com/osamhack2020/app_ToMAS_9797.git
 $ yarn or npm install
 $ yarn start or npm run start
 ```
 
 ## 프로젝트 사용법 (Getting Started)
-**마크다운 문법을 이용하여 자유롭게 기재**
 
-잘 모를 경우
-구글 검색 - 마크다운 문법
-[https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017](https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017)
-
- 편한 마크다운 에디터를 찾아서 사용
- 샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
  
 ## 팀 정보 (Team Information)
 - 김경민 (rlarla915@naver.com), Github Id: rlarla915
