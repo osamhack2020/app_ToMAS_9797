@@ -112,7 +112,7 @@ public class market_content extends Fragment implements Html.ImageGetter {
                         title_textView.setText(document.get("title", String.class));
                         category_textView.setText(document.get("category", String.class));
                         place_textView.setText(document.get("place", String.class));
-                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         date_textView.setText("등록일 : " + dateString);
                         due_date_textView.setText("마감일 : " + document.get("due_date", String.class));

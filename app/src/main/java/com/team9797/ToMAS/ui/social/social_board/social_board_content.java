@@ -90,7 +90,7 @@ public class social_board_content extends Fragment implements Html.ImageGetter {
                         title_textView.setText("제목 : " + document.get("title", String.class));
                         writer_textView.setText("작성자 : " + document.get("writer", String.class));
                         // get date from timestamp
-                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         date_textView.setText("작성일 : " + dateString);
                         ArrayList<String> read_list = (ArrayList<String>)document.get("readers");

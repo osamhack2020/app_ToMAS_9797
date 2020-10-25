@@ -117,7 +117,7 @@ public class fragment_template extends Fragment {
                                                         if (count > 5)
                                                             break;
                                                         Log.d("QQQ", document.get("title").toString());
-                                                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
+                                                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                                         tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                                         count++;
@@ -153,7 +153,7 @@ public class fragment_template extends Fragment {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d("AAA", document.get("title").toString());
-                                    SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
+                                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                     String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                     adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                 }

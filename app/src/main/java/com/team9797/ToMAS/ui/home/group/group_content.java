@@ -92,7 +92,7 @@ public class group_content extends Fragment {
                         category_textView.setText("카테고리 : " + document.get("category", String.class));
                         place_textView.setText("모집장소 : " + document.get("place", String.class));
                         date_textView.setText("모집일 : " + document.get("date", String.class));
-                        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         enroll_date_textView.setText("작성일 : " + dateString);
                         time_textView.setText("모집시간 : " + document.get("time", String.class));
