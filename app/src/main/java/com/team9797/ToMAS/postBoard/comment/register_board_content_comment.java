@@ -37,9 +37,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.team9797.ToMAS.MyFirebaseMessagingService;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.postBoard.register_board_content;
 import com.team9797.ToMAS.render_preview;
@@ -65,7 +67,7 @@ public class register_board_content_comment extends AppCompatActivity {
     String title;
     Intent intent;
     EditText edit_title;
-
+    MyFirebaseMessagingService messagingService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,7 @@ public class register_board_content_comment extends AppCompatActivity {
         path = intent.getExtras().getString("path");
         post_id = intent.getExtras().getString("post_id");
         edit_title = findViewById(R.id.post_edit_title);
+
         setUpEditor();
     }
 

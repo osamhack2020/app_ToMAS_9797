@@ -9,8 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-       >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,17 +20,16 @@
 
             <ImageView
                 android:id="@+id/profileimage"
-                android:layout_width="287dp"
-                android:layout_height="91dp"
+                android:layout_width="50dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:scaleType="fitXY"
-                />
+                android:scaleType="fitXY" />
 
             <Button
                 android:id="@+id/get_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:background="@drawable/buttonshape_type1"
                 android:text="사진 불러오기" />
 
@@ -48,10 +46,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="이름"
+                android:gravity="center_horizontal"
 
 
-                android:gravity="center_horizontal"/>
+                android:text="이름" />
 
             <EditText
                 android:id="@+id/fix_name"
@@ -156,6 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
+
                 android:text="소속" />
 
             <EditText
@@ -164,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-
+                android:enabled="false"
 
                 android:inputType="textPersonName" />
 
@@ -255,8 +254,8 @@
 
 
             android:layout_height="0dp"
-            android:background="@drawable/buttonshape_type1"
             android:layout_weight="1"
+            android:background="@drawable/buttonshape_type1"
             android:text="수정하기" />
     </LinearLayout>
 </FrameLayout>

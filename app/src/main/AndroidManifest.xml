@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.team9797.ToMAS">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
@@ -33,6 +34,21 @@
         <activity android:name=".postBoard.comment.register_board_content_comment"/>
         <activity android:name=".render_preview"/>
         <activity android:name=".ui.social.social_board.register_social_board_content"/>
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:stopWithTask="false"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
     </application>
+
 
 </manifest>

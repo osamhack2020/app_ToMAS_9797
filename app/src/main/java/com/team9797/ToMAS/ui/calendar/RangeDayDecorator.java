@@ -9,6 +9,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.team9797.ToMAS.R;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -16,16 +17,25 @@ import java.util.HashSet;
  */
 public class RangeDayDecorator implements DayViewDecorator {
 
-  private final HashSet<CalendarDay> list = new HashSet<>();
+  public final HashSet<CalendarDay> list = new HashSet<>();
   private final Drawable drawable;
 
   public RangeDayDecorator(final Context context) {
-    drawable = context.getResources().getDrawable(R.drawable.my_selector);
+    drawable = context.getResources().getDrawable(R.drawable.ic_my_selector);
   }
 
   @Override
   public boolean shouldDecorate(CalendarDay day) {
     return list.contains(day);
+  }
+
+  public void shoulddecorateall(final ArrayList<ArrayList<CalendarDay>> alllist){
+    for(int i=0;i<alllist.size();i++){
+      for(int k=0;k<alllist.get(i).size();k++){
+        shouldDecorate(alllist.get(i).get(k));
+      }
+
+    }
   }
 
   @Override
@@ -41,4 +51,14 @@ public class RangeDayDecorator implements DayViewDecorator {
     list.add(first);
     list.add(last);
   }
+  public void addalllist(final ArrayList<CalendarDay> dlist){
+    for(int i=0;i<dlist.size();i++){
+      list.clear();
+      list.addAll(dlist);
+
+    }
+
+  }
+
 }
+
