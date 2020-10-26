@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -44,7 +45,7 @@ public class CalendarFragment extends Fragment implements OnDateSelectedListener
 
     MaterialCalendarView calendarView;
     MainActivity mainActivity;
-    Button btn_calendar;
+    FloatingActionButton btn_calendar;
     TextView type_textView;
     TextView title_textView;
     TextView content_textView;
@@ -64,6 +65,7 @@ public class CalendarFragment extends Fragment implements OnDateSelectedListener
         decorator = new RangeDayDecorator(mainActivity);
         calendarView.setOnRangeSelectedListener(this);
         calendarView.addDecorator(decorator);
+        //calendarview 크기 줄이기
 
         mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -127,6 +129,8 @@ public class CalendarFragment extends Fragment implements OnDateSelectedListener
             selected_day_list.add(dates.get(i));
     }
 
+
+    // range모드에서 하나만 클릭했을 때 리스너 통해서 미리보기 구현
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
         Log.d("AA", "selected!!!");
