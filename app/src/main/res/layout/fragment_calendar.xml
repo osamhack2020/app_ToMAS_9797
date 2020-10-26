@@ -8,20 +8,47 @@
     tools:context=".ui.calendar.CalendarFragment"
     android:orientation="vertical">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/calendarView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mcv_showOtherDates="all"
-        app:mcv_selectionColor="#00F"
-        app:mcv_selectionMode="range"
-        />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_calendar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mcv_selectionColor="#00F"
+                app:mcv_selectionMode="range"
+                app:mcv_showOtherDates="all">
+
+            </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+            <TextView
+                android:id="@+id/event_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/event_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/event_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
