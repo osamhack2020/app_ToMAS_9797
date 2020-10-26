@@ -45,6 +45,7 @@ public class add_event_dialog extends DialogFragment {
     EditText content_editText;
     EditText title_editText;
     Spinner type_spinner;
+    String type = null, title = null, content = null;
 
     public interface add_event_dialog_result{
         void get_result(String type, String title, String content, int color);
@@ -64,6 +65,14 @@ public class add_event_dialog extends DialogFragment {
         context = tmp_context;
     }
 
+    public add_event_dialog(Context tmp_context, String type, String title, String content)
+    {
+        this.type = type;
+        this.title = title;
+        this.content = content;
+        context = tmp_context;
+    }
+
 
 
     @Override
@@ -77,6 +86,12 @@ public class add_event_dialog extends DialogFragment {
         title_editText = rootView.findViewById(R.id.add_event_title);
         content_editText = rootView.findViewById(R.id.add_event_content);
         type_spinner = rootView.findViewById(R.id.type_spinner);
+
+        if (type != null)
+        {
+            title_editText.setText(this.title);
+            content_editText.setText(this.content);
+        }
 
         // type spinner
         ArrayList<String> type_items = new ArrayList<>();

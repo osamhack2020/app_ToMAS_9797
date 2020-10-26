@@ -27,20 +27,67 @@
 
             </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
-            <TextView
-                android:id="@+id/event_type"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
-            <TextView
-                android:id="@+id/event_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/event_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/event_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3" />
+
+                    <Button
+                        android:id="@+id/event_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:background="@drawable/buttonshape_type1"
+                        android:enabled="false"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="@dimen/small_button_padding"
+                        android:text="수정"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="invisible" />
+
+                    <Button
+                        android:id="@+id/event_delete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:background="@drawable/buttonshape_type1"
+                        android:enabled="false"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="@dimen/small_button_padding"
+                        android:text="삭제"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/event_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="@dimen/title_textsize" />
+
+                <TextView
+                    android:id="@+id/event_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
