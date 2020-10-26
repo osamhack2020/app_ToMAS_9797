@@ -37,6 +37,7 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
     MainActivity mainActivity;
     Button btn_calendar;
     RangeDayDecorator decorator;
+    List<CalendarDay> selected_dayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,20 +50,21 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
         calendarView.setOnRangeSelectedListener(this);
         calendarView.addDecorator(decorator);
 
+        btn_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 일정추가에서 받은 날짜들을 그려준다.
+
+                calendarView.invalidateDecorators();
+
+            }
+        });
 
         return root;
     }
 
     @Override
     public void onRangeSelected(@NonNull MaterialCalendarView widget, @NonNull List<CalendarDay> dates) {
-
-        if (dates.size() > 0) {
-            for (int i = 0; i < dates.size(); i++)
-            {
-                
-            }
-            calendarView.invalidateDecorators();
-        }
-
+        selected_dayList = dates;
     }
 }
