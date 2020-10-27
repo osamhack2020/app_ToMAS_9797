@@ -40,7 +40,7 @@
             android:id="@+id/color_picker"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="#000000" />
+            android:background="#FF0000" />
     </LinearLayout>
 
     <EditText

@@ -36,6 +36,8 @@ import com.prolificinteractive.materialcalendarview.OnRangeSelectedListener;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -81,13 +83,17 @@ public class CalendarFragment extends Fragment implements OnDateSelectedListener
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // calendarDay를 firebase내에 저장 할 수 있는지 확인 후 적용
                         event tmp_event = new event(document.get("type").toString(), document.get("title").toString(), document.get("content").toString(), document.get("color", Integer.class), document.getId());
-                        ArrayList<CalendarDay> tmp_list= (ArrayList<CalendarDay>)document.get("days");
-                        for (int i = 0; i< tmp_list.size(); i++)
+                        ArrayList<String> tmp_string_list= (ArrayList<String>)document.get("days");
+                        ArrayList<CalendarDay> tmp_list = new ArrayList<>();
+                        for (int i = 0; i< tmp_string_list.size(); i++)
                         {
-                            day_to_event_map.put(tmp_list.get(i), tmp_event);
+                            String [] split_date = tmp_string_list.get(i).split("-");
+                            CalendarDay tmp_calendarDay = CalendarDay.from(Integer.parseInt(split_date[0]), Integer.parseInt(split_date[1]), Integer.parseInt(split_date[2]));
+                            tmp_list.add(tmp_calendarDay);
+                            day_to_event_map.put(tmp_calendarDay, tmp_event);
                         }
-                        events.add(selected_day_list);
-                        //show_events(color);
+                        events.add(tmp_list);
+                        show_events();
                     }
                 } else {
                     //Log.d(TAG, "Error getting documents: ", task.getException());
@@ -109,7 +115,13 @@ public class CalendarFragment extends Fragment implements OnDateSelectedListener
                         post.put("title", title);
                         post.put("content", content);
                         post.put("color", color);
-                        post.put("days", selected_day_list); // 이거 안되면 for문 돌려서 calendarDay 변환해서 firebase 넣기
+                        ArrayList<String> string_selected_days = new ArrayList<>();
+                        for (int i = 0; i< selected_day_list.size(); i++)
+                        {
+                            String tmp = Integer.toString(selected_day_list.get(i).getYear()) + "-" + Integer.toString(selected_day_list.get(i).getMonth()) + "-"+ Integer.toString(selected_day_list.get(i).getDay());
+                            string_selected_days.add(tmp);
+                        }
+                        post.put("days", string_selected_days); // 이거 안되면 for문 돌려서 calendarDay 변환해서 firebase 넣기
 
                         mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events").document()
                                 .set(post)
@@ -117,6 +129,7 @@ public class CalendarFragment extends Fragment implements OnDateSelectedListener
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("AAA", "DocumentSnapshot successfully written!");
+                                        refresh();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -219,6 +232,7 @@ public class CalendarFragment extends Fragment implements OnDateSelectedListener
     }
     public void refresh()
     {
+        Log.d("AAAAAAA", "refreshed");
         mainActivity.getSupportFragmentManager().beginTransaction().detach(this).attach(this).commit();
     }
 }

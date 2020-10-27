@@ -119,7 +119,7 @@ public class add_event_dialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 new ColorPickerPopup.Builder(context)
-                        .initialColor(Color.BLACK) // Set initial color
+                        .initialColor(Color.RED) // Set initial color
                         .enableAlpha(true) // Enable alpha slider or not
                         .okTitle("Choose")
                         .cancelTitle("Cancel")
