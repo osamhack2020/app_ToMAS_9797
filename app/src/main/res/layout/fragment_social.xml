@@ -62,4 +62,17 @@
         android:text="중대 공지사항"
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/social_enroll_manager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin"
+        android:background="@drawable/buttonshape_type1"
+        android:gravity="center"
+        android:padding="@dimen/content_padding"
+        android:text="부대 관리자 추가"
+        android:visibility="gone"
+        android:textSize="18sp" />
+
 </LinearLayout>

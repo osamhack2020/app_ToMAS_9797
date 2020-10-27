@@ -1,6 +1,8 @@
 package com.team9797.ToMAS.ui.social.enroll_social_manager;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -37,7 +41,7 @@ public class enroll_social_manager extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_social, container, false);
+        View root = inflater.inflate(R.layout.enroll_social_manager, container, false);
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
 
@@ -51,23 +55,28 @@ public class enroll_social_manager extends Fragment {
         path = mainActivity.preferences.getString("소속", "armyunit/5군단/5군단");
         String[] tmp = path.split("/");
         path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
-        mainActivity.db.collection(path + "부대원")
+        Log.d("path", path);
+        mainActivity.db.collection(path + "people")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("first", document.getId());
                                 mainActivity.db.collection("user").document(document.getId())
                                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                          @Override
                                          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                              if (task.isSuccessful()) {
                                                  DocumentSnapshot tmp_document = task.getResult();
-                                                 if (tmp_document.exists()) {
-                                                     adapter.addItem(getPath(tmp_document.get("소속").toString()), tmp_document.get("계급").toString(), tmp_document.get("이름").toString(), document.getId());
+                                                 Log.d("second", tmp_document.getId());
+                                                 if (tmp_document.get("authority").toString().equals("user")) {
+                                                     if (tmp_document.exists()) {
+                                                         adapter.addItem(getPath(tmp_document.get("소속").toString()), tmp_document.get("계급").toString(), tmp_document.get("이름").toString(), document.getId());
+                                                     }
+                                                     adapter.notifyDataSetChanged();
                                                  }
-                                                 adapter.notifyDataSetChanged();
                                              }
                                          }
                                      });
@@ -82,7 +91,20 @@ public class enroll_social_manager extends Fragment {
             public void onClick(View view) {
                 for (int i = 0; i < adapter.selected_id.size() ; i++)
                 {
-                    mainActivity.db.collection("user").document(adapter.selected_id.get(i)).update("권한", "부대관리자");
+                    Log.d("AA", adapter.selected_id.get(i));
+                    mainActivity.db.collection("user").document(adapter.selected_id.get(i)).update("authority", "QQQ")
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("AAA", "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("AAA", "Error writing document", e);
+                                }
+                            });
                 }
             }
         });

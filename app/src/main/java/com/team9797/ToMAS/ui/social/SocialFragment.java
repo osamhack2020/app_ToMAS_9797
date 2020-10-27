@@ -19,6 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.signupactivity;
+import com.team9797.ToMAS.ui.social.enroll_social_manager.enroll_social_manager;
 import com.team9797.ToMAS.ui.social.survey.social_survey;
 import com.team9797.ToMAS.ui.social.social_board.social_board;
 
@@ -28,6 +29,7 @@ public class SocialFragment extends Fragment {
     TextView survey_textView;
     TextView board_big_textView;
     TextView board_small_textView;
+    TextView enroll_social_manager;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     String path;
@@ -59,6 +61,7 @@ public class SocialFragment extends Fragment {
         survey_textView = root.findViewById(R.id.social_survey);
         board_big_textView = root.findViewById(R.id.social_notice_board_big);
         board_small_textView = root.findViewById(R.id.social_notice_board_small);
+        enroll_social_manager = root.findViewById(R.id.social_enroll_manager);
 
         survey_textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +98,21 @@ public class SocialFragment extends Fragment {
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });
+
+        if (mainActivity.preferences.getString("권한", "").equals("부대관리자") || mainActivity.preferences.getString("권한", "").equals("관리자"))
+        {
+            enroll_social_manager.setVisibility(View.VISIBLE);
+            enroll_social_manager.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
+                    Fragment change_fragment = new enroll_social_manager();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+                }
+            });
+        }
+
         return root;
     }
     @Override
