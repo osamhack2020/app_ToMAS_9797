@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -71,10 +72,9 @@ public class social_survey extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    int count = 0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         ArrayList<String> participants_list = new ArrayList<>();
-                        mainActivity.db.collection(path).document(document.getId()).collection("participants").get()
+                        mainActivity.db.collection(path).document(document.getId()).collection("participants").orderBy("timestamp", Query.Direction.DESCENDING).get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                            @Override
                            public void onComplete(@NonNull Task<QuerySnapshot> task) {

@@ -104,28 +104,6 @@ public class group_content extends Fragment {
                         }
                         adapter.notifyDataSetChanged();
 
-                        /*
-                        * 매번 user에서 불러와서 읽었을 때의 코드 수정 함.
-                        for (int i = 0; i < tmp_participants.size(); i++)
-                        {
-                            mainActivity.db.collection("user").document(tmp_participants.get(i)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> tmp_task) {
-                                    if (tmp_task.isSuccessful()) {
-                                        DocumentSnapshot tmp_document = tmp_task.getResult();
-                                        if (tmp_document.exists()) {
-                                            adapter.addItem(tmp_document.get("계급").toString() + " " + tmp_document.get("이름").toString(), tmp_document.get("phonenumber").toString());
-                                            adapter.notifyDataSetChanged();
-                                        } else {
-
-                                        }
-                                    } else {
-
-                                    }
-                                }
-                            });
-                        }
-                        */
 
                         // user id가 participation 목록에 있으면 버튼 text를 취소로 바꾸기.
                         if (tmp_participants.containsKey(mainActivity.getUid()))

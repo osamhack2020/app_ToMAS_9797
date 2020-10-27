@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -107,21 +108,17 @@ public class fragment_template extends Fragment {
                                 String tmp = document.getId();
                                 final board_list_adapter tmp_sample_list_adapter = new board_list_adapter();
                                 // firestore sample list 불러오기
-                                mainActivity.db.collection(path + "/" + tmp + "/" + tmp)
+                                mainActivity.db.collection(path + "/" + tmp + "/" + tmp).orderBy("timestamp", Query.Direction.DESCENDING).limit(5)
                                         .get()
                                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()) {
-                                                    int count = 0;
                                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                                        if (count > 5)
-                                                            break;
                                                         Log.d("QQQ", document.get("title").toString());
                                                         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                                         tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
-                                                        count++;
                                                     }
                                                     tmp_sample_list_adapter.notifyDataSetChanged();
                                                 } else {
@@ -146,7 +143,7 @@ public class fragment_template extends Fragment {
                 tmp3_listview.setAdapter(adapter);
 
                 // need to fix addItem에 서버에서 받아온 db를 넣어야 함.
-                mainActivity.db.collection(path)
+                mainActivity.db.collection(path).orderBy("timestamp", Query.Direction.DESCENDING)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

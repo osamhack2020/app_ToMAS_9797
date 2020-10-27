@@ -28,6 +28,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -146,7 +147,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
 
         comment_recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         comment_recyclerView.setAdapter(adapter);
-        mPostReference.collection("comments").get()
+        mPostReference.collection("comments").orderBy("timestamp", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

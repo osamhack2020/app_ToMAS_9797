@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -50,7 +51,7 @@ public class point_record extends Fragment {
         recyclerView.setAdapter(adapter);
 
         // need to fix addItem에 서버에서 받아온 db를 넣어야 함.
-        mainActivity.db.collection("user").document(mainActivity.getUid()).collection("point_record")
+        mainActivity.db.collection("user").document(mainActivity.getUid()).collection("point_record").orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

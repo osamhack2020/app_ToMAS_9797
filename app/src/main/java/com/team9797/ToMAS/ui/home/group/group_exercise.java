@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
@@ -118,7 +119,7 @@ public class group_exercise extends Fragment {
         recyclerView.setAdapter(adapter);
 
         // need to fix addItem에 서버에서 받아온 db를 넣어야 함.
-        mainActivity.db.collection(path)
+        mainActivity.db.collection(path).orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -52,7 +52,7 @@ public class market_category_fragment extends Fragment {
         market_listView.setAdapter(list_adapter);
 
         // firestore에서 market list 불러오기.
-        mainActivity.db.collection(path).orderBy("timestamp", Query.Direction.DESCENDING).limit(5)
+        mainActivity.db.collection(path).orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
