@@ -12,7 +12,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.navigation.first_level_adapter;
 import com.team9797.ToMAS.ui.home.market.marketFragment;
 
@@ -38,9 +42,13 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -149,7 +157,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
-    }
+        // 자신이 올린 market, 인원모집 기간 확인 후 삭제하고 최고입찰자한테 포인트 수령 보내기
+        market_date_check();
+
+
+   }
+
+   // 서버에서 처리 할 수 있으면 좋음.
+   public void market_date_check()
+   {
+       db.collection("user").document(getUid()).collection("market").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+           @Override
+           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+               if (task.isSuccessful()) {
+                   for (QueryDocumentSnapshot document : task.getResult()) {
+                       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                           LocalDate due_date = LocalDate.parse(document.get("due_date").toString(), DateTimeFormatter.ISO_DATE);
+                           LocalDate today = LocalDate.now();
+                           if (today.isEqual(due_date) || today.isAfter(due_date))
+                           {
+                               db.collection(document.get("path").toString()).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                       if (task.isSuccessful()) {
+                                           for (QueryDocumentSnapshot tmp_document : task.getResult()) {
+                                               Map<String, Object> post = new HashMap<>();
+                                               post.put("price", tmp_document.get("price", Integer.class));
+                                               post.put("path", document.get("path").toString());
+                                               post.put("post_id", document.getId());
+                                               post.put("title", document.get("title").toString());
+                                               db.collection("user").document(tmp_document.getId()).collection("buy_list").document().set(post);
+                                           }
+                                       }
+                                   }
+                               });
+                           }
+                       }
+                   }
+               } else {
+                   //Log.d(TAG, "Error getting documents: ", task.getException());
+               }
+           }
+       });
+   }
 
     public void set_title(){
         toolbar.setTitle(title);

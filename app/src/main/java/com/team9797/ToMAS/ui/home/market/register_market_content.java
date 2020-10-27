@@ -64,6 +64,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import top.defaults.colorpicker.ColorPickerPopup;
 
@@ -544,13 +545,31 @@ public class register_market_content extends AppCompatActivity {
         post.put("numpeople", 0);
         post.put("writer", preferences.getString("이름", "홍길동"));
 
-        db.collection(path + "/" + category + "/" + category).document().set(post)
+        String uuid = UUID.randomUUID().toString();
+        db.collection(path + "/" + category + "/" + category).document(uuid).set(post)
             .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     //Log.d("AAA", "DocumentSnapshot successfully written!");
-                    setResult(Activity.RESULT_OK);
-                    finish();
+                    Map<String, Object> post2 = new HashMap<>();
+                    post2.put("title", title);
+                    post2.put("due_date", edit_date.getText().toString());
+                    post2.put("path", path + "/" + category + "/" + category);
+                    db.collection("user").document(preferences.getString("user_id", "")).collection("market").document(uuid).set(post2)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                    setResult(Activity.RESULT_OK);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    //Log.w("AAA", "Error writing document", e);
+                                }
+                            });
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
@@ -559,6 +578,7 @@ public class register_market_content extends AppCompatActivity {
                     //Log.w("AAA", "Error writing document", e);
                 }
             });
+
         // need to fix : finish되서 돌아갈 때 게시판 리스트 최신화하기.
     }
 }
