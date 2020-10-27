@@ -10,10 +10,12 @@
     <dimen name="content_padding">16dp</dimen>
     <dimen name="small_button_padding">4dp</dimen>
     <dimen name="content_margin">8dp</dimen>
+    <dimen name="min_button_height">36dp</dimen>
 
 
 
     <dimen name="title_textsize">18sp</dimen>
+    <dimen name="list_title_textSize">16sp</dimen>
 
 
 </resources>
