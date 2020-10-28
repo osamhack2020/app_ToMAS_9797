@@ -1,5 +1,6 @@
 package com.team9797.ToMAS.postBoard.comment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,11 +18,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team9797.ToMAS.R;
@@ -35,6 +39,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class comment_list_adapter extends RecyclerView.Adapter<comment_list_adapter.MyViewHolder> implements Html.ImageGetter {
     public ArrayList<comment_list_item> mDataset;
@@ -42,14 +48,16 @@ public class comment_list_adapter extends RecyclerView.Adapter<comment_list_adap
     Context context;
     String user_id;
     String post_id;
+    String original_writer_id;
 
-    public comment_list_adapter(String tmp_path, String tmp_post_id, Context tmp_context, String uid)
+    public comment_list_adapter(String tmp_path, String tmp_post_id, Context tmp_context, String uid, String tmp_original_writer_id)
     {
         mDataset = new ArrayList<>();
         path = tmp_path;
         post_id = tmp_post_id;
         context = tmp_context;
         user_id = uid;
+        original_writer_id = tmp_original_writer_id;
 
     }
 
@@ -131,6 +139,40 @@ public class comment_list_adapter extends RecyclerView.Adapter<comment_list_adap
                     notifyItemRangeChanged(position, mDataset.size());
                 }
             });
+        }
+        else
+        {
+            if (user_id.equals(original_writer_id))
+            {
+                holder.btn_delete.setVisibility(View.VISIBLE);
+                holder.btn_delete.setEnabled(true);
+                holder.btn_delete.setText("채택");
+                holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseFirestore.getInstance().collection("user").document(mDataset.get(position).getWriterId()).update("point", FieldValue.increment(500));
+                        Map<String, Object> post = new HashMap<>();
+                        post.put("title", "댓글 채택 : " + mDataset.get(position).getTitle());
+                        post.put("timestamp", FieldValue.serverTimestamp());
+                        post.put("change", "+500");
+
+
+                        FirebaseFirestore.getInstance().collection("user").document(mDataset.get(position).getWriterId()).collection("point_record").document().set(post)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        //Log.w("AAA", "Error writing document", e);
+                                    }
+                                });
+                    }
+                });
+            }
         }
 
     }

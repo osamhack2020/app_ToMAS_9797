@@ -143,7 +143,7 @@ public class board_content extends Fragment implements Html.ImageGetter {
                 }
             }
         });
-        comment_list_adapter adapter = new comment_list_adapter(path, post_id, mainActivity, mainActivity.getUid());
+        comment_list_adapter adapter = new comment_list_adapter(path, post_id, mainActivity, mainActivity.getUid(), writer_id);
 
         comment_recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         comment_recyclerView.setAdapter(adapter);

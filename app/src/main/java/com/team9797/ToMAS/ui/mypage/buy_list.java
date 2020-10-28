@@ -85,8 +85,9 @@ public class buy_list extends Fragment {
                                 dialog.setDialogResult(new show_buy_dialog.show_buy_dialog_result() {
                                     @Override
                                     public void get_result() {
+                                        // point_record 업데이트
                                         Map<String, Object> post = new HashMap<>();
-                                        post.put("title", document.get("title").toString());
+                                        post.put("title", "플리마켓 구매 : " + document.get("title").toString());
                                         post.put("timestamp", FieldValue.serverTimestamp());
                                         post.put("change", "-" + Integer.toString(document.get("price", Integer.class)));
                                         mainActivity.db.collection("user").document(mainActivity.getUid()).collection("point_record").document()
@@ -103,7 +104,7 @@ public class buy_list extends Fragment {
                                                     }
                                                 });
                                         Map<String, Object> post2 = new HashMap<>();
-                                        post2.put("title", document.get("title").toString());
+                                        post2.put("title", "플리마켓 판매 : " + document.get("title").toString());
                                         post2.put("timestamp", FieldValue.serverTimestamp());
                                         post2.put("change", "+" + Integer.toString(document.get("price", Integer.class)));
                                         mainActivity.db.collection("user").document(document.get("seller_id").toString()).collection("point_record").document()
