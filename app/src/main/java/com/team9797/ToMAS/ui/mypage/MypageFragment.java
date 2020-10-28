@@ -5,24 +5,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,7 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.ProgressDialog;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.loginactivity;
+import com.team9797.ToMAS.LoginActivity;
 
 public class MypageFragment extends Fragment {
 
@@ -113,7 +107,7 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment change_fragment = new point_record();
+                Fragment change_fragment = new PointRecord();
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
@@ -123,7 +117,7 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment change_fragment = new buy_list();
+                Fragment change_fragment = new BuyList();
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
@@ -138,7 +132,7 @@ public class MypageFragment extends Fragment {
 
                 FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
-                Intent intent=new Intent(mainActivity,loginactivity.class);
+                Intent intent=new Intent(mainActivity, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -149,7 +143,7 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment change_fragment = new fixprofile();
+                Fragment change_fragment = new FixProfile();
 
 
                 fragmentTransaction.addToBackStack(null);

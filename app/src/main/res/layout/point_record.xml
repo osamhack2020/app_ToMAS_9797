@@ -6,7 +6,7 @@
     android:background="#FFFFFF"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.group.group_exercise">
+    tools:context=".ui.home.group.GroupExercise">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/point_record_recyclerView"

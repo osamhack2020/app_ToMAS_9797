@@ -16,10 +16,10 @@
             android:label="@string/app_name">
 
         </activity>
-        <activity android:name=".ui.social.survey.register_social_survey"/>
-        <activity android:name=".postBoard.register_board_content"/>
+        <activity android:name=".ui.social.survey.RegisterSocialSurvey"/>
+        <activity android:name=".PostBoard.RegisterBoardContent"/>
         <activity
-            android:name=".loginactivity"
+            android:name=".LoginActivity"
             android:label="ToMAS">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,12 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signupactivity"/>
-        <activity android:name=".email_verify"/>
-        <activity android:name=".ui.home.market.register_market_content"/>
-        <activity android:name=".postBoard.comment.register_board_content_comment"/>
-        <activity android:name=".render_preview"/>
-        <activity android:name=".ui.social.social_board.register_social_board_content"/>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".EmailVerify"/>
+        <activity android:name=".ui.home.market.RegisterMarketContent"/>
+        <activity android:name=".PostBoard.comment.RegisterBoardContentComment"/>
+        <activity android:name=".RenderPreview"/>
+        <activity android:name=".ui.social.social_board.RegisterSocialBoardContent"/>
     </application>
 
 </manifest>

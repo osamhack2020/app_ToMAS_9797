@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".ui.home.market.marketFragment">
+    tools:context=".ui.home.market.MarketFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/belong_tree_recyclerview"

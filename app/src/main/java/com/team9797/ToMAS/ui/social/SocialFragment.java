@@ -1,7 +1,6 @@
 package com.team9797.ToMAS.ui.social;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.signupactivity;
-import com.team9797.ToMAS.ui.social.survey.social_survey;
-import com.team9797.ToMAS.ui.social.social_board.social_board;
+import com.team9797.ToMAS.ui.social.survey.SocialSurvey;
+import com.team9797.ToMAS.ui.social.social_board.SocialBoard;
 
 public class SocialFragment extends Fragment {
 
@@ -65,7 +63,7 @@ public class SocialFragment extends Fragment {
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new social_survey();
+                Fragment change_fragment = new SocialSurvey();
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });
@@ -80,7 +78,7 @@ public class SocialFragment extends Fragment {
                 else {
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.addToBackStack(null);
-                    Fragment change_fragment = new social_board("big");
+                    Fragment change_fragment = new SocialBoard("big");
                     fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
                 }
             }
@@ -91,7 +89,7 @@ public class SocialFragment extends Fragment {
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new social_board("small");
+                Fragment change_fragment = new SocialBoard("small");
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });

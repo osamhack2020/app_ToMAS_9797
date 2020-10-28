@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -15,12 +13,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.board_list_item;
 
 import java.util.ArrayList;
 
 public class group_list_adapter extends RecyclerView.Adapter<group_list_adapter.MyViewHolder> {
-    public ArrayList<group_list_item> mDataset;
+    public ArrayList<GroupListItem> mDataset;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     String path;
@@ -81,7 +78,7 @@ public class group_list_adapter extends RecyclerView.Adapter<group_list_adapter.
             public void onClick(View v) {
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.addToBackStack(null);
-                Fragment change_fragment = new group_content();
+                Fragment change_fragment = new GroupContent();
                 Bundle args = new Bundle();
                 args.putString("post_id", mDataset.get(position).getId());
                 args.putString("path", path);
@@ -100,7 +97,7 @@ public class group_list_adapter extends RecyclerView.Adapter<group_list_adapter.
 
     public void add_item(String title, int nowpeple, int numpeople, String place, String date, String time, String post_id)
     {
-        group_list_item item = new group_list_item();
+        GroupListItem item = new GroupListItem();
 
         item.setTitle(title);
         item.setNowpeople(nowpeple);

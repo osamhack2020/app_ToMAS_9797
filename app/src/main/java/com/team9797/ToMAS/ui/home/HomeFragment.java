@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.fragment_template;
+import com.team9797.ToMAS.PostBoard.FragmentTemplate;
 import com.team9797.ToMAS.ui.home.group.groupFragment;
-import com.team9797.ToMAS.ui.home.market.marketFragment;
+import com.team9797.ToMAS.ui.home.market.MarketFragment;
 
 import java.util.ArrayList;
 
@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
                     * 이때 넘기는 parents는 자기자신을 포함한 path이다. 네이밍이 잘못됨.
                     */
                     title = "자기개발";
-                    change_fragment = new fragment_template();
+                    change_fragment = new FragmentTemplate();
                     args = new Bundle();
                     args.putInt("fragment_style", 1);
                     args.putString("title", title);
@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
                     break;
                 case R.id.home_btn2:
                     title = "게시판";
-                    change_fragment = new fragment_template();
+                    change_fragment = new FragmentTemplate();
                     args = new Bundle();
                     args.putInt("fragment_style", 1);
                     args.putString("title", title);
@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
                     change_fragment.setArguments(args);
                     break;
                 case R.id.home_btn3:
-                    change_fragment = new marketFragment();
+                    change_fragment = new MarketFragment();
                     title = "플리마켓";
                     break;
                 case R.id.home_btn4:

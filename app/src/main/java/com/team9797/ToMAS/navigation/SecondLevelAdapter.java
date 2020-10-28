@@ -2,8 +2,6 @@ package com.team9797.ToMAS.navigation;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.fragment_template;
+import com.team9797.ToMAS.PostBoard.FragmentTemplate;
 
 import java.util.HashMap;
 import java.util.List;
@@ -106,7 +104,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 mainActivity.closeDrawer();
-                Fragment change_fragment = new fragment_template();
+                Fragment change_fragment = new FragmentTemplate();
                 Bundle args = new Bundle();
                 args.putString("title", childText);
                 mainActivity.push_title(childText);

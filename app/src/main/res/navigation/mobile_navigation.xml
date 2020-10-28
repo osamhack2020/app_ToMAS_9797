@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_group" />
     <fragment
         android:id="@+id/marketFragment"
-        android:name="com.team9797.ToMAS.ui.home.market.marketFragment"
+        android:name="com.team9797.ToMAS.ui.home.market.MarketFragment"
         android:label="fragment_market"
         tools:layout="@layout/fragment_market" />
 
