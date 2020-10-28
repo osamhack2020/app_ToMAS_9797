@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/content_margin"
         android:padding="@dimen/list_item_padding"
-        android:text="자신이 쓴 글"
+        android:text="구매확정 목록"
         android:textSize="18sp" />
 
 

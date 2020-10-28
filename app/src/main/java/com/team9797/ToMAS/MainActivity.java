@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                            LocalDate due_date = LocalDate.parse(document.get("due_date").toString(), DateTimeFormatter.ISO_DATE);
                            LocalDate today = LocalDate.now();
+                           // 날짜 확인
                            if (today.isEqual(due_date) || today.isAfter(due_date))
                            {
                                db.collection(document.get("path").toString()).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -185,6 +186,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                post.put("price", tmp_document.get("price", Integer.class));
                                                post.put("path", document.get("path").toString());
                                                post.put("post_id", document.getId());
+                                               post.put("due_date", document.get("due_date").toString());
+                                               post.put("place", document.get("place").toString());
+                                               post.put("seller_id", getUid());
                                                post.put("title", document.get("title").toString());
                                                db.collection("user").document(tmp_document.getId()).collection("buy_list").document().set(post);
                                            }

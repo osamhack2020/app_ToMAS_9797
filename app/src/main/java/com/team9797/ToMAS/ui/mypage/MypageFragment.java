@@ -40,12 +40,12 @@ import com.team9797.ToMAS.loginactivity;
 public class MypageFragment extends Fragment {
 
     MainActivity mainActivity;
-    Button profilefix;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     FirebaseStorage storage;
     ImageView profileimg_mypg;
     TextView point_textView;
+    TextView buy_textView;
     ProgressDialog customProgressDialog; //로딩창
 
 
@@ -63,8 +63,10 @@ public class MypageFragment extends Fragment {
         customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         customProgressDialog.show();
 
+        // get views
         Button btn_logout = root.findViewById(R.id.btn_logout);
         point_textView = root.findViewById(R.id.mypage_option3);
+        buy_textView = root.findViewById(R.id.mypage_option2);
 
 
         TextView name=root.findViewById(R.id.mypage_name);
@@ -112,6 +114,16 @@ public class MypageFragment extends Fragment {
             public void onClick(View view) {
                 fragmentTransaction = fragmentManager.beginTransaction();
                 Fragment change_fragment = new point_record();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+            }
+        });
+
+        buy_textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment change_fragment = new buy_list();
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }

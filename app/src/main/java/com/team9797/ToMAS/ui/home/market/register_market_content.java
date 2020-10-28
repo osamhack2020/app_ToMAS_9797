@@ -543,7 +543,8 @@ public class register_market_content extends AppCompatActivity {
         post.put("place", edit_place.getText().toString());
         post.put("category", category);
         post.put("numpeople", 0);
-        post.put("writer", preferences.getString("이름", "홍길동"));
+        //post.put("writer_id", preferences.getString("user_id", ""));
+        post.put("writer", preferences.getString("이름", ""));
 
         String uuid = UUID.randomUUID().toString();
         db.collection(path + "/" + category + "/" + category).document(uuid).set(post)
@@ -559,7 +560,6 @@ public class register_market_content extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    //Log.d("AAA", "DocumentSnapshot successfully written!");
                                     setResult(Activity.RESULT_OK);
                                     finish();
                                 }
@@ -567,7 +567,6 @@ public class register_market_content extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    //Log.w("AAA", "Error writing document", e);
                                 }
                             });
                 }

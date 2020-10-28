@@ -190,6 +190,8 @@ public class recruit_register_fragment extends Fragment {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                fragmentManager.beginTransaction().remove(recruit_register_fragment.this).commit();
+                                fragmentManager.popBackStack();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -198,8 +200,7 @@ public class recruit_register_fragment extends Fragment {
                                 //Log.w("AAA", "Error writing document", e);
                             }
                         });
-                fragmentManager.beginTransaction().remove(recruit_register_fragment.this).commit();
-                fragmentManager.popBackStack();
+
             }
         });
 
