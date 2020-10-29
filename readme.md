@@ -261,7 +261,7 @@ public void show_field()
 
 ![board_firestore_example](https://github.com/rlarla915/readme_sample/blob/main/board_firestore_example.PNG)
 
-각 구조 field에 `fragment_style`로 저장되어 있는 값을 불러와서 게시판 자식 목록을 구성한다.
+각 구조 field에 `fragment_style`로 저장되어 있는 값을 불러와서 게시판 자식 목록을 구성합니다.
 
 `path`와 `fragment_style`을 부모 `FragmentTemplate.java`로 부터 Bundle argument로 받아 내용물을 구성합니다.  `path`는 현재 게시판 목록의 firestore에서의 위치를 변수로 갖습니다. 각 `fragment_style`일 때 필요한 값을 firestore에서 불러와서 리스트 adapter에 추가하고, `Adpater.notifyDataSetChanged()`함수를 통해 바뀐 list를 보여줍니다.
 관리자가 firestore에 `fragment_style`을 기입한 document를 추가하기만 하면 손쉽게 게시판을 추가할 수 있습니다.
@@ -342,7 +342,7 @@ implementation 'com.github.irshulx:laser-native-editor:3.0.3'
 }
 ```
 
-editor에서 이미지를 앨범에서 불러와 넣을 때, Html코드 <img src =""/>로 변환되어 들어갑니다. 이때 firestore내에 이미지를 저장한 뒤, `getDownloadUrl()`함수를 통해 url을 받고 이를 src 안에 넣어줍니다.
+editor에서 이미지를 앨범에서 불러와 넣을 때, Html코드 `<img src =""/>`로 변환되어 들어갑니다. 이때 firestore내에 이미지를 저장한 뒤, `getDownloadUrl()`함수를 통해 url을 받고 이를 `src` 안에 넣어줍니다.
 ```
 ---
 
