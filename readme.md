@@ -996,8 +996,10 @@ customView를 통해 문항 추가 기능을 구현했습니다. 오른쪽 아�
 
 [관리자로 SocialSurvey 들어간 것 사진 추가]
 전체 설문조사 결과보기와 지금까지 참여한 부대원들의 설문조사 결과가 user1, user2와 같은 익명으로 처리되어 리스트되어 나와있습니다.
+
 [개인 결과 보기 사진 추가]
 개인 결과 보기를 하면 그 사람이 기록한 결과가 객관식에는 RadioButton이 클릭된 형태로, 주관식에는 EditText가 채워진 형태로 제공됩니다. 이 때 RadioButton과 EditText는 수정이 불가능하게 disable되어 있습니다.
+
 [전체 결과 보기 사진 추가]
 전체 결과 보기를 하면 객관식의 경우 선택지 오른쪽에 선택한 인원의 숫자가 나타나고, 주관식의 경우 각각의 대답이 기록되어 제공됩니다.
 
@@ -1024,36 +1026,28 @@ customView를 통해 문항 추가 기능을 구현했습니다. 오른쪽 아�
 mPostReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {  
     @Override  
   public void onComplete(@NonNull Task<DocumentSnapshot> task) {  
-        if (task.isSuccessful()) {  
-            DocumentSnapshot document = task.getResult();  
- if (document.exists()) {  
-                title_textView.setText(document.get("title", String.class));  
+        if (task.isSuccessful()) {  DocumentSnapshot document = task.getResult();  
+ if (document.exists()) { title_textView.setText(document.get("title", String.class));  
   due_date_textView.setText(document.get("due_date", String.class));  
   writer_textView.setText(document.get("writer", String.class));  
   mPostReference.collection("submissions").document(participant_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {  
                     @Override  
   public void onComplete(@NonNull Task<DocumentSnapshot> task) {  
-                        if (task.isSuccessful()) {  
-                            DocumentSnapshot adocument = task.getResult();  
- if (adocument.exists()) {  
-  
-                                answers_list = (ArrayList<String>) adocument.get("answers");  
-  
-  mPostReference.collection("questions").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {  
+                        if (task.isSuccessful()) {   DocumentSnapshot adocument = task.getResult();  
+ if (adocument.exists()) {  answers_list = (ArrayList<String>) adocument.get("answers");    mPostReference.collection("questions").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {  
                                     @Override  
   public void onComplete(@NonNull Task<QuerySnapshot> task) {  
                                         if (task.isSuccessful()) {  
                                             int count = 1;  
  for (QueryDocumentSnapshot tmp_document : task.getResult()) {  
-                                                int tmp_type = tmp_document.get("type", Integer.class);  
+                          int tmp_type = tmp_document.get("type", Integer.class);  
   String item_question = tmp_document.get("question", String.class);  
   SurveyContentResultCustomView tmp_customView;  
  if (tmp_type == 1) {  
-                                                    tmp_customView = new SurveyContentResultCustomView(mainActivity, null, tmp_type, count, item_question, (ArrayList<String>) tmp_document.get("multi_choice_questions"), answers_list.get(count-1));  
+  tmp_customView = new SurveyContentResultCustomView(mainActivity, null, tmp_type, count, item_question, (ArrayList<String>) tmp_document.get("multi_choice_questions"), answers_list.get(count-1));  
   } else {  
-                                                    tmp_customView = new SurveyContentResultCustomView(mainActivity, null, tmp_type, count, item_question, null, answers_list.get(count-1));  
-  }  
-                                                container_linearLayout.addView(tmp_customView, count + 1);  
+  tmp_customView = new SurveyContentResultCustomView(mainActivity, null, tmp_type, count, item_question, null, answers_list.get(count-1));  
+  }    container_linearLayout.addView(tmp_customView, count + 1);  
   count++;  
   }  
                                         }  
