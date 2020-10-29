@@ -17,7 +17,8 @@
         <TextView
             android:id="@+id/survey_content_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_textsize"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,11 +28,12 @@
             <TextView
                 android:id="@+id/survey_content_due_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/survey_content_writer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>

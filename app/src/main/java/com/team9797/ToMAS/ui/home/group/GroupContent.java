@@ -171,7 +171,7 @@ public class GroupContent extends Fragment {
 
         // round로 자르기
         root.findViewById(R.id.group_content_drawer).setClipToOutline(true);
-        
+
         return root;
     }
 }

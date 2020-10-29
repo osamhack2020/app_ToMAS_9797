@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
     android:background="#FFFFFF"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/custom_question_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4" />
+        android:layout_marginBottom="8dp"
+        android:textSize="@dimen/title_textsize" />
 
     <LinearLayout
         android:id="@+id/custom_container"

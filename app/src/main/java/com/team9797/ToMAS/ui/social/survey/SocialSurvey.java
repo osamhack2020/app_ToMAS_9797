@@ -64,7 +64,7 @@ public class SocialSurvey extends Fragment {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         ArrayList<String> participants_list = new ArrayList<>();
-                        mainActivity.db.collection(path).document(document.getId()).collection("participants").orderBy("timestamp", Query.Direction.DESCENDING).get()
+                        mainActivity.db.collection(path).document(document.getId()).collection("submissions").orderBy("timestamp", Query.Direction.DESCENDING).get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                            @Override
                            public void onComplete(@NonNull Task<QuerySnapshot> task) {

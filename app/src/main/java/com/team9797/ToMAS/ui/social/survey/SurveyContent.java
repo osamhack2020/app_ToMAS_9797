@@ -76,11 +76,11 @@ public class SurveyContent extends Fragment {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         title_textView.setText(document.get("title", String.class));
-                        due_date_textView.setText(document.get("due_date", String.class));
+                        due_date_textView.setText("마감일 : " + document.get("due_date", String.class));
                         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                         date_textView.setText("작성일 : " + dateString);
-                        writer_textView.setText(document.get("writer", String.class));
+                        writer_textView.setText("작성자 : " + document.get("writer", String.class));
                         mPostReference.collection("questions").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -99,7 +99,7 @@ public class SurveyContent extends Fragment {
                                             tmp_customView = new SurveyContentCustomView(mainActivity, null, tmp_type, count, item_question, null);
                                         }
                                         customView_list.add(tmp_customView);
-                                        container_linearLayout.addView(tmp_customView, count + 1);
+                                        container_linearLayout.addView(tmp_customView, count + 2);
                                         count++;
                                     }
                                 }
