@@ -9,7 +9,9 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.team9797.ToMAS.R;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Decorate 2 days.
@@ -40,5 +42,13 @@ public class RangeDayDecorator implements DayViewDecorator {
     list.clear();
     list.add(first);
     list.add(last);
+  }
+  public void addAll(List<CalendarDay> day_list)
+  {
+    list.clear();
+    for (int i = 0; i< day_list.size(); i++)
+    {
+      list.add(day_list.get(i));
+    }
   }
 }
