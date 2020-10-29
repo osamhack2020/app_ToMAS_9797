@@ -21,15 +21,18 @@
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mcv_selectionColor="#00F"
+                app:mcv_selectionColor="@color/accent"
                 app:mcv_selectionMode="range"
                 app:mcv_showOtherDates="all">
 
             </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
             <LinearLayout
+                android:id="@+id/calendar_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/content_margin"
+                android:background="@drawable/buttonshape_type1"
                 android:orientation="vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp">
@@ -44,35 +47,38 @@
                         android:id="@+id/event_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="3" />
 
                     <Button
                         android:id="@+id/event_update"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
                         android:layout_weight="10"
                         android:background="@drawable/buttonshape_type1"
-                        android:enabled="false"
+                        android:enabled="true"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:padding="@dimen/small_button_padding"
                         android:text="수정"
                         android:textColor="@color/colorAccent"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
 
                     <Button
                         android:id="@+id/event_delete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
                         android:layout_weight="10"
                         android:background="@drawable/buttonshape_type1"
-                        android:enabled="false"
+                        android:enabled="true"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:padding="@dimen/small_button_padding"
                         android:text="삭제"
                         android:textColor="@color/colorAccent"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
                 </LinearLayout>
 
                 <TextView
