@@ -120,6 +120,7 @@ public class BuyList extends Fragment {
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
+                                                        // fragment 뒤로가기
                                                         fragmentManager.beginTransaction().remove(BuyList.this).commit();
                                                         fragmentManager.popBackStack();
                                                     }

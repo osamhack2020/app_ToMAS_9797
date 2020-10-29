@@ -49,7 +49,6 @@ public class PointRecord extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         recyclerView.setAdapter(adapter);
 
-        // need to fix addItem에 서버에서 받아온 db를 넣어야 함.
         mainActivity.db.collection("user").document(mainActivity.getUid()).collection("point_record").orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

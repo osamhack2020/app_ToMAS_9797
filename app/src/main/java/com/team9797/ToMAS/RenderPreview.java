@@ -1,4 +1,6 @@
 package com.team9797.ToMAS;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
 import com.github.irshulx.models.EditorContent;
+import com.team9797.ToMAS.PostBoard.RegisterBoardContent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +68,24 @@ public class RenderPreview extends AppCompatActivity {
                 return null;
             }
         });
+
+        findViewById(R.id.action_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(RenderPreview.this)
+                        .setTitle("미리보기 종료")
+                        .setMessage("미리보기를 종료하시겠습니까?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
+
         renderer.render(Deserialized);
     }
 
