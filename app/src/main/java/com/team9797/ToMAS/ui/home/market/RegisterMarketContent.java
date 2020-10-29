@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -527,15 +528,12 @@ public class RegisterMarketContent extends AppCompatActivity {
         String category = spinner_category.getSelectedItem().toString();
         Map<String, Object> post = new HashMap<>();
         post.put("html", string_html);
-        //example : need to fix
         post.put("title", title);
         post.put("timestamp", FieldValue.serverTimestamp());
         post.put("due_date", edit_date.getText().toString());
-        post.put("price", 0);
         post.put("place", edit_place.getText().toString());
         post.put("category", category);
         post.put("numpeople", 0);
-        //post.put("writer_id", preferences.getString("user_id", ""));
         post.put("writer", preferences.getString("이름", ""));
 
         String uuid = UUID.randomUUID().toString();
@@ -543,7 +541,6 @@ public class RegisterMarketContent extends AppCompatActivity {
             .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    //Log.d("AAA", "DocumentSnapshot successfully written!");
                     Map<String, Object> post2 = new HashMap<>();
                     post2.put("title", title);
                     post2.put("due_date", edit_date.getText().toString());

@@ -1,11 +1,14 @@
 package com.team9797.ToMAS;
 
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -22,6 +25,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -168,10 +172,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                            // 날짜 확인
                            if (today.isEqual(due_date) || today.isAfter(due_date))
                            {
+                               Log.d("market", "market has!!");
                                db.collection(document.get("path").toString()).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                    @Override
                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                        if (task.isSuccessful()) {
+                                           if(task.getResult().size() == 0) {
+                                               // delete market in user document
+                                               db.collection("user").document(getUid()).collection("market").document(document.getId()).delete();
+                                           }
                                            for (QueryDocumentSnapshot tmp_document : task.getResult()) {
                                                Map<String, Object> post = new HashMap<>();
                                                post.put("price", tmp_document.get("price", Integer.class));
@@ -181,7 +190,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                post.put("place", document.get("place").toString());
                                                post.put("seller_id", getUid());
                                                post.put("title", document.get("title").toString());
-                                               db.collection("user").document(tmp_document.getId()).collection("buy_list").document().set(post);
+                                               db.collection("user").document(tmp_document.getId()).collection("buy_list").document().set(post)
+                                               .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                   @Override
+                                                   public void onSuccess(Void aVoid) {
+                                                       // delete market in user document
+                                                       db.collection("user").document(getUid()).collection("market").document(document.getId()).delete();
+                                                   }
+                                               })
+                                               .addOnFailureListener(new OnFailureListener() {
+                                                   @Override
+                                                   public void onFailure(@NonNull Exception e) {
+                                                   }
+                                               });
                                            }
                                        }
                                    }

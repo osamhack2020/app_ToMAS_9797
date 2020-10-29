@@ -60,6 +60,8 @@ public class MarketCategoryFragment extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
+                                            if (task.getResult().size() == 0)
+                                                list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), 0, document.getId());
                                             for (QueryDocumentSnapshot price_document : task.getResult()) {
                                                 list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), price_document.get("price", Integer.class), document.getId());
                                             }
