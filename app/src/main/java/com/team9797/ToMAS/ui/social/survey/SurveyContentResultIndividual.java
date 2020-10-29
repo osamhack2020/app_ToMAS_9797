@@ -68,7 +68,6 @@ public class SurveyContentResultIndividual extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    Log.d("document : ", document.getId());
                     if (document.exists()) {
                         title_textView.setText(document.get("title", String.class));
                         due_date_textView.setText(document.get("due_date", String.class));
@@ -99,27 +98,14 @@ public class SurveyContentResultIndividual extends Fragment {
                                                         container_linearLayout.addView(tmp_customView, count + 1);
                                                         count++;
                                                     }
-                                                } else {
-
                                                 }
                                             }
                                         });
-
-
-                                    } else {
-
                                     }
-                                } else {
-
                                 }
                             }
                         });
-
-                    } else {
-
                     }
-                } else {
-
                 }
             }
         });

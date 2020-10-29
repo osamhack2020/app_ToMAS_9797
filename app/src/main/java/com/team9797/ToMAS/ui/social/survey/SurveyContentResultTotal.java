@@ -34,7 +34,6 @@ public class SurveyContentResultTotal extends Fragment {
     LinearLayout container_linearLayout;
     DocumentReference mPostReference;
 
-    // need to fix 댓글 보기 기능 추가해야 함.
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -51,9 +50,7 @@ public class SurveyContentResultTotal extends Fragment {
         due_date_textView = root.findViewById(R.id.survey_content_due_date);
         container_linearLayout = root.findViewById(R.id.survey_content_container);
 
-        // 선택한 게시물 document reference
         mPostReference = mainActivity.db.collection(path).document(post_id);
-        // id를 바탕으로
         mPostReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -113,15 +110,8 @@ public class SurveyContentResultTotal extends Fragment {
                                                         count++;
                                                     }
                                                 }
-                                                else {
-
-                                                }
                                             }
                                         });
-
-
-                                    } else {
-
                                     }
                                 }
                             });

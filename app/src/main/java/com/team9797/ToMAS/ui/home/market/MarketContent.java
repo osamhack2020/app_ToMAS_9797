@@ -211,6 +211,9 @@ public class MarketContent extends Fragment implements Html.ImageGetter {
             }
         });
 
+        // round로 자르기
+        root.findViewById(R.id.market_content_drawer).setClipToOutline(true);
+
         return root;
     }
 
