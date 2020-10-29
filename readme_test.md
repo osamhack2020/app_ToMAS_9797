@@ -1,24 +1,4 @@
-Welcome file
-김
-김
-유형
-텍스트
-크기
-16KB (16,444바이트)
-사용된 저장용량
-16KB (16,444바이트)
-위치
-mainPage
-소유자
-나
-수정한 날짜
-내가 오전 9:04에 수정함
-열어본 날짜
-내가 오전 9:05에 열어봄
-생성한 날짜
-StackEdit(으)로 오전 7:50에 작성됨
-설명 추가
-뷰어가 다운로드할 수 있음
+
 # 프로젝트 소개
 
   
@@ -57,11 +37,11 @@ StackEdit(으)로 오전 7:50에 작성됨
 
   
 
-**1. 군인이거나 군인 이었다는 경험을 가지고 있는 사람들이 이용해야 한다.
+1. 군인이거나 군인 이었다는 경험을 가지고 있는 사람들이 이용해야 한다.
 
   
 
-2. 군인들이 개인적인 시간을 할애해서 이용할 만한 가치가 있어야 한다.**
+2. 군인들이 개인적인 시간을 할애해서 이용할 만한 가치가 있어야 한다.
 
   
 
@@ -153,12 +133,11 @@ fragment_template.java에서 firestore 게시판 구조 접근 'path'와 'fragme
 <div markdown="1">
 
   
-
+사용 라이브러리 : https://github.com/irshuLx/Android-WYSIWYG-Editor
 </div>
 
 </details>
 
-https://github.com/irshuLx/Android-WYSIWYG-Editor
 
 **3. 댓글 쓰기 기능을 제공한다.**
 
@@ -180,142 +159,44 @@ https://github.com/irshuLx/Android-WYSIWYG-Editor
 
 register_board_content.java를 불러올 때 신규 글 쓰기의 경우 post_id를 인자로 넘겨주지 않고, 수정하기 경우엔 해당 글의 post_id을 인자로 넘겨주어서, If문을 통해 분기한다. 수정하기 일 때는 기존에 썼던 내용을 editor에 넣어준다. 글을 서버에 올릴 때는 신규 글 쓰기의 경우 새로운 uuid를 통해 post_id를 정해주고, 수정하기의 경우 기존의 post_id에 set()을 하여 업데이트한다.
 
-```gradle
-
-// 새로 글 쓸 때
-
-  
-
-if (post_id.equals("")) {
-
-  
-
-db.collection(path).document()
-
-  
-
-.set(post)
-
-  
-
-.addOnSuccessListener(new OnSuccessListener<Void>() {
-
-  
-
-@Override
-
-  
-
-public void onSuccess(Void aVoid) {
-
-  
-
-setResult(Activity.RESULT_OK);
-
-  
-
-finish();
-
-  
-
+```java
+// 새로 글 쓸 때  
+if (post_id.equals("")) {  
+    db.collection(path).document()  
+            .set(post)  
+            .addOnSuccessListener(new OnSuccessListener<Void>() {  
+                @Override  
+  public void onSuccess(Void aVoid) {  
+                    setResult(Activity.RESULT_OK);  
+  finish();  
+  Log.d("AAA", "DocumentSnapshot successfully written!");  
+  }  
+            })  
+            .addOnFailureListener(new OnFailureListener() {  
+                @Override  
+  public void onFailure(@NonNull Exception e) {  
+                    Log.w("AAA", "Error writing document", e);  
+  }  
+            });  
+}  
+else {// 수정할 때  
+  db.collection(path).document(post_id)  
+            .set(post)  
+            .addOnSuccessListener(new OnSuccessListener<Void>() {  
+                @Override  
+  public void onSuccess(Void aVoid) {  
+                    setResult(Activity.RESULT_OK);  
+  finish();  
+  Log.d("AAA", "DocumentSnapshot successfully written!");  
+  }  
+            })  
+            .addOnFailureListener(new OnFailureListener() {  
+                @Override  
+  public void onFailure(@NonNull Exception e) {  
+                    Log.w("AAA", "Error writing document", e);  
+  }  
+            });  
 }
-
-  
-
-})
-
-  
-
-.addOnFailureListener(new OnFailureListener() {
-
-  
-
-@Override
-
-  
-
-public void onFailure(@NonNull Exception e) {
-
-  
-
-}
-
-  
-
-});
-
-  
-
-}
-
-  
-
-else
-
-  
-
-{// 수정할 때
-
-  
-
-db.collection(path).document(post_id)
-
-  
-
-.set(post)
-
-  
-
-.addOnSuccessListener(new OnSuccessListener<Void>() {
-
-  
-
-@Override
-
-  
-
-public void onSuccess(Void aVoid) {
-
-  
-
-setResult(Activity.RESULT_OK);
-
-  
-
-finish();
-
-  
-
-}
-
-  
-
-})
-
-  
-
-.addOnFailureListener(new OnFailureListener() {
-
-  
-
-@Override
-
-  
-
-public void onFailure(@NonNull Exception e) {
-
-  
-
-}
-
-  
-
-});
-
-  
-
-}
-
 ```
 
   
@@ -324,66 +205,27 @@ public void onFailure(@NonNull Exception e) {
 
 우리 글 구조에는 댓글 collection까지 포함되어 있었기 때문에 댓글 document까지 삭제하는 것을 client에서 처리하였다.
 
-```
-
-mPostReference.collection("comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-  
-
-@Override
-
-  
-
-public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-  
-
-if (task.isSuccessful()) {
-
-  
-
-for (QueryDocumentSnapshot document : task.getResult()) {
-
-  
-
-mPostReference.collection("comments").document(document.getId()).delete();
-
-  
-
-}
-
-  
-
-mPostReference.delete();
-
-  
-
-} else {
-
-  
-
-//Log.d(TAG, "Error getting documents: ", task.getException());
-
-  
-
-}
-
-  
-
-}
-
-  
-
+```java
+delete_button.setOnClickListener(new View.OnClickListener() {  
+    @Override  
+  public void onClick(View view) {  
+        mPostReference.collection("comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {  
+            @Override  
+  public void onComplete(@NonNull Task<QuerySnapshot> task) {  
+                if (task.isSuccessful()) {  
+                    for (QueryDocumentSnapshot document : task.getResult()) {  
+                        mPostReference.collection("comments").document(document.getId()).delete();  
+  }  
+                    mPostReference.delete();  
+  } else {  
+                    //Log.d(TAG, "Error getting documents: ", task.getException());  
+  }  
+            }  
+        });  
+  fragmentManager.beginTransaction().remove(BoardContent.this).commit();  
+  fragmentManager.popBackStack();  
+  }  
 });
-
-  
-
-fragmentManager.beginTransaction().remove(board_content.this).commit();
-
-  
-
-fragmentManager.popBackStack();
-
 ```
 
 </div>
@@ -429,7 +271,7 @@ ex) 자기개발 2번째, 플리마켓의 첫 번째 사진 넣기
 
   
 
-부대 내에서 사용하지 않는 물품들을 플리마켓의 형식으로 거래 할 수 있는 기능을 제공합니다. 플리마켓 내에서 사용자는 판매자와 구매자로 구분이 됩니다. 판매자는 정해진 기간동안 가장 높은 포인트를 제시하는 구매자와 물품을 거래 합니다. 거래방식은 직거래로 한정하고 영내부대 단위로 마켓게시판을 구성하여 다른 부대와의 혼동을 방지합니다. 거래 시 구매자가 마이페이지에 있는 수령 완료 버튼을 누르면 포인트가 결산됩니다.
+부대 내에서 사용하지 않는 물품들을 플리마켓의 형식으로 거래 할 수 있는 기능을 제공합니다. 플리마켓 내에서 사용자는 판매자와 구매자로 구분이 됩니다. 판매자는 정해진 기간 동안 가장 높은 포인트를 제시하는 구매자와 물품을 거래 합니다. 거래방식은 직거래로 한정하고 영내부대 단위로 마켓게시판을 구성하여 다른 부대와의 혼동을 방지합니다. 거래 시 구매자가 마이페이지에 있는 수령 완료 버튼을 누르면 포인트가 결산됩니다.
 
 특징
 1. 소속부대 단위로 데이터베이스 분리
@@ -448,7 +290,8 @@ ex) 자기개발 2번째, 플리마켓의 첫 번째 사진 넣기
 <div markdown="1">
 소속 선택을 처리하기 위해서 RecyclerTreeView 라이브러리를 이용했습니다.
 서버에서 소속 구조를 받아와 RecyclerTreeView를 구성합니다. 이를 통해 firestore에 구조 하나만 추가해서 새로운 소속의 부대를 추가할 수 있습니다.
-```
+`BelongTreeDialog.java`
+```java
 public void init_tree(TreeNode<Dir> node)  
 {  
     // 자기자신의 path까지 node로 저장하고 이를 firebase path에 넘겨줌.  
@@ -474,6 +317,11 @@ public void init_tree(TreeNode<Dir> node)
             });  
 }
 ```
+라이브러리의 `TreeNode<Dir> node`를 커스터마이징해서 소속 부대의 path를 저장할 수 있는 객체로 만들었습니다.
+
+이후 확인 버튼을 눌러 Dialog를 끄게 되면, 마지막에 눌렸던 `node`의 path를 `getPath()`를 통해 불러와 `BelongTreeDialog`를 호출한 fragment에 path값을 전달해주었습니다. 
+이는 `interface`를 통해 구현되었습니다.
+```java
 </div>
 
 </details>
@@ -483,6 +331,9 @@ public void init_tree(TreeNode<Dir> node)
 </details>
 
 2. 기간 내 최고가 입찰자가 수령 완료 버튼을 누르면 포인트 결산
+[마이페이지 내 수령완료 게시판 사진 추가]
+기술
+
 
 3. 카테고리별로 물품 구성
 카테고리 별로 물품을 분할하여 등록하게 해서 필요한 물건을 쉽게 찾을 수 있게 한다.
@@ -1065,7 +916,3 @@ You may obtain a copy of the License at:
   
 
 https://github.com/muabe/Propose멘토깃허브링크
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbNDc3NDY5MTAwLDE4MjYwNzgyLC03NzQ3OD
-U3MDMsLTEyNjA5OTA4NjAsLTIxMjA0MzAyNTldfQ==
--->
