@@ -113,25 +113,25 @@ public class BoardContent extends Fragment implements Html.ImageGetter {
                                 }
                             });
                             delete_button.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    mPostReference.collection("comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    mPostReference.collection("comments").document(document.getId()).delete();
-                                                }
-                                                mPostReference.delete();
-                                            } else {
-                                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                            @Override
+                            public void onClick(View view) {
+                                mPostReference.collection("comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                mPostReference.collection("comments").document(document.getId()).delete();
                                             }
+                                            mPostReference.delete();
+                                        } else {
+                                            //Log.d(TAG, "Error getting documents: ", task.getException());
                                         }
-                                    });
-                                    fragmentManager.beginTransaction().remove(BoardContent.this).commit();
-                                    fragmentManager.popBackStack();
-                                }
-                            });
+                                    }
+                                });
+                                fragmentManager.beginTransaction().remove(BoardContent.this).commit();
+                                fragmentManager.popBackStack();
+                            }
+                        });
                         }
                     } else {
 

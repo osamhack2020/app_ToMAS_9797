@@ -79,8 +79,7 @@ public class RegisterBoardContent extends AppCompatActivity {
         setUpEditor();
 
         // 수정할 때
-        if (!post_id.equals(""))
-        {
+        if (!post_id.equals("")) {
             db.collection(path).document(post_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -502,8 +501,7 @@ public class RegisterBoardContent extends AppCompatActivity {
                         }
                     });
         }
-        else
-        {// 수정할 때
+        else {// 수정할 때
             db.collection(path).document(post_id)
                     .set(post)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {

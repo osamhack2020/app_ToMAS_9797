@@ -54,8 +54,7 @@ public class SurveyContentCustomView extends LinearLayout {
         title_textView = findViewById(R.id.custom_question_title);
 
         title_textView.setText(Integer.toString(index)+". "+title);
-        if (question_type == 1)
-        {// 객관식
+        if (question_type == 1) {// 객관식
             type1_radioGroup = new RadioGroup(context);
             for (int i = 0; i< multi_chioce_question_list.size(); i++)
             {
@@ -67,8 +66,7 @@ public class SurveyContentCustomView extends LinearLayout {
             }
             container.addView(type1_radioGroup);
         }
-        else
-        {// 주관식
+        else {// 주관식
             type2_editText = new EditText(context);
             type2_editText.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             container.addView(type2_editText);

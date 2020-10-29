@@ -46,8 +46,7 @@ public class BelongTreeDialog extends DialogFragment {
     public interface tree_dialog_result{
         void get_result(String result);
     }
-    public void setDialogResult(tree_dialog_result dialogResult)
-    {
+    public void setDialogResult(tree_dialog_result dialogResult) {
         mdialogResult = dialogResult;
     }
 
@@ -72,7 +71,6 @@ public class BelongTreeDialog extends DialogFragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // 소속 tree에는 market이나 중대게시판 안보이게 처리
                                 String tmp_path = node.getPath() + "/" + document.getId() + "/" + document.getId();
                                 TreeNode<Dir> tmp_node = new TreeNode<>(new Dir(document.getId()), tmp_path);
                                 init_tree(tmp_node);

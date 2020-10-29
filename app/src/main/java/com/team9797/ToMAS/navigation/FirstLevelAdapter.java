@@ -45,11 +45,11 @@ public class FirstLevelAdapter extends BaseExpandableListAdapter {
         mainActivity = tmp_mainActivity;
         //init second level
         list_first_child = new ArrayList<>();
-        list_second_level_map = new HashMap<>(); // 이거 채워주면 됨
+        list_second_level_map = new HashMap<>();
         list_second_level_path = new HashMap<>();
         list_third_level_path = new HashMap<>();
         list_second_child = new ArrayList<>();
-        list_third_level_map = new HashMap<>(); // 이거 채워주면 됨
+        list_third_level_map = new HashMap<>();
         for (int i = 0; i < 2; i++)
         {
             String second_content = listDataHeader.get(i);
