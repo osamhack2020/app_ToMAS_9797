@@ -53,7 +53,7 @@ public class enroll_social_manager extends Fragment {
         String[] tmp = path.split("/");
         path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
         Log.d("path", path);
-        mainActivity.db.collection(path + "people")
+        mainActivity.db.collection(path + "부대원")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -68,7 +68,7 @@ public class enroll_social_manager extends Fragment {
                                              if (task.isSuccessful()) {
                                                  DocumentSnapshot tmp_document = task.getResult();
                                                  Log.d("second", tmp_document.getId());
-                                                 if (tmp_document.get("authority").toString().equals("user")) {
+                                                 if (tmp_document.get("권한").toString().equals("사용자")) {
                                                      if (tmp_document.exists()) {
                                                          adapter.addItem(getPath(tmp_document.get("소속").toString()), tmp_document.get("계급").toString(), tmp_document.get("이름").toString(), document.getId());
                                                      }
@@ -89,7 +89,7 @@ public class enroll_social_manager extends Fragment {
                 for (int i = 0; i < adapter.selected_id.size() ; i++)
                 {
                     Log.d("AA", adapter.selected_id.get(i));
-                    mainActivity.db.collection("user").document(adapter.selected_id.get(i)).update("authority", "QQQ")
+                    mainActivity.db.collection("user").document(adapter.selected_id.get(i)).update("권한", "부대관리자")
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -103,6 +103,9 @@ public class enroll_social_manager extends Fragment {
                                 }
                             });
                 }
+                // 새로고침
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.detach(enroll_social_manager.this).attach(enroll_social_manager.this).commit();
             }
         });
 
