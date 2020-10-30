@@ -39,6 +39,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.RenderPreview;
+import com.team9797.ToMAS.ui.social.survey.RegisterSocialSurvey;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -445,34 +446,50 @@ public class RegisterSocialBoardContent extends AppCompatActivity {
 
         title = edit_title.getText().toString();
 
-        SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
+        if(isVailid(title)){
+            SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
 
-        ArrayList<String> readers = new ArrayList<>();
+            ArrayList<String> readers = new ArrayList<>();
 
-        Map<String, Object> post = new HashMap<>();
-        post.put("html", string_html);
-        post.put("title", title);
-        post.put("timestamp", FieldValue.serverTimestamp());
-        post.put("readers", readers);
-        post.put("writer", preferences.getString("이름", ""));
+            Map<String, Object> post = new HashMap<>();
+            post.put("html", string_html);
+            post.put("title", title);
+            post.put("timestamp", FieldValue.serverTimestamp());
+            post.put("readers", readers);
+            post.put("writer", preferences.getString("이름", ""));
 
 
-        db.collection(path).document()
-                .set(post)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("AAA", "DocumentSnapshot successfully written!");
-                        setResult(Activity.RESULT_OK);
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("AAA", "Error writing document", e);
-                    }
-                });
-        // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
+            db.collection(path).document()
+                    .set(post)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("AAA", "DocumentSnapshot successfully written!");
+                            setResult(Activity.RESULT_OK);
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("AAA", "Error writing document", e);
+                        }
+                    });
+            // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
+        }
+        else{
+            Toast.makeText(RegisterSocialBoardContent.this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    public boolean isVailid(String s){
+        if(s.isEmpty()){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }

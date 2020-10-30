@@ -48,6 +48,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.RenderPreview;
+import com.team9797.ToMAS.ui.social.survey.RegisterSocialSurvey;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -524,49 +525,64 @@ public class RegisterMarketContent extends AppCompatActivity {
 
         // get Views
         title = edit_title.getText().toString();
-        EditText edit_place = findViewById(R.id.register_market_content_place_editText);
-        String category = spinner_category.getSelectedItem().toString();
-        Map<String, Object> post = new HashMap<>();
-        post.put("html", string_html);
-        post.put("title", title);
-        post.put("timestamp", FieldValue.serverTimestamp());
-        post.put("due_date", edit_date.getText().toString());
-        post.put("place", edit_place.getText().toString());
-        post.put("category", category);
-        post.put("numpeople", 0);
-        post.put("writer", preferences.getString("이름", ""));
+        if(isVailid(title)){
+            EditText edit_place = findViewById(R.id.register_market_content_place_editText);
+            String category = spinner_category.getSelectedItem().toString();
+            Map<String, Object> post = new HashMap<>();
+            post.put("html", string_html);
+            post.put("title", title);
+            post.put("timestamp", FieldValue.serverTimestamp());
+            post.put("due_date", edit_date.getText().toString());
+            post.put("place", edit_place.getText().toString());
+            post.put("category", category);
+            post.put("numpeople", 0);
+            post.put("writer", preferences.getString("이름", ""));
 
-        String uuid = UUID.randomUUID().toString();
-        db.collection(path + "/" + category + "/" + category).document(uuid).set(post)
-            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Map<String, Object> post2 = new HashMap<>();
-                    post2.put("title", title);
-                    post2.put("due_date", edit_date.getText().toString());
-                    post2.put("path", path + "/" + category + "/" + category);
-                    db.collection("user").document(preferences.getString("user_id", "")).collection("market").document(uuid).set(post2)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    setResult(Activity.RESULT_OK);
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                }
-                            });
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    //Log.w("AAA", "Error writing document", e);
-                }
-            });
+            String uuid = UUID.randomUUID().toString();
+            db.collection(path + "/" + category + "/" + category).document(uuid).set(post)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Map<String, Object> post2 = new HashMap<>();
+                            post2.put("title", title);
+                            post2.put("due_date", edit_date.getText().toString());
+                            post2.put("path", path + "/" + category + "/" + category);
+                            db.collection("user").document(preferences.getString("user_id", "")).collection("market").document(uuid).set(post2)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            setResult(Activity.RESULT_OK);
+                                            finish();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                        }
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            //Log.w("AAA", "Error writing document", e);
+                        }
+                    });
 
-        // need to fix : finish되서 돌아갈 때 게시판 리스트 최신화하기.
+            // need to fix : finish되서 돌아갈 때 게시판 리스트 최신화하기.
+        }
+        else{
+            Toast.makeText(RegisterMarketContent.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public boolean isVailid(String s){
+        if(s.isEmpty()){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }

@@ -27,8 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.register_board_content;
-import com.team9797.ToMAS.ui.home.market.register_market_content;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;

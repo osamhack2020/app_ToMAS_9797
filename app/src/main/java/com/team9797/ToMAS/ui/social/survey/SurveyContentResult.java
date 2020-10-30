@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -31,7 +32,6 @@ public class SurveyContentResult extends Fragment {
     RecyclerView recyclerView;
     DocumentReference mPostReference;
 
-    // need to fix 댓글 보기 기능 추가해야 함.
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -62,6 +62,30 @@ public class SurveyContentResult extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    if (task.getResult().size() == 0) {
+                        all_result_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(mainActivity, "설문조사 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    else {
+                        all_result_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                FragmentManager fragmentManager = getFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                Fragment change_fragment = new SurveyContentResultTotal();
+                                fragmentTransaction.addToBackStack(null);
+                                Bundle args = new Bundle();
+                                args.putString("path", path);
+                                args.putString("post_id", post_id);
+                                change_fragment.setArguments(args);
+                                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+                            }
+                        });
+                    }
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         adapter.add_item(document.getId());
                     }
@@ -73,20 +97,6 @@ public class SurveyContentResult extends Fragment {
             }
         });
 
-        all_result_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment change_fragment = new SurveyContentResultTotal();
-                fragmentTransaction.addToBackStack(null);
-                Bundle args = new Bundle();
-                args.putString("path", path);
-                args.putString("post_id", post_id);
-                change_fragment.setArguments(args);
-                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
-            }
-        });
 
         return root;
 }
