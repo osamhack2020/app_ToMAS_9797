@@ -34,6 +34,7 @@ public class EmailVerify extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "이메일 송신 완료", Toast.LENGTH_LONG).show();
+                                    firebaseAuth.getCurrentUser().reload();
                                 }
                             }
                         });
