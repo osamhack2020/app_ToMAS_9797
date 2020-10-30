@@ -3,6 +3,7 @@ package com.team9797.ToMAS.ui.social.survey;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,6 @@ public class SurveyContentResultTotal extends Fragment {
         show_unread = root.findViewById(R.id.social_survey_show_unread);
 
         show_unread.setVisibility(View.VISIBLE);
-        Toast.makeText(mainActivity, "AAAAAAAAAA", Toast.LENGTH_SHORT).show();
         mPostReference = mainActivity.db.collection(path).document(post_id);
         mPostReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -121,12 +121,10 @@ public class SurveyContentResultTotal extends Fragment {
                                                 }
                                             }
                                         });
-                                        Toast.makeText(mainActivity, "BBBBBBBB", Toast.LENGTH_SHORT).show();
                                         show_unread.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                String belong_path = mainActivity.preferences.getString("소속","");
-                                                String people_path = belong_path.substring(0, belong_path.length() - 4) + "부대원";
+                                                String people_path = path.substring(0, path.length() - 4) + "부대원";
                                                 ArrayList<String> unread_list = new ArrayList<>();
                                                 mainActivity.db.collection(people_path).get()
                                                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -134,8 +132,10 @@ public class SurveyContentResultTotal extends Fragment {
                                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                                 if (task.isSuccessful()) {
                                                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                                                        if (participate_list.indexOf(document.getId()) == -1)
+                                                                        if (participate_list.indexOf(document.getId()) == -1) {
+                                                                            Log.d("unread", document.get("name").toString());
                                                                             unread_list.add(document.get("name").toString());
+                                                                        }
                                                                     }
                                                                     final CharSequence[] items =  unread_list.toArray(new String[unread_list.size()]);
                                                                     AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);

@@ -10,7 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.ui.home.market.market_list_item;
 
 import java.util.ArrayList;
 

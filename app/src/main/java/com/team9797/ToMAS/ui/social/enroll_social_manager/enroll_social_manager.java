@@ -25,9 +25,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
-import com.team9797.ToMAS.postBoard.board_list_adapter;
-import com.team9797.ToMAS.ui.social.social_board.social_board;
-import com.team9797.ToMAS.ui.social.survey.social_survey;
 
 public class enroll_social_manager extends Fragment {
 
