@@ -95,7 +95,7 @@ public class SurveyContentResultIndividual extends Fragment {
                                                         } else {
                                                             tmp_customView = new SurveyContentResultCustomView(mainActivity, null, tmp_type, count, item_question, null, answers_list.get(count-1));
                                                         }
-                                                        container_linearLayout.addView(tmp_customView, count + 1);
+                                                        container_linearLayout.addView(tmp_customView, count + 2);
                                                         count++;
                                                     }
                                                 }

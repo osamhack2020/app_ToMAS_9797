@@ -2,6 +2,7 @@ package com.team9797.ToMAS.ui.social.survey;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class SocialSurvey extends Fragment {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         ArrayList<String> participants_list = new ArrayList<>();
-                        mainActivity.db.collection(path).document(document.getId()).collection("submissions").orderBy("timestamp", Query.Direction.DESCENDING).get()
+                        mainActivity.db.collection(path).document(document.getId()).collection("submissions").get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                            @Override
                            public void onComplete(@NonNull Task<QuerySnapshot> task) {

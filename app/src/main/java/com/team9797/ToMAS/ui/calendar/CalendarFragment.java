@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -249,8 +250,7 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
 
     public void refresh()
     {
-        Log.d("AAAAAAA", "refreshed");
-        mainActivity.getSupportFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
     }
 }
 
