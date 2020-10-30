@@ -111,6 +111,7 @@ public class RegisterMarketContent extends AppCompatActivity {
                             edit_date.setText(year + "-" + month + "-"+day);
                         }
                     }, mYear, mMonth, mDay);
+                    datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
                     datePickerDialog.show();
                 }
 

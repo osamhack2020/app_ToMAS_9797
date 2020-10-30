@@ -82,6 +82,7 @@ public class RegisterGroupContent extends Fragment {
                             edit_date.setText(year + "-" + month + "-"+day);
                         }
                     }, mYear, mMonth, mDay);
+                    datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
                     datePickerDialog.show();
                 }
 

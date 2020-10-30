@@ -65,7 +65,7 @@ public class MarketFragment extends Fragment{
         mainActivity.set_title();
     }
 
-    
+
 
     // 자기의 소속을 바탕으로 default setting 처리
     public void default_setting()
