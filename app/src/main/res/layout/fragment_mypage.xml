@@ -19,13 +19,12 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileimg_mypg"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:background="@drawable/circle_border"
-            android:scaleType="fitXY" />
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/circle_border" />
 
         <LinearLayout
             android:id="@+id/profile_container"
