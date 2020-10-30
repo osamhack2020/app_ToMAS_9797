@@ -103,6 +103,7 @@ public class enroll_social_manager extends Fragment {
                                 }
                             });
                 }
+                Toast.makeText(mainActivity, "추가되었습니다", Toast.LENGTH_SHORT);
                 // 새로고침
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.detach(enroll_social_manager.this).attach(enroll_social_manager.this).commit();

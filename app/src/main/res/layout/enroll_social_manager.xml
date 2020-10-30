@@ -16,5 +16,7 @@
         android:id="@+id/enroll_manager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_margin="12dp"
+        android:background="@color/accent"
+        android:text="부대관리자 등록" />
 </LinearLayout>

@@ -25,20 +25,6 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_margin"
-        android:layout_marginBottom="@dimen/content_margin"
-        android:background="@drawable/buttonshape_type1"
-        android:gravity="center"
-        android:padding="@dimen/content_padding"
-        android:singleLine="true"
-        android:text="청소 담당 구역 확인"
-        android:textIsSelectable="false"
-        android:textSize="18sp" />
-
-    <TextView
         android:id="@+id/social_notice_board_big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
