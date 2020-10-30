@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="4"
-    tools:context=".email_verify">
+    tools:context=".EmailVerify">
 
     <EditText
         android:id="@+id/showemail"

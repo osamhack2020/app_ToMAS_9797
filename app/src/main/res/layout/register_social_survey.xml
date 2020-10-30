@@ -65,8 +65,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    tools:text="마감일 : " />
+                    android:text="마감일 : " />
 
                 <EditText
                     android:id="@+id/register_survey_edit_date"

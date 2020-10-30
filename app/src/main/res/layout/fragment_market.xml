@@ -7,7 +7,7 @@
     android:layout_margin="4dp"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".ui.home.market.marketFragment">
+    tools:context=".ui.home.market.MarketFragment">
 
 
     <TextView

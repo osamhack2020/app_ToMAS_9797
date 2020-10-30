@@ -1,20 +1,24 @@
 package com.team9797.ToMAS;
 
 
-import android.content.Intent;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.team9797.ToMAS.navigation.first_level_adapter;
-import com.team9797.ToMAS.ui.home.market.marketFragment;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.team9797.ToMAS.navigation.FirstLevelAdapter;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,25 +26,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.preference.PreferenceManager;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -125,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         expandableListView = findViewById(R.id.total_right_menu);
         if (expandableListView != null)
         {
-            first_level_adapter first_adapter = new first_level_adapter(this, headerList, this);
+            FirstLevelAdapter first_adapter = new FirstLevelAdapter(this, headerList, this);
             expandableListView.setAdapter(first_adapter);
         }
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -149,7 +152,70 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
-    }
+        // 자신이 올린 market, 인원모집 기간 확인 후 삭제하고 최고입찰자한테 포인트 수령 보내기
+        market_date_check();
+
+
+   }
+
+   // 서버에서 처리 할 수 있으면 좋음.
+   public void market_date_check()
+   {
+       db.collection("user").document(getUid()).collection("market").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+           @Override
+           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+               if (task.isSuccessful()) {
+                   for (QueryDocumentSnapshot document : task.getResult()) {
+                       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                           LocalDate due_date = LocalDate.parse(document.get("due_date").toString(), DateTimeFormatter.ISO_DATE);
+                           LocalDate today = LocalDate.now();
+                           // 날짜 확인
+                           if (today.isEqual(due_date) || today.isAfter(due_date))
+                           {
+                               Log.d("market", "market has!!");
+                               db.collection(document.get("path").toString()).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                       if (task.isSuccessful()) {
+                                           if(task.getResult().size() == 0) {
+                                               // delete market in user document
+                                               db.collection("user").document(getUid()).collection("market").document(document.getId()).delete();
+                                           }
+                                           for (QueryDocumentSnapshot tmp_document : task.getResult()) {
+                                               Map<String, Object> post = new HashMap<>();
+                                               post.put("price", tmp_document.get("price", Integer.class));
+                                               post.put("path", document.get("path").toString());
+                                               post.put("post_id", document.getId());
+                                               post.put("due_date", document.get("due_date").toString());
+                                               post.put("place", document.get("place").toString());
+                                               post.put("seller_id", getUid());
+                                               post.put("title", document.get("title").toString());
+                                               db.collection("user").document(tmp_document.getId()).collection("buy_list").document().set(post)
+                                               .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                   @Override
+                                                   public void onSuccess(Void aVoid) {
+                                                       // delete market in user document
+                                                       db.collection("user").document(getUid()).collection("market").document(document.getId()).delete();
+                                                   }
+                                               })
+                                               .addOnFailureListener(new OnFailureListener() {
+                                                   @Override
+                                                   public void onFailure(@NonNull Exception e) {
+                                                   }
+                                               });
+                                           }
+                                       }
+                                   }
+                               });
+                           }
+                       }
+                   }
+               } else {
+                   //Log.d(TAG, "Error getting documents: ", task.getException());
+               }
+           }
+       });
+   }
 
     public void set_title(){
         toolbar.setTitle(title);
