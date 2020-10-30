@@ -1,11 +1,15 @@
 package com.team9797.ToMAS.ui.social.survey;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -31,6 +35,7 @@ public class SurveyContentResultTotal extends Fragment {
     TextView title_textView;
     TextView writer_textView;
     TextView due_date_textView;
+    Button show_unread;
     LinearLayout container_linearLayout;
     DocumentReference mPostReference;
 
@@ -43,13 +48,15 @@ public class SurveyContentResultTotal extends Fragment {
         fragmentManager = getFragmentManager();
         post_id = getArguments().getString("post_id");
         path = getArguments().getString("path");
-
         // get View
         title_textView = root.findViewById(R.id.survey_content_title);
         writer_textView = root.findViewById(R.id.survey_content_writer);
         due_date_textView = root.findViewById(R.id.survey_content_due_date);
         container_linearLayout = root.findViewById(R.id.survey_content_container);
+        show_unread = root.findViewById(R.id.social_survey_show_unread);
 
+        show_unread.setVisibility(View.VISIBLE);
+        Toast.makeText(mainActivity, "AAAAAAAAAA", Toast.LENGTH_SHORT).show();
         mPostReference = mainActivity.db.collection(path).document(post_id);
         mPostReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -67,7 +74,9 @@ public class SurveyContentResultTotal extends Fragment {
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         boolean check = true;
+                                        ArrayList<String> participate_list = new ArrayList<>();
                                         for (QueryDocumentSnapshot document_last : task.getResult()) {
+                                            participate_list.add(document_last.getId());
                                             ArrayList<String> tmp_arrayList = (ArrayList<String>) document_last.get("answers");
                                             for (int i = 0; i< tmp_arrayList.size(); i++)
                                             {
@@ -106,12 +115,52 @@ public class SurveyContentResultTotal extends Fragment {
                                                             ArrayList<String> type2_answer_list = submissions_result.get(count-1);
                                                             tmp_customView = new SurveyContentTotalResultCustomView(mainActivity, null, tmp_type, count, item_question, null, type2_answer_list);
                                                         }
-                                                        container_linearLayout.addView(tmp_customView, count + 1);
+                                                        container_linearLayout.addView(tmp_customView, count + 2);
                                                         count++;
                                                     }
                                                 }
                                             }
                                         });
+                                        Toast.makeText(mainActivity, "BBBBBBBB", Toast.LENGTH_SHORT).show();
+                                        show_unread.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                String belong_path = mainActivity.preferences.getString("소속","");
+                                                String people_path = belong_path.substring(0, belong_path.length() - 4) + "부대원";
+                                                ArrayList<String> unread_list = new ArrayList<>();
+                                                mainActivity.db.collection(people_path).get()
+                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                        if (participate_list.indexOf(document.getId()) == -1)
+                                                                            unread_list.add(document.get("name").toString());
+                                                                    }
+                                                                    final CharSequence[] items =  unread_list.toArray(new String[unread_list.size()]);
+                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+                                                                    builder.setTitle("미제출자 명단");
+                                                                    builder.setPositiveButton("확인",
+                                                                            new DialogInterface.OnClickListener() {
+                                                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                                                }
+                                                                            });
+                                                                        builder.setItems(items, new DialogInterface.OnClickListener() {
+                                                                        public void onClick(DialogInterface dialog, int pos) {
+                                                                            String selectedText = items[pos].toString();
+                                                                            Toast.makeText(mainActivity, selectedText, Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    });
+                                                                    builder.show();
+                                                                } else {
+                                                                    //Log.d(TAG, "Error getting documents: ", task.getException());
+                                                                }
+                                                            }
+                                                        });
+                                            }
+                                        });
+
                                     }
                                 }
                             });

@@ -11,13 +11,15 @@
         android:id="@+id/survey_content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/content_padding">
 
         <TextView
             android:id="@+id/survey_content_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/list_title_textSize" />
+            android:layout_marginBottom="@dimen/content_margin"
+            android:textSize="@dimen/title_textsize" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,14 +29,29 @@
             <TextView
                 android:id="@+id/survey_content_due_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/content_margin" />
 
             <TextView
                 android:id="@+id/survey_content_writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/social_survey_show_unread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/buttonshape_type1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="@dimen/small_button_padding"
+            android:text="미제출자 목록"
+            android:textColor="@color/primary_light"
+            android:visibility="gone" />
 
     </LinearLayout>
 </ScrollView>

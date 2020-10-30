@@ -31,7 +31,6 @@ public class SurveyContentResult extends Fragment {
     RecyclerView recyclerView;
     DocumentReference mPostReference;
 
-    // need to fix 댓글 보기 기능 추가해야 함.
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
