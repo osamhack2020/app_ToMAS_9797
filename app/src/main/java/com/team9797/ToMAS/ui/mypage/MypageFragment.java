@@ -24,12 +24,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.ProgressDialog;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.LoginActivity;
+import com.team9797.ToMAS.ui.social.survey.SocialSurvey;
 
 public class MypageFragment extends Fragment {
 
@@ -39,6 +41,7 @@ public class MypageFragment extends Fragment {
     FirebaseStorage storage;
     ImageView profileimg_mypg;
     TextView point_textView;
+    TextView survey_textView;
     TextView buy_textView;
     ProgressDialog customProgressDialog; //로딩창
 
@@ -61,7 +64,7 @@ public class MypageFragment extends Fragment {
         Button btn_logout = root.findViewById(R.id.btn_logout);
         point_textView = root.findViewById(R.id.mypage_option3);
         buy_textView = root.findViewById(R.id.mypage_option2);
-
+        survey_textView = root.findViewById(R.id.mypage_option1);
 
         TextView name=root.findViewById(R.id.mypage_name);
         TextView belong=root.findViewById(R.id.mypage_regiment);
@@ -119,6 +122,31 @@ public class MypageFragment extends Fragment {
                 fragmentTransaction = fragmentManager.beginTransaction();
                 Fragment change_fragment = new BuyList();
                 fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
+            }
+        });
+
+        String path = mainActivity.preferences.getString("소속", "armyunit/5군단/5군단");
+        String[] tmp = path.split("/");
+        path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
+        mainActivity.db.collection(path + "설문조사")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            survey_textView.setText("현재 진행 중인 설문조사 : " +Integer.toString(task.getResult().size())+"건");
+                        } else {
+                        }
+                    }
+                });
+
+        survey_textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack(null);
+                Fragment change_fragment = new SocialSurvey();
                 fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
             }
         });
