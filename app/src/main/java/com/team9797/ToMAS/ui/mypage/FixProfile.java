@@ -150,12 +150,12 @@ public class FixProfile extends Fragment {
 
 
                         mainActivity.sp_editor.putString("birth",birth);
-                        mainActivity.sp_editor.putString("소속",belong);
+                        mainActivity.sp_editor.putString("phonenumber",ph);
                         mainActivity.sp_editor.putString("계급",a_class);
                         mainActivity.sp_editor.putString("password",pw);
                         mainActivity.sp_editor.commit();
                         mainActivity.db.collection("user").document(mainActivity.getUid()).update("birth",birth);
-                        mainActivity.db.collection("user").document(mainActivity.getUid()).update("소속",belong);
+                        mainActivity.db.collection("user").document(mainActivity.getUid()).update("phonenumber",ph);
                         mainActivity.db.collection("user").document(mainActivity.getUid()).update("계급",a_class);
                         mainActivity.db.collection("user").document(mainActivity.getUid()).update("password",pw);
                         FirebaseAuth.getInstance().getCurrentUser().updatePassword(pw);

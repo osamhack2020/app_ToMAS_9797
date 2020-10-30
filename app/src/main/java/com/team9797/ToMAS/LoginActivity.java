@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity{
     }
     private void loginUser(String email, String password)
     {
-        customProgressDialog.show();
+        customProgressDialog.show();   //로딩창
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
