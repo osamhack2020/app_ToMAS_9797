@@ -438,7 +438,7 @@ public class RegisterBoardContentComment extends AppCompatActivity {
         return typefaceMap;
     }
 
-    public void comment_to_server(View view)
+    public void post_to_server(View view)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String string_html = editor.getContentAsHTML();

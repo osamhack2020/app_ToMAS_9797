@@ -28,6 +28,7 @@
             android:id="@+id/btn_comment_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
             android:layout_weight="10"
             android:background="@drawable/buttonshape_type1"
             android:enabled="false"
@@ -75,8 +76,12 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/comment_list_item_html"
+    <com.github.irshulx.Editor
+        android:id="@+id/renderer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:render_type="Renderer" />
 </LinearLayout>
