@@ -1206,7 +1206,7 @@ FireAuth를 통해 유저들의 아이디와 비밀번호를 확인합니다. Fi
 <summary>기술자세히</summary>
 
 <div markdown="1">
-기술자세히내용
+
 
 ```java
 LoginActivity.java
@@ -1235,6 +1235,7 @@ private boolean isValidPasswd() {
   }  
 }
 ```
+
 LoginActivity에있는 이 isValidEmail 함수와 isValidPasswd 함수를 통해
 이메일과 비밀번호의 유효성 검사를 1차적으로 합니다.
 
@@ -1278,7 +1279,7 @@ private void loginUser(String email, String password)
 }
 ```
 1차 유효성 검사를 통과하면 상기의 loginUser함수를 호출합니다.
-loginUSer 함수는 2가지의 부분으로 나누어져 있습니다.
+loginUser 함수는 2가지의 부분으로 나누어져 있습니다.
 
  1. FireAuth 를 통해 아이디와 비밀번호를 확인하여 문제가 있는지 확인하고,없다면
     현재 이 애플리케이션에 login한 사용자가 누구인지 식별하는데 도움을 줄 수 있도록 
@@ -1417,6 +1418,7 @@ Firestore의 user컬렉션에 저장합니다. 입력받지 않는 정보인 poi
 ```java
 
 EmailVerify.java
+
 firebaseAuth.getCurrentUser().sendEmailVerification()
 ```
 이메일 인증 액티비티에서 "전송하기"버튼을 누르면 상기의 함수가 호출됩니다.
@@ -1427,6 +1429,7 @@ firebaseAuth.getCurrentUser().sendEmailVerification()
 
 ```java
 EmailVerify.java
+
 firebaseAuth.getCurrentUser().isEmailVerified()
 ```
 
