@@ -80,9 +80,7 @@
         android:id="@+id/renderer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
+        android:layout_marginTop="8dp"
         app:render_type="Renderer" />
 
     <View

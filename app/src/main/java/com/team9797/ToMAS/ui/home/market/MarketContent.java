@@ -2,11 +2,13 @@ package com.team9797.ToMAS.ui.home.market;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.github.irshulx.Editor;
+import com.github.irshulx.EditorListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,14 +51,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MarketContent extends Fragment implements Html.ImageGetter {
+public class MarketContent extends Fragment {
 
     MainActivity mainActivity;
     //FragmentManager fragmentManager;
     String post_id;
     String path;
     TextView title_textView;
-    TextView html_textView;
     TextView writer_textView;
     TextView category_textView;
     TextView place_textView;
@@ -66,6 +69,7 @@ public class MarketContent extends Fragment implements Html.ImageGetter {
     SlidingUpPanelLayout slidingUpPanelLayout;
     Button enroll_button;
     ArrayList<String> tmp_participants;
+    Editor renderer;
 
     // need to fix 댓글 보기 기능 추가해야 함.
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -80,7 +84,6 @@ public class MarketContent extends Fragment implements Html.ImageGetter {
 
         // get View
         title_textView = root.findViewById(R.id.market_content_title);
-        html_textView = root.findViewById(R.id.market_content_html);
         writer_textView = root.findViewById(R.id.market_content_writer);
         category_textView = root.findViewById(R.id.market_content_category);
         date_textView = root.findViewById(R.id.market_content_date);
@@ -91,10 +94,13 @@ public class MarketContent extends Fragment implements Html.ImageGetter {
         enroll_button = root.findViewById(R.id.market_content_enroll_btn);
         price_editText = root.findViewById(R.id.market_content_tender_price);
         highest_price_textView = root.findViewById(R.id.market_content_highest_price);
+        renderer = root.findViewById(R.id.renderer);
 
         tmp_participants = new ArrayList<>();
         TenderParticipantListAdapter adapter = new TenderParticipantListAdapter();
         tender_listView.setAdapter(adapter);
+
+        highest_price_textView.setText("최고가 : 0");
 
         // 선택한 게시물 document reference
         DocumentReference mPostReference = mainActivity.db.collection(path).document(post_id);
@@ -105,8 +111,30 @@ public class MarketContent extends Fragment implements Html.ImageGetter {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        // need to fix : 커스텀 객체 생성해서 받아보자.
-                        html_textView.setText(Html.fromHtml(document.get("html", String.class), MarketContent.this, null));
+                        Map<Integer, String> headingTypeface = getHeadingTypeface();
+                        Map<Integer, String> contentTypeface = getContentface();
+                        renderer.setHeadingTypeface(headingTypeface);
+                        renderer.setContentTypeface(contentTypeface);
+                        renderer.setDividerLayout(R.layout.tmpl_divider_layout);
+                        renderer.setEditorImageLayout(R.layout.tmpl_image_view);
+                        renderer.setListItemLayout(R.layout.tmpl_list_item);
+                        renderer.setEditorListener(new EditorListener() {
+                            @Override
+                            public void onTextChanged(EditText editText, Editable text) {
+
+                            }
+
+                            @Override
+                            public void onUpload(Bitmap image, String uuid) {
+
+                            }
+
+                            @Override
+                            public View onRenderMacro(String name, Map<String, Object> settings, int index) {
+                                return null;
+                            }
+                        });
+                        renderer.render(document.get("html", String.class));
                         title_textView.setText(document.get("title", String.class));
                         category_textView.setText(document.get("category", String.class));
                         place_textView.setText(document.get("place", String.class));
@@ -216,55 +244,24 @@ public class MarketContent extends Fragment implements Html.ImageGetter {
         return root;
     }
 
-    @Override
-    public Drawable getDrawable(String source) {
-        LevelListDrawable d = new LevelListDrawable();
-        Drawable empty = getResources().getDrawable(R.drawable.ic_arrow_forward_black_24dp);
-        d.addLevel(0, 0, empty);
-        d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
-
-        new LoadImage().execute(source, d);
-
-        return d;
+    public Map<Integer, String> getHeadingTypeface() {
+        Map<Integer, String> typefaceMap = new HashMap<>();
+        typefaceMap.put(Typeface.NORMAL, "fonts/GreycliffCF-Bold.ttf");
+        typefaceMap.put(Typeface.BOLD, "fonts/GreycliffCF-Heavy.ttf");
+        typefaceMap.put(Typeface.ITALIC, "fonts/GreycliffCF-Heavy.ttf");
+        typefaceMap.put(Typeface.BOLD_ITALIC, "fonts/GreycliffCF-Bold.ttf");
+        return typefaceMap;
     }
 
-    class LoadImage extends AsyncTask<Object, Void, Bitmap> {
-
-        private LevelListDrawable mDrawable;
-
-        @Override
-        protected Bitmap doInBackground(Object... params) {
-            String source = (String) params[0];
-            mDrawable = (LevelListDrawable) params[1];
-            Log.d("QQ", "doInBackground " + source);
-            try {
-                InputStream is = new URL(source).openStream();
-                return BitmapFactory.decodeStream(is);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            //Log.d("QQ", "onPostExecute drawable " + mDrawable);
-            //Log.d("QQ", "onPostExecute bitmap " + bitmap);
-            if (bitmap != null) {
-                BitmapDrawable d = new BitmapDrawable(bitmap);
-                mDrawable.addLevel(1, 1, d);
-                mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-                mDrawable.setLevel(1);
-                // i don't know yet a better way to refresh TextView
-                // mTv.invalidate() doesn't work as expected
-                CharSequence t = html_textView.getText();
-                html_textView.setText(t);
-            }
-        }
+    public Map<Integer, String> getContentface() {
+        Map<Integer, String> typefaceMap = new HashMap<>();
+        typefaceMap.put(Typeface.NORMAL,"fonts/Lato-Medium.ttf");
+        typefaceMap.put(Typeface.BOLD,"fonts/Lato-Bold.ttf");
+        typefaceMap.put(Typeface.ITALIC,"fonts/Lato-MediumItalic.ttf");
+        typefaceMap.put(Typeface.BOLD_ITALIC,"fonts/Lato-BoldItalic.ttf");
+        return typefaceMap;
     }
+
+
 }
 //code from https://stackoverflow.com/questions/16179285/html-imagegetter-textview/16209680#16209680

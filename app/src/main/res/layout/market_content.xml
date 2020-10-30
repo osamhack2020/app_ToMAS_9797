@@ -107,11 +107,12 @@
                 android:layout_marginTop="@dimen/content_margin"
                 android:layout_marginBottom="@dimen/content_margin" />
 
-            <TextView
-                android:id="@+id/market_content_html"
+            <com.github.irshulx.Editor
+                android:id="@+id/renderer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_margin" />
+                android:layout_marginTop="8dp"
+                app:render_type="Renderer" />
 
         </LinearLayout>
     </ScrollView>
