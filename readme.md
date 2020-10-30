@@ -1,3 +1,5 @@
+
+  
   
 # 프로젝트 소개
 
@@ -365,7 +367,7 @@ editor에서 이미지를 앨범에서 불러와 넣을 때, Html코드 `<img sr
 
 <div markdown="1">
 
-글쓰기 기능과 동일하나, 해당 글 아래에 보여준다. 원본 글을 쓴 사람이 추천 댓글을 지정할 수 있게 합니다. 이 때 추천 댓글로 지정된 사람은 플리마켓에서 사용할 수 있는 point를 받습니다.
+글쓰기 기능과 동일하나, 해당 글 아래에 보여줍니다. 원본 글을 쓴 사람이 추천 댓글을 지정할 수 있게 합니다. 이 때 추천 댓글로 지정된 사람은 플리마켓에서 사용할 수 있는 point를 받습니다.
 
 
 
@@ -405,7 +407,7 @@ editor에서 이미지를 앨범에서 불러와 넣을 때, Html코드 `<img sr
 
 <div markdown="1">
 
-register_board_content.java를 불러올 때 신규 글 쓰기의 경우 post_id를 인자로 넘겨주지 않고, 수정하기 경우엔 해당 글의 post_id을 인자로 넘겨주어서, If문을 통해 분기합니다. 수정하기 일 때는 기존에 썼던 내용을 editor에 넣어줍니다. 글을 서버에 올릴 때는 신규 글 쓰기의 경우 새로운 uuid를 통해 post_id를 정해주고, 수정하기의 경우 기존의 post_id에 set()을 하여 업데이트합니다.
+`RegisterBoardContent.java`를 불러올 때 신규 글 쓰기의 경우 인자로 빈 String을 넘겨주고, 수정하기 경우엔 해당 글의 post_id을 인자로 넘겨주어서, If문을 통해 분기합니다. 수정하기 일 때는 기존에 썼던 내용을 editor에 넣어줍니다. 글을 서버에 올릴 때는 신규 글 쓰기의 경우 새로운 uuid를 통해 post_id를 정해주고, 수정하기의 경우 기존의 post_id에 set()을 하여 업데이트합니다.
 
 ```java
 // 새로 글 쓸 때  
@@ -447,11 +449,10 @@ else {// 수정할 때
 }
 ```
 
-  
-
+ 
 삭제하기의 경우 firestore 자체에서 collection이 포함된 document 삭제를 제공하지 않았습니다.
 
-저희의 구조에는 댓글 collection까지 포함되어 있었기 때문에 댓글 document까지 삭제하는 것을 client에서 처리하였습니다.
+저희 데이터베이스 구조에서는 게시물 document에  댓글 collection까지 포함되어 있었기 때문에 댓글 document까지 삭제하는 것을 client에서 처리하였습니다.
 
 ```java
 delete_button.setOnClickListener(new View.OnClickListener() {  
@@ -489,7 +490,7 @@ delete_button.setOnClickListener(new View.OnClickListener() {
 
   
 
-### 5. 게시판의 형식을 parameter를 통해 결정
+### 5. 게시판 목록 템플릿을 3가지 제공
 
 <details>
 
@@ -498,23 +499,21 @@ delete_button.setOnClickListener(new View.OnClickListener() {
 <div markdown="1">
 
 
-ToMAS에서 제공하는 게시판 목록 형식은 다음과 같다.
+ToMAS에서 제공하는 게시판 목록 형식은 다음과 같습니다.
 
 [1.2.3 사진넣기]
 
-1번은 기본적인 하부 게시판 목록만을 불러오는 것이다.
+1번은 기본적인 하부 게시판 목록만을 불러오는 것입니다.
 
-2번은 하부 게시판 목록과 함께 하부 게시판에 포함되어 있는 게시물들을 5개씩 보여준다.
+2번은 하부 게시판 목록과 함께 하부 게시판에 포함되어 있는 게시물들을 5개씩 보여줍니다.
 
-3번은 게시물 목록을 보여준다.
+3번은 게시물 목록을 보여줍니다.
 
-  
+2번 fragment_style은 한 번에 다양한 하위 게시판의 게시물을 보는게 유리한 상황에서 사용할 수 있습니다.
+ [자기개발 2번째, 플리마켓의 첫 번째 사진 넣기]
 
-2번 fragment_style은 한 번에 다양한 하위 게시판의 게시물을 보는게 유리한 상황에서 사용하였다. 
-ex) 자기개발 2번째, 플리마켓의 첫 번째 사진 넣기
-
-구조 상 2번 다음은 항상 3번이 나와야 하지만, 1번 fragment_style은 계속해서 사용할 수 있다. 이를통해 무한한 게시판 확장이 가능하다.
-
+1번 -> 2번 -> 3번 형식으로 게시판을 구성할 수 있고, 원한다면
+1번 -> 1번 -> 3번 형식으로 구성할 수 있습니다.
 
 
 <details>
@@ -545,7 +544,7 @@ ex) 자기개발 2번째, 플리마켓의 첫 번째 사진 넣기
 ToMAS의 플리마켓은 다른 중고거래 서비스와 비교했을 때 군 내에서는 압도적인 경쟁력이 있습니다.
 *군복 및 군용장구의 단속에 관한 법률* 에 따라 군복을 입지 못하는 민간인에게 군복 및 군용장구를 판매해서는 안됩니다. 또한 다른 중고거래 서비스는 초점이 군인에 맞춰져있지 않으므로 거래장소와 거래 물품에 있어 제한사항이 많습니다.
 
-*특징*
+
 
 ### 1. 부대 단위로 데이터베이스 분리
 <details>
@@ -555,8 +554,7 @@ ToMAS의 플리마켓은 다른 중고거래 서비스와 비교했을 때 군 �
 <div markdown="1">
 
 
-
-다른부대 사용자와의 혼선을 막고 이동 가능한 영내 단위에서의 거래를 원활하게 한다.
+다른부대 사용자와의 혼선을 막고 이동 가능한 영내 단위에서의 거래를 원활하게 합니다.
 
 
 <details>
@@ -564,12 +562,17 @@ ToMAS의 플리마켓은 다른 중고거래 서비스와 비교했을 때 군 �
 <summary>기술 자세히</summary>
 
 <div markdown="1">
+![market_firestore](https://github.com/rlarla915/readme_sample/blob/main/market_firestore.PNG)
+
+데이터베이스를 분리하고 각 부대에 대한 path를 구해 데이터베이스에 접근했습니다. path를 구하는 방법은 아래와 같습니다.
+[소속tree 클릭하는 이미지 넣기]
 
 사용 라이브러리 : https://github.com/TellH/RecyclerTreeView 
-
+*해당 라이브러리는 Import module한 뒤, 커스텀 해 사용했습니다.*
 
 소속 선택을 처리하기 위해서 RecyclerTreeView 라이브러리를 이용했습니다.
-서버에서 소속 구조를 받아와 RecyclerTreeView를 구성합니다. firestore에 구조 하나만 추가해서 새로운 소속의 부대를 추가할 수 있습니다.
+서버에서 소속 구조를 받아와 RecyclerTreeView를 구성합니다. firestore에 구조 하나만 추가해서 새로운 소속의 부대를 추가할 수 있습니다. 삭제는 firestore에서 해당 부대의 하위 document와 collection을 지워주기만 하면 됩니다. 동적으로 부대를 추가하고 삭제할 수 있어서 확장성이 좋습니다.
+
 `BelongTreeDialog.java`
 
 ```java
@@ -623,7 +626,7 @@ public void init_tree(TreeNode<Dir> node)
 <div markdown="1">
 
 [마이페이지 내 수령완료 게시판 사진 추가]
-위 그림과 같이 최고 입찰자는 판매자가 정해논 기간이 지나면 마이페이지의 구매 확정 목록에 리스트 항목이 생깁니다. 이 리스트 항목을 보고, 
+위 그림과 같이 최고 입찰자는 판매자가 정해논 기간이 지나면 마이페이지의 구매 확정 목록에 리스트 항목이 생깁니다. 이 리스트 항목을 누르면 Dialog가 뜨게 되고, Dialog에서 수령 확인 버튼을 누르면 포인트가 이동됩니다.
 
 
 <details>
@@ -632,7 +635,89 @@ public void init_tree(TreeNode<Dir> node)
 
 <div markdown="1">
 
-  ---
+```java
+mainActivity.db.collection("user").document(mainActivity.getUid()).collection("buy_list").document(list_adapter.listViewItemList.get(i).getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {  
+    @Override  
+  public void onComplete(@NonNull Task<DocumentSnapshot> task) {  
+        if (task.isSuccessful()) {  
+            DocumentSnapshot document = task.getResult();  
+ if (document.exists()) {  
+                ShowBuyDialog dialog = new ShowBuyDialog(mainActivity, document.get("title").toString(), document.get("due_date").toString(), document.get("place").toString(), document.get("price", Integer.class));  
+  dialog.show(mainActivity.getSupportFragmentManager(), "구매확정");  
+  dialog.setDialogResult(new ShowBuyDialog.show_buy_dialog_result() {  
+                    @Override  
+  public void get_result() {  
+                        // point_record 업데이트  
+  Map<String, Object> post = new HashMap<>();  
+  post.put("title", "플리마켓 구매 : " + document.get("title").toString());  
+  post.put("timestamp", FieldValue.serverTimestamp());  
+  post.put("change", "-" + Integer.toString(document.get("price", Integer.class)));  
+  mainActivity.db.collection("user").document(mainActivity.getUid()).collection("point_record").document()  
+                                .set(post)  
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {  
+                                    @Override  
+  public void onSuccess(Void aVoid) {  
+  
+                                    }  
+                                })  
+                                .addOnFailureListener(new OnFailureListener() {  
+                                    @Override  
+  public void onFailure(@NonNull Exception e) {  
+                                    }  
+                                });  
+  Map<String, Object> post2 = new HashMap<>();  
+  post2.put("title", "플리마켓 판매 : " + document.get("title").toString());  
+  post2.put("timestamp", FieldValue.serverTimestamp());  
+  post2.put("change", "+" + Integer.toString(document.get("price", Integer.class)));  
+  mainActivity.db.collection("user").document(document.get("seller_id").toString()).collection("point_record").document()  
+                                .set(post2)  
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {  
+                                    @Override  
+  public void onSuccess(Void aVoid) {  
+  
+                                    }  
+                                })  
+                                .addOnFailureListener(new OnFailureListener() {  
+                                    @Override  
+  public void onFailure(@NonNull Exception e) {  
+                                    }  
+                                });  
+  // point 업데이트  
+  mainActivity.db.collection("user").document(mainActivity.getUid()).update("point", FieldValue.increment(document.get("price", Integer.class)));  
+  mainActivity.db.collection("user").document(document.get("seller_id").toString()).update("point", FieldValue.increment(document.get("price", Integer.class)*-1));  
+  // user 내의 구매확정 목록 삭제  
+  mainActivity.db.collection("user").document(document.get("seller_id").toString()).collection("market").document(document.get("post_id").toString()).delete();  
+  mainActivity.db.collection("user").document(mainActivity.getUid()).collection("buy_list").document(list_adapter.listViewItemList.get(i).getId()).delete()  
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {  
+                                    @Override  
+  public void onSuccess(Void aVoid) {  
+                                        // fragment 뒤로가기  
+  fragmentManager.beginTransaction().remove(BuyList.this).commit();  
+  fragmentManager.popBackStack();  
+  }  
+                                })  
+                                .addOnFailureListener(new OnFailureListener() {  
+                                    @Override  
+  public void onFailure(@NonNull Exception e) {  
+                                    }  
+                                });  
+  }  
+                });  
+  
+  }  
+        }  
+    }  
+});
+```
+
+`BuyList.java`에 구매 목록을 listView로 구성합니다. 
+
+![market_point_firestore](https://github.com/rlarla915/readme_sample/blob/main/market_point_firestore.png)
+
+
+마감일이 지나면 최고가 입찰자의 `buy_list` collection에 구매한 항목이 저장됩니다. 이 document에는 field가 5가지가 있습니다. 그 중 `seller_id`는 판매자의 유저 ID를 저장하고 있습니다. 이것을 통해 판매자의 user document에 접근할 수 있고, 그 중 `point_record` collection에 판매한 내역, 변화한 포인트, timestamp를 저장해 포인트 변화 내역을 기록합니다. 구매자도 마찬가지로 포인트 변화 내역을 저장합니다.
+
+ ---
   
 </div>
 
@@ -654,7 +739,7 @@ public void init_tree(TreeNode<Dir> node)
 
 <div markdown="1">
 
-카테고리 별로 물품을 분할하여 등록하게 해서 필요한 물건을 쉽게 찾을 수 있게 한다.
+카테고리 별로 물품을 분할하여 등록하게 해서 필요한 물건을 쉽게 찾을 수 있게 합니다.
 [marketFragment 이미지 추가]
 
 
@@ -738,7 +823,7 @@ public void init_tree(TreeNode<Dir> node)
 
 <div markdown="1">
 
-![group_firebase](https://app.diagrams.net/#G1dr_t4NB-hfUMj0nYMB7nSDoSa1YI4Lpg)
+![enter image description here](https://github.com/rlarla915/readme_sample/blob/main/group_firestore.png)
 
 마찬가지로 RecylcerTreeView를 사용해 소속 부대를 변경할 수 있게 했습니다.
 자세한 사항 [링크 걸기]
@@ -1101,8 +1186,318 @@ type이 2인 경우(주관식)
 중대와 대대 단위로 설문조사 기능과 공지사항 기능을 제공합니다. 소속부대의 중간관리자가 설문조사와 공지사항을 등록 할 수 있게 제공되어 있습니다. 필수 공지사항 같은 경우는 부대원들이 확인을 했는지 안했는지를 표현해주는 기능을 만들어서 중간관리자가 부대원들의 내용 확인 여부를 체크 할 수 있게합니다.
 
 
+## 7) 기타
+
+### 1. 로그인 
+
+<details>
+
+<summary>접기/펼치기 버튼</summary>
+
+<div markdown="1">
+
+FireAuth를 통해 유저들의 아이디와 비밀번호를 확인합니다. FireAuth에 저장되지
+않는 아이디나 비밀번호 이외의 정보들은 Firestore의 user컬렉션에서 불러옵니다.
 
 
+
+  <details>
+
+<summary>기술자세히</summary>
+
+<div markdown="1">
+기술자세히내용
+
+```java
+LoginActivity.java
+
+    private boolean isValidEmail() {  
+    if (email.isEmpty()) {  
+        // 이메일 공백  
+  Toast.makeText(LoginActivity.this,"이메일 칸을 기입해주세요", Toast.LENGTH_SHORT).show();  
+ return false;  } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {  
+        // 이메일 형식 불일치  
+  Toast.makeText(LoginActivity.this,"이메일 형식을 따라야 합니다.", Toast.LENGTH_SHORT).show();  
+ return false;  } else {  
+        return true;  
+  }  
+}
+
+private boolean isValidPasswd() {  
+    if (password.isEmpty()) {  
+        // 비밀번호 공백  
+  Toast.makeText(LoginActivity.this,"비밀번호 칸을 기입해주세요 ", Toast.LENGTH_SHORT).show();  
+ return false;  } else if (!PASSWORD_PATTERN.matcher(password).matches()) {  
+        // 비밀번호 형식 불일치  
+  Toast.makeText(LoginActivity.this,"비밀번호는 6자이상 16자리이하 입니다. ", Toast.LENGTH_SHORT).show();  
+ return false;  } else {  
+        return true;  
+  }  
+}
+```
+LoginActivity에있는 이 isValidEmail 함수와 isValidPasswd 함수를 통해
+이메일과 비밀번호의 유효성 검사를 1차적으로 합니다.
+
+```java
+private void loginUser(String email, String password)  
+{  
+    customProgressDialog.show(); //로딩창  
+  firebaseAuth.signInWithEmailAndPassword(email, password)  
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {  
+                @Override  
+  public void onComplete(@NonNull Task<AuthResult> task) {  
+                    if (task.isSuccessful()) {  
+                        // 로그인 성공  
+  //Toast.makeText(loginactivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();  
+  
+  
+  if(firebaseAuth.getCurrentUser().isEmailVerified()) {  
+                            customProgressDialog.dismiss();  
+  Intent intent = new Intent(LoginActivity.this, MainActivity.class);  
+  // activiy 스택 삭제  
+  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  
+  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
+  startActivity(intent);  
+  
+  }  
+                        else{  
+                            customProgressDialog.dismiss();  
+  Intent intent = new Intent(LoginActivity.this, EmailVerify.class);  
+  
+  startActivity(intent);  
+  
+  
+  }  
+                    } else {  
+                        // 로그인 실패  
+  Toast.makeText(LoginActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();  
+  customProgressDialog.dismiss();  
+  }  
+                }  
+            });  
+}
+```
+1차 유효성 검사를 통과하면 상기의 loginUser함수를 호출합니다.
+loginUSer 함수는 2가지의 부분으로 나누어져 있습니다.
+
+ 1. FireAuth 를 통해 아이디와 비밀번호를 확인하여 문제가 있는지 확인하고,없다면
+    현재 이 애플리케이션에 login한 사용자가 누구인지 식별하는데 도움을 줄 수 있도록 
+    로그인을 하는 부분
+
+ 2. login을 한 사용자가 이메일 인증을 받았는지 확인하여 안 받았다면 받을 수 있는 화면으로 이동하고, 받았다면 바로 MainActivity로 전환하는 부분
+ 
+이 2가지 부분을 통해 사용자에게 알맞는 다음 화면을 제공합니다. 
+ 
+
+---
+</div>
+
+</details>
+
+---
+</div>
+
+</details>
+
+### 2. 회원가입
+
+<details>
+
+<summary>접기/펼치기 버튼</summary>
+
+<div markdown="1">
+
+FireStore을 이용해 유저들의 정보를 저장하고 FireAuth를 이용해 이메일인증 메일을 보내어
+확인을 받습니다. 이메일 인증이 안되어 있다면 회원가입을 하였더라도 
+서비스의 이용이 불가능 함으로 회원가입 직후 이메일 인증을 받습니다.
+
+[실제 앱 화면 넣기]
+  <details>
+
+<summary>기술 자세히 내용</summary>
+
+<div markdown="1">
+
+```java
+SignUpActivity.java
+
+private void createUser(String email, String password) {  
+    customProgressDialog.show();  
+  firebaseAuth.createUserWithEmailAndPassword(email, password)  
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {  
+                @Override  
+  public void onComplete(@NonNull Task<AuthResult> task) {  
+                    if (task.isSuccessful()) {  
+                        // 회원가입 성공  
+  updateuser();  
+  customProgressDialog.dismiss();  
+  Intent intent=new Intent(SignUpActivity.this, EmailVerify.class);  
+  startActivity(intent);  
+  Toast.makeText(SignUpActivity.this, R.string.success_signup, Toast.LENGTH_SHORT).show();  
+  
+  } else {  
+                        // 회원가입 실패  
+  Toast.makeText(SignUpActivity.this, "중복된 아이디 입니다.", Toast.LENGTH_SHORT).show();  
+  customProgressDialog.dismiss();  
+  }  
+                }  
+            });  
+  
+}
+```
+로그인 기능과 같이 1차 유효성 검사를 마치고 나서 상기의 createUser함수를 호출합니다.
+만약 1차 유효성검사를 통과했지만 아이디가 생성이 되지 않는 다면 중복 아이디로 간주하고 사용자에게 Toast 메세지를 띄워 줍니다. 
+
+무사히 아이디가 생성되면 updateuser 함수를 호출합니다.
+```java
+SignUpActivity.java
+
+private void updateuser(){  
+    FirebaseFirestore db = FirebaseFirestore.getInstance();  
+  EditText edit_phone = findViewById(R.id.edit_phone);  
+  EditText edit_name = findViewById(R.id.edit_name);  
+  EditText et_email = findViewById(R.id.et_email);  
+  EditText et_password = findViewById(R.id.et_password);  
+  EditText edit_belong = findViewById(R.id.edit_belong);  
+  EditText edit_class = findViewById(R.id.edit_class);  
+  EditText edit_armynumber = findViewById(R.id.edit_armynumber);  
+  EditText edit_birth = findViewById(R.id.edit_birth);  
+  String phone = edit_phone.getText().toString();  
+  String name = edit_name.getText().toString();  
+  String email = et_email.getText().toString();  
+  String password = et_password.getText().toString();  
+  String armyclass = edit_class.getText().toString();  
+  String armynumber = edit_armynumber.getText().toString();  
+  String birth = edit_birth.getText().toString();  
+  
+  Map<String, Object> upload = new HashMap<>();  
+  upload.put("이름",name);  
+  upload.put("소속",belong_path);  
+  upload.put("권한","사용자");  
+  upload.put("군번",armynumber);  
+  upload.put("계급",armyclass);  
+  upload.put("point",0);  
+  upload.put("phonenumber",phone);  
+  upload.put("password",password);  
+  upload.put("email",email);  
+  upload.put("birth",birth);  
+  
+  //사용자이름, 시간 등등 추가해야 함.  
+  
+  String tmp_path_list[] = belong_path.split("/");  
+  String tmp_path = belong_path.substring(0, belong_path.length() - tmp_path_list[tmp_path_list.length - 1].length());  
+  tmp_path += "부대원";  
+  Map<String, Object> belong_upload = new HashMap<>();  
+  belong_upload.put("name", name);  
+  db.collection(tmp_path).document(firebaseAuth.getCurrentUser().getUid()).set(belong_upload);  
+  
+  db.collection("user").document(firebaseAuth.getCurrentUser().getUid())  
+            .set(upload)  
+            .addOnSuccessListener(new OnSuccessListener<Void>() {  
+                @Override  
+  public void onSuccess(Void aVoid) {  
+                    Log.d("AAA", "DocumentSnapshot successfully written!");  
+  }  
+            })  
+            .addOnFailureListener(new OnFailureListener() {  
+                @Override  
+  public void onFailure(@NonNull Exception e) {  
+                    Log.w("AAA", "Error writing document", e);  
+  }  
+            });  
+  
+  
+}
+```
+HashMap upload를 생성하여 입력 받은 정보들을 집어넣은 다음
+Firestore의 user컬렉션에 저장합니다. 입력받지 않는 정보인 point는 0으로 설정하고
+입력 받은 소속을 파싱하여 그 소속의 부대원으로 추가합니다.
+
+이렇게 update함수 까지 호출한 다음 이메일 인증 액티비티로 전환합니다. 
+```java
+
+EmailVerify.java
+firebaseAuth.getCurrentUser().sendEmailVerification()
+```
+이메일 인증 액티비티에서 "전송하기"버튼을 누르면 상기의 함수가 호출됩니다.
+회원가입시 입력했던 이메일로 인증이메일이 전송되어
+[이메일사진]
+인증하기 버튼을 누르면 인증이 완료됩니다.
+
+
+```java
+EmailVerify.java
+firebaseAuth.getCurrentUser().isEmailVerified()
+```
+
+인증완료후 회원가입버튼을 누르면 위의 함수를 이용하여 
+현재 로그인된 아이디가 인증 여부를 체크하여
+MainActivity로 이동하거나 사용자에게 Toast 메세지를 띄워줍니다.
+
+---
+</div>
+
+</details>
+
+---
+</div>
+
+
+</details>
+
+### 3. Navigation
+<details>
+
+<summary>접기/펼치기 버튼</summary>
+
+<div markdown="1">
+
+
+
+  <details>
+
+<summary>접기/펼치기 버튼</summary>
+
+<div markdown="1">
+
+
+---
+</div>
+
+</details>
+
+---
+</div>
+
+
+</details>
+
+### 4. MyPage
+<details>
+
+<summary>접기/펼치기 버튼</summary>
+
+<div markdown="1">
+
+
+
+  <details>
+
+<summary>접기/펼치기 버튼</summary>
+
+<div markdown="1">
+
+
+---
+</div>
+
+</details>
+
+---
+</div>
+
+
+</details>
 
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
@@ -1148,4 +1543,3 @@ $ yarn start or npm run start
  - 로그인 ui 구현 참고 : https://github.com/Shashank02051997/LoginUI-Android
  - 안드로이드 갤러리에서 비트맵형식으로 이미지 가져오기 :https://lktprogrammer.tistory.com/188
  - 로딩화면 구현 : https://andro-jinu.tistory.com/entry/androidstudio2
- 
