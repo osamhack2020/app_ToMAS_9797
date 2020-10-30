@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -132,12 +133,8 @@ public class MarketContent extends Fragment implements Html.ImageGetter {
                                     {
                                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                                         enroll_button.setText("입찰취소");
-                                        slidingUpPanelLayout.setTouchEnabled(false);
                                     }
-                                    else
-                                    {
-                                        slidingUpPanelLayout.setTouchEnabled(true);
-                                    }
+
                                     adapter.notifyDataSetChanged();
                                 }
                                 else {
@@ -212,7 +209,9 @@ public class MarketContent extends Fragment implements Html.ImageGetter {
         });
 
         // round로 자르기
-        root.findViewById(R.id.market_content_drawer).setClipToOutline(true);
+        LinearLayout drawer = root.findViewById(R.id.market_content_drawer);
+        drawer.setBackgroundResource(R.drawable.buttonshape_type1);
+        drawer.setClipToOutline(true);
 
         return root;
     }

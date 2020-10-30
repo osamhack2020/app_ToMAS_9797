@@ -213,6 +213,7 @@ public class FragmentTemplate extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title(title);
         mainActivity.set_title();
     }
 

@@ -41,6 +41,10 @@ public class SocialSurvey extends Fragment {
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
         fab = root.findViewById(R.id.social_survey_fab);
+
+        if (this.mainActivity.preferences.getString("권한", "").equals("사용자"))
+            fab.setVisibility(View.GONE);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +55,7 @@ public class SocialSurvey extends Fragment {
 
         survey_listView = root.findViewById(R.id.social_survey_listView);
 
-        final SurveyListAdapter list_adapter = new SurveyListAdapter();
+        final SurveyListAdapter list_adapter = new SurveyListAdapter(mainActivity);
         survey_listView.setAdapter(list_adapter);
 
         // firestore의 소속 path 내 설문조사 찾기

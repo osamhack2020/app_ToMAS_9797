@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 
 import java.util.ArrayList;
@@ -17,10 +18,16 @@ import java.util.ArrayList;
 public class SurveyListAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     public ArrayList<SurveyListItem> listViewItemList = new ArrayList<SurveyListItem>() ;
+    MainActivity mainActivity;
+
 
     // ListViewAdapter의 생성자
     public SurveyListAdapter() {
 
+    }
+
+    public SurveyListAdapter(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
     // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
@@ -54,6 +61,10 @@ public class SurveyListAdapter extends BaseAdapter {
         item_title.setText(listViewItem.getTitle());
         item_date.setText("마감일 : " + listViewItem.getDate());
         item_name.setText("작성자 : " + listViewItem.getName());
+
+        if (!this.mainActivity.preferences.getString("권한", "").equals("사용자"))
+            item_check.setVisibility(View.GONE);
+
         if (listViewItem.getCheck())
         {
             item_check.setColorFilter(ContextCompat.getColor(context, R.color.green));
