@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.team9797.ToMAS.LoginActivity;
 import com.team9797.ToMAS.R;
 
 import java.util.ArrayList;
@@ -107,57 +109,20 @@ public class RegisterSocialSurvey extends AppCompatActivity {
                 edit_title = findViewById(R.id.register_survey_title);
                 String title = edit_title.getText().toString();
 
+                if(isVailid(title)){
+                    Map<String, Object> post = new HashMap<>();
+                    post.put("title", title);
+                    post.put("timestamp", FieldValue.serverTimestamp());
+                    post.put("due_date", edit_date.getText().toString());
+                    post.put("writer", preferences.getString("이름", ""));
+                    post.put("numpeople", 0);
 
-                Map<String, Object> post = new HashMap<>();
-                post.put("title", title);
-                post.put("timestamp", FieldValue.serverTimestamp());
-                post.put("due_date", edit_date.getText().toString());
-                post.put("writer", preferences.getString("이름", ""));
-                post.put("numpeople", 0);
-
-                DocumentReference documentReference = FirebaseFirestore.getInstance().collection(path).document();
-                documentReference.set(post)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                //Log.d("AAA", "DocumentSnapshot successfully written!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                //Log.w("AAA", "Error writing document", e);
-                            }
-                        });
-                for (int i = 0; i < question_list.size(); i++)
-                {
-                    Map<String, Object> tmp_question = new HashMap<>();
-                    tmp_question.put("index", i+1);
-
-                    if (question_list.get(i).radioButton1.isChecked())
-                    {//객관식
-                        tmp_question.put("type", 1);
-                        ArrayList<String> tmp_multi_choice_item_list = new ArrayList<>();
-                        Log.d("question number : " , Integer.toString(question_list.get(i).multi_chice_selection_list.size()));
-                        for (int j = 0; j < question_list.get(i).multi_chice_selection_list.size(); j++)
-                        {
-                            tmp_multi_choice_item_list.add(question_list.get(i).multi_chice_selection_list.get(j).selection_editText.getText().toString());
-                        }
-                        tmp_question.put("multi_choice_questions", tmp_multi_choice_item_list);
-                    }
-                    else
-                    {//주관식
-                        tmp_question.put("type", 2);
-                    }
-                    tmp_question.put("question", question_list.get(i).question_editText.getText().toString());
-
-                    documentReference.collection("questions").document().set(tmp_question)
+                    DocumentReference documentReference = FirebaseFirestore.getInstance().collection(path).document();
+                    documentReference.set(post)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     //Log.d("AAA", "DocumentSnapshot successfully written!");
-                                    setResult(Activity.RESULT_OK);
-                                    finish();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -166,7 +131,48 @@ public class RegisterSocialSurvey extends AppCompatActivity {
                                     //Log.w("AAA", "Error writing document", e);
                                 }
                             });
+                    for (int i = 0; i < question_list.size(); i++)
+                    {
+                        Map<String, Object> tmp_question = new HashMap<>();
+                        tmp_question.put("index", i+1);
+
+                        if (question_list.get(i).radioButton1.isChecked())
+                        {//객관식
+                            tmp_question.put("type", 1);
+                            ArrayList<String> tmp_multi_choice_item_list = new ArrayList<>();
+                            Log.d("question number : " , Integer.toString(question_list.get(i).multi_chice_selection_list.size()));
+                            for (int j = 0; j < question_list.get(i).multi_chice_selection_list.size(); j++)
+                            {
+                                tmp_multi_choice_item_list.add(question_list.get(i).multi_chice_selection_list.get(j).selection_editText.getText().toString());
+                            }
+                            tmp_question.put("multi_choice_questions", tmp_multi_choice_item_list);
+                        }
+                        else
+                        {//주관식
+                            tmp_question.put("type", 2);
+                        }
+                        tmp_question.put("question", question_list.get(i).question_editText.getText().toString());
+
+                        documentReference.collection("questions").document().set(tmp_question)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                        setResult(Activity.RESULT_OK);
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        //Log.w("AAA", "Error writing document", e);
+                                    }
+                                });
+                    }
                 }
+                    else{
+                    Toast.makeText(RegisterSocialSurvey.this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show();}
+
 
             }
         });
@@ -179,6 +185,14 @@ public class RegisterSocialSurvey extends AppCompatActivity {
         {
             question_list.get(i).index = i;
             question_list.get(i).num_textView.setText(Integer.toString(i + 1) + ".");
+        }
+    }
+    public boolean isVailid(String s){
+        if(s.isEmpty()){
+            return false;
+        }
+        else {
+            return true;
         }
     }
 }

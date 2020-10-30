@@ -152,6 +152,7 @@ public class LoginActivity extends AppCompatActivity{
                         } else {
                             // 로그인 실패
                             Toast.makeText(LoginActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
+                            customProgressDialog.dismiss();
                         }
                     }
                 });

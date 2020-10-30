@@ -38,6 +38,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.team9797.ToMAS.LoginActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.RenderPreview;
 
@@ -459,56 +460,77 @@ public class RegisterBoardContent extends AppCompatActivity {
 
         title = edit_title.getText().toString();
 
-        SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
+        //빈칸확인
+        if(isVailid(title)){
+            if(isVailid(string_html)){
+                SharedPreferences preferences = getSharedPreferences("user_info", MODE_PRIVATE);
 
-        Map<String, Object> post = new HashMap<>();
-        post.put("html", string_html);
-        post.put("title", title);
-        post.put("timestamp", FieldValue.serverTimestamp());
-        post.put("num_comments", 0);
-        post.put("clicks", 0);
-        post.put("writer", preferences.getString("이름", "홍길동"));
-        post.put("user_id", preferences.getString("user_id", ""));
+                Map<String, Object> post = new HashMap<>();
+                post.put("html", string_html);
+                post.put("title", title);
+                post.put("timestamp", FieldValue.serverTimestamp());
+                post.put("num_comments", 0);
+                post.put("clicks", 0);
+                post.put("writer", preferences.getString("이름", "홍길동"));
+                post.put("user_id", preferences.getString("user_id", ""));
 
 
-        // 새로 글 쓸 때
-        if (post_id.equals("")) {
-            db.collection(path).document()
-                    .set(post)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            setResult(Activity.RESULT_OK);
-                            finish();
-                            Log.d("AAA", "DocumentSnapshot successfully written!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("AAA", "Error writing document", e);
-                        }
-                    });
+                // 새로 글 쓸 때
+                if (post_id.equals("")) {
+                    db.collection(path).document()
+                            .set(post)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    setResult(Activity.RESULT_OK);
+                                    finish();
+                                    Log.d("AAA", "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("AAA", "Error writing document", e);
+                                }
+                            });
+                }
+                else {// 수정할 때
+                    db.collection(path).document(post_id)
+                            .set(post)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    setResult(Activity.RESULT_OK);
+                                    finish();
+                                    Log.d("AAA", "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("AAA", "Error writing document", e);
+                                }
+                            });
+                }
+                // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
+
+            }
+            else{
+                Toast.makeText(RegisterBoardContent.this," 내용을 기입해주세요", Toast.LENGTH_SHORT).show();
+            }
         }
-        else {// 수정할 때
-            db.collection(path).document(post_id)
-                    .set(post)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            setResult(Activity.RESULT_OK);
-                            finish();
-                            Log.d("AAA", "DocumentSnapshot successfully written!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("AAA", "Error writing document", e);
-                        }
-                    });
+            else{
+            Toast.makeText(RegisterBoardContent.this," 제목을 기입해주세요", Toast.LENGTH_SHORT).show();
         }
-        // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
+
     }
 
+    public boolean isVailid(String s){
+        if(s.isEmpty()){
+        return false;
+        }
+        else {
+            return true;
+        }
+    }
 }

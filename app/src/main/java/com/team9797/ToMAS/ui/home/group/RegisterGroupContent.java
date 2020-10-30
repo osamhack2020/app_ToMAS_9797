@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
+import com.team9797.ToMAS.ui.home.market.RegisterMarketContent;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -159,48 +161,62 @@ public class RegisterGroupContent extends Fragment {
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 // 참가자 정보 넣은 map : 인원모집 신청자도 자동으로 등록.
-                Map<String, Map<String, String>> participants = new HashMap<>();
-                Map<String, String> tmp_participant = new HashMap<>();
-                tmp_participant.put("name", mainActivity.preferences.getString("이름", "홍길동"));
-                tmp_participant.put("phonenumber", mainActivity.preferences.getString("phonenumber", "01012341234"));
-                tmp_participant.put("position", edit_position.getText().toString());
-                participants.put(mainActivity.getUid(), tmp_participant);
-                Map<String, Object> post = new HashMap<>();
-                //example : need to fix
-                post.put("title", edit_title.getText().toString());
-                post.put("writer", mainActivity.preferences.getString("이름", ""));
-                post.put("writer_id", mainActivity.preferences.getString("user_id", ""));
-                post.put("timestamp", FieldValue.serverTimestamp());
-                post.put("date", edit_date.getText().toString());
-                post.put("place", edit_place.getText().toString());
-                post.put("category", spinner_category.getSelectedItem().toString());
-                post.put("num_people", Integer.parseInt(edit_numpeople.getText().toString()));
-                post.put("now_people", 1);
-                post.put("participants", participants);
-                post.put("time", edit_start_time.getText().toString() + " ~ " + edit_end_time.getText().toString()); //need to fix : 이것도 integer로 받아서 마감임박같은거 처리하면 좋을 듯
+
+                if(isVailid(edit_title.toString())){
+                    Map<String, Map<String, String>> participants = new HashMap<>();
+                    Map<String, String> tmp_participant = new HashMap<>();
+                    tmp_participant.put("name", mainActivity.preferences.getString("이름", "홍길동"));
+                    tmp_participant.put("phonenumber", mainActivity.preferences.getString("phonenumber", "01012341234"));
+                    tmp_participant.put("position", edit_position.getText().toString());
+                    participants.put(mainActivity.getUid(), tmp_participant);
+                    Map<String, Object> post = new HashMap<>();
+                    //example : need to fix
+                    post.put("title", edit_title.getText().toString());
+                    post.put("writer", mainActivity.preferences.getString("이름", ""));
+                    post.put("writer_id", mainActivity.preferences.getString("user_id", ""));
+                    post.put("timestamp", FieldValue.serverTimestamp());
+                    post.put("date", edit_date.getText().toString());
+                    post.put("place", edit_place.getText().toString());
+                    post.put("category", spinner_category.getSelectedItem().toString());
+                    post.put("num_people", Integer.parseInt(edit_numpeople.getText().toString()));
+                    post.put("now_people", 1);
+                    post.put("participants", participants);
+                    post.put("time", edit_start_time.getText().toString() + " ~ " + edit_end_time.getText().toString()); //need to fix : 이것도 integer로 받아서 마감임박같은거 처리하면 좋을 듯
 
 
-                db.collection(path).document()
-                        .set(post)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                //Log.d("AAA", "DocumentSnapshot successfully written!");
-                                fragmentManager.beginTransaction().remove(RegisterGroupContent.this).commit();
-                                fragmentManager.popBackStack();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                //Log.w("AAA", "Error writing document", e);
-                            }
-                        });
+                    db.collection(path).document()
+                            .set(post)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                    fragmentManager.beginTransaction().remove(RegisterGroupContent.this).commit();
+                                    fragmentManager.popBackStack();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    //Log.w("AAA", "Error writing document", e);
+                                }
+                            });
+                }
+                else{
+                    Toast.makeText(mainActivity, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
 
         return root;
     }
-
+    public boolean isVailid(String s){
+        if(s.isEmpty()){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }
