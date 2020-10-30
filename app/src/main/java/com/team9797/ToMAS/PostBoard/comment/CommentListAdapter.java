@@ -3,20 +3,27 @@ package com.team9797.ToMAS.PostBoard.comment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.text.Editable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.irshulx.Editor;
+import com.github.irshulx.EditorListener;
+import com.github.irshulx.models.EditorContent;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FieldValue;
@@ -32,7 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.MyViewHolder> implements Html.ImageGetter {
+public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.MyViewHolder>  {
     public ArrayList<CommentListItem> mDataset;
     String path;
     Context context;
@@ -51,18 +58,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
 
     }
 
-    @Override
-    public Drawable getDrawable(String source) {
-        LevelListDrawable d = new LevelListDrawable();
-        Drawable empty = context.getDrawable(R.drawable.ic_arrow_forward_black_24dp);
-        d.addLevel(0, 0, empty);
-        d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
-
-        new CommentListAdapter.LoadImage().execute(source, d);
-
-        return d;
-    }
-
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -71,18 +66,18 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         TextView item_title;
         TextView item_writer;
         TextView item_date;
-        TextView item_html;
         Button btn_fix;
         Button btn_delete;
+        Editor renderer;
 
         public MyViewHolder(View view) {
             super(view);
             item_title = (TextView) view.findViewById(R.id.comment_list_item_title);
             item_writer = (TextView) view.findViewById(R.id.comment_list_item_writer);
-            item_html = (TextView) view.findViewById(R.id.comment_list_item_html);
             item_date = (TextView) view.findViewById(R.id.comment_list_item_date);
             btn_fix = view.findViewById(R.id.btn_comment_update);
             btn_delete = view.findViewById(R.id.btn_comment_delete);
+            renderer = (Editor)view.findViewById(R.id.renderer);
         }
     }
 
@@ -104,7 +99,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         // - replace the contents of the view with that element
         holder.item_title.setText("제목 : " + mDataset.get(position).getTitle());
         holder.item_writer.setText("작성자 : " + mDataset.get(position).getWriter());
-        holder.item_html.setText(Html.fromHtml(mDataset.get(position).getHtml(), CommentListAdapter.this, null));
         holder.item_date.setText("작성일 : " + mDataset.get(position).getDate());
 
         if (user_id.equals(mDataset.get(position).getWriterId()))
@@ -164,6 +158,32 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
                 });
             }
         }
+        Map<Integer, String> headingTypeface = getHeadingTypeface();
+        Map<Integer, String> contentTypeface = getContentface();
+        holder.renderer.setHeadingTypeface(headingTypeface);
+        holder.renderer.setContentTypeface(contentTypeface);
+        holder.renderer.setDividerLayout(R.layout.tmpl_divider_layout);
+        holder.renderer.setEditorImageLayout(R.layout.tmpl_image_view);
+        holder.renderer.setListItemLayout(R.layout.tmpl_list_item);
+        String content= mDataset.get(position).getHtml();
+        //EditorContent Deserialized= holder.renderer.getContentDeserialized(content);
+        holder.renderer.setEditorListener(new EditorListener() {
+            @Override
+            public void onTextChanged(EditText editText, Editable text) {
+
+            }
+
+            @Override
+            public void onUpload(Bitmap image, String uuid) {
+
+            }
+
+            @Override
+            public View onRenderMacro(String name, Map<String, Object> settings, int index) {
+                return null;
+            }
+        });
+        holder.renderer.render(content);
 
     }
 
@@ -187,38 +207,27 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         mDataset.add(item);
     }
 
-    class LoadImage extends AsyncTask<Object, Void, Bitmap> {
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 
-        private LevelListDrawable mDrawable;
+    public Map<Integer, String> getHeadingTypeface() {
+        Map<Integer, String> typefaceMap = new HashMap<>();
+        typefaceMap.put(Typeface.NORMAL, "fonts/GreycliffCF-Bold.ttf");
+        typefaceMap.put(Typeface.BOLD, "fonts/GreycliffCF-Heavy.ttf");
+        typefaceMap.put(Typeface.ITALIC, "fonts/GreycliffCF-Heavy.ttf");
+        typefaceMap.put(Typeface.BOLD_ITALIC, "fonts/GreycliffCF-Bold.ttf");
+        return typefaceMap;
+    }
 
-        @Override
-        protected Bitmap doInBackground(Object... params) {
-            String source = (String) params[0];
-            mDrawable = (LevelListDrawable) params[1];
-            try {
-                InputStream is = new URL(source).openStream();
-                return BitmapFactory.decodeStream(is);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (bitmap != null) {
-                BitmapDrawable d = new BitmapDrawable(bitmap);
-                mDrawable.addLevel(1, 1, d);
-                mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-                mDrawable.setLevel(1);
-                // need to fix : refresh하기 - 이미지 안나옴. 이거 구조를 바꾸던가 해야할 듯.
-                notifyDataSetChanged();
-            }
-        }
+    public Map<Integer, String> getContentface() {
+        Map<Integer, String> typefaceMap = new HashMap<>();
+        typefaceMap.put(Typeface.NORMAL,"fonts/Lato-Medium.ttf");
+        typefaceMap.put(Typeface.BOLD,"fonts/Lato-Bold.ttf");
+        typefaceMap.put(Typeface.ITALIC,"fonts/Lato-MediumItalic.ttf");
+        typefaceMap.put(Typeface.BOLD_ITALIC,"fonts/Lato-BoldItalic.ttf");
+        return typefaceMap;
     }
 
 }

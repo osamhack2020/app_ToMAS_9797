@@ -19,15 +19,15 @@
             android:id="@+id/comment_list_item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="제목입니다"
+            android:layout_weight="4"
             android:textColor="@android:color/primary_text_light"
-            android:textSize="14sp" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/btn_comment_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
             android:layout_weight="10"
             android:background="@drawable/buttonshape_type1"
             android:enabled="false"
@@ -41,6 +41,7 @@
             android:id="@+id/btn_comment_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:layout_weight="10"
             android:background="@drawable/buttonshape_type1"
             android:enabled="false"
@@ -75,8 +76,19 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/comment_list_item_html"
+    <com.github.irshulx.Editor
+        android:id="@+id/renderer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:render_type="Renderer" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary" />
 </LinearLayout>

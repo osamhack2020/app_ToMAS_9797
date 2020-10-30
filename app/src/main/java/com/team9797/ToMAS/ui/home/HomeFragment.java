@@ -104,7 +104,6 @@ public class HomeFragment extends Fragment {
                 default:
                     break;
             }
-            mainActivity.push_title(title);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commit();
         }

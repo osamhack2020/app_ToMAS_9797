@@ -3,9 +3,11 @@ package com.team9797.ToMAS.PostBoard;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -14,13 +16,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.irshulx.Editor;
+import com.github.irshulx.EditorListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -41,14 +47,16 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
-public class BoardContent extends Fragment implements Html.ImageGetter {
+public class BoardContent extends Fragment{
 
     MainActivity mainActivity;
     String post_id;
     String path;
     TextView title_textView;
-    TextView html_textView;
+    Editor renderer;
     TextView writer_textView;
     TextView date_textView;
     TextView num_comments_textView;
@@ -70,7 +78,6 @@ public class BoardContent extends Fragment implements Html.ImageGetter {
         post_id = getArguments().getString("post_id");
         path = getArguments().getString("path");
         title_textView = root.findViewById(R.id.board_content_title);
-        html_textView = root.findViewById(R.id.board_content_textview);
         comment_button = root.findViewById(R.id.board_content_add_comment);
         comment_recyclerView = root.findViewById(R.id.board_content_comments_recylcerView);
         writer_textView = root.findViewById(R.id.board_content_writer);
@@ -78,6 +85,7 @@ public class BoardContent extends Fragment implements Html.ImageGetter {
         num_comments_textView = root.findViewById(R.id.board_content_num_comments);
         delete_button = root.findViewById(R.id.board_content_delete_btn);
         update_button = root.findViewById(R.id.board_content_update_btn);
+        renderer = root.findViewById(R.id.renderer);
 
 
         // 선택한 게시물 document reference
@@ -89,7 +97,30 @@ public class BoardContent extends Fragment implements Html.ImageGetter {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        html_textView.setText(Html.fromHtml(document.get("html", String.class), BoardContent.this, null));
+                        Map<Integer, String> headingTypeface = getHeadingTypeface();
+                        Map<Integer, String> contentTypeface = getContentface();
+                        renderer.setHeadingTypeface(headingTypeface);
+                        renderer.setContentTypeface(contentTypeface);
+                        renderer.setDividerLayout(R.layout.tmpl_divider_layout);
+                        renderer.setEditorImageLayout(R.layout.tmpl_image_view);
+                        renderer.setListItemLayout(R.layout.tmpl_list_item);
+                        renderer.setEditorListener(new EditorListener() {
+                            @Override
+                            public void onTextChanged(EditText editText, Editable text) {
+
+                            }
+
+                            @Override
+                            public void onUpload(Bitmap image, String uuid) {
+
+                            }
+
+                            @Override
+                            public View onRenderMacro(String name, Map<String, Object> settings, int index) {
+                                return null;
+                            }
+                        });
+                        renderer.render(document.get("html", String.class));
                         title_textView.setText(document.get("title", String.class));
                         writer_textView.setText(document.get("writer", String.class));
                         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -178,53 +209,7 @@ public class BoardContent extends Fragment implements Html.ImageGetter {
         return root;
     }
 
-    @Override
-    public Drawable getDrawable(String source) {
-        LevelListDrawable d = new LevelListDrawable();
-        Drawable empty = getResources().getDrawable(R.drawable.ic_arrow_forward_black_24dp);
-        d.addLevel(0, 0, empty);
-        d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
 
-        new LoadImage().execute(source, d);
-
-        return d;
-    }
-
-    class LoadImage extends AsyncTask<Object, Void, Bitmap> {
-
-        private LevelListDrawable mDrawable;
-
-        @Override
-        protected Bitmap doInBackground(Object... params) {
-            String source = (String) params[0];
-            mDrawable = (LevelListDrawable) params[1];
-            try {
-                InputStream is = new URL(source).openStream();
-                return BitmapFactory.decodeStream(is);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (bitmap != null) {
-                BitmapDrawable d = new BitmapDrawable(bitmap);
-                mDrawable.addLevel(1, 1, d);
-                mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-                mDrawable.setLevel(1);
-                // i don't know yet a better way to refresh TextView
-                // mTv.invalidate() doesn't work as expected
-                CharSequence t = html_textView.getText();
-                html_textView.setText(t);
-            }
-        }
-    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -232,6 +217,29 @@ public class BoardContent extends Fragment implements Html.ImageGetter {
         if ((requestCode == 11112) && (resultCode == mainActivity.RESULT_OK)) {
             fragmentManager.beginTransaction().detach(this).attach(this).commit();
         }
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+    public Map<Integer, String> getHeadingTypeface() {
+        Map<Integer, String> typefaceMap = new HashMap<>();
+        typefaceMap.put(Typeface.NORMAL, "fonts/GreycliffCF-Bold.ttf");
+        typefaceMap.put(Typeface.BOLD, "fonts/GreycliffCF-Heavy.ttf");
+        typefaceMap.put(Typeface.ITALIC, "fonts/GreycliffCF-Heavy.ttf");
+        typefaceMap.put(Typeface.BOLD_ITALIC, "fonts/GreycliffCF-Bold.ttf");
+        return typefaceMap;
+    }
+
+    public Map<Integer, String> getContentface() {
+        Map<Integer, String> typefaceMap = new HashMap<>();
+        typefaceMap.put(Typeface.NORMAL,"fonts/Lato-Medium.ttf");
+        typefaceMap.put(Typeface.BOLD,"fonts/Lato-Bold.ttf");
+        typefaceMap.put(Typeface.ITALIC,"fonts/Lato-MediumItalic.ttf");
+        typefaceMap.put(Typeface.BOLD_ITALIC,"fonts/Lato-BoldItalic.ttf");
+        return typefaceMap;
     }
 
 }

@@ -61,10 +61,11 @@ public class MarketFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title("플리마켓");
         mainActivity.set_title();
     }
 
-
+    
 
     // 자기의 소속을 바탕으로 default setting 처리
     public void default_setting()
@@ -114,10 +115,13 @@ public class MarketFragment extends Fragment{
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                                Log.d("inner", document.getId());
                                                 mainActivity.db.collection(tmp_path).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                         if (task.isSuccessful()) {
+                                                            if (task.getResult().size() == 0)
+                                                                tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), 0, document.getId());
                                                             for (QueryDocumentSnapshot price_document : task.getResult()) {
                                                                 tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("numpeople", Integer.class), document.get("due_date").toString(), document.get("writer").toString(), price_document.get("price", Integer.class), document.getId());
                                                             }

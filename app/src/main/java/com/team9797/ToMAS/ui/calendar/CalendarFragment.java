@@ -57,12 +57,11 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
     TextView title_textView;
     TextView content_textView;
     RangeDayDecorator decorator;
-    Button event_update;
     LinearLayout calendar_container;
     Button event_delete;
-    List<CalendarDay> selected_day_list = new ArrayList<>();
-    ArrayList<List<CalendarDay>> events = new ArrayList<>();
-    HashMap<CalendarDay, event> day_to_event_map = new HashMap<>();
+    List<CalendarDay> selected_day_list;
+    ArrayList<List<CalendarDay>> events;
+    HashMap<CalendarDay, event> day_to_event_map;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -72,7 +71,6 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
         mainActivity = (MainActivity)getActivity();
         calendarView = root.findViewById(R.id.calendarView);
         btn_calendar = root.findViewById(R.id.btn_calendar);
-        event_update = root.findViewById(R.id.event_update);
         event_delete = root.findViewById(R.id.event_delete);
         title_textView = root.findViewById(R.id.event_title);
         type_textView = root.findViewById(R.id.event_type);
@@ -83,6 +81,10 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
         calendarView.addDecorator(decorator);
         //calendarview 크기 줄이기
         calendarView.setTileHeightDp(40);
+
+        selected_day_list = new ArrayList<>();
+        events = new ArrayList<>();
+        day_to_event_map = new HashMap<>();
 
         mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -113,6 +115,7 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 event selected_event = day_to_event_map.get(date);
+
                 if (selected_event == null) {
                     calendar_container.setVisibility(View.GONE);
                 } else {
@@ -121,64 +124,20 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
                     title_textView.setText("제목 : " + selected_event.title);
                     content_textView.setText("내용 : " + selected_event.content);
 
-                    // 수정 기능 수정해야 함.
-                    event_update.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            add_event_dialog dialog = new add_event_dialog(mainActivity, selected_event.type, selected_event.title, selected_event.content);
-                            dialog.show(getFragmentManager(), "일정등록");
-                            dialog.setDialogResult(new add_event_dialog.add_event_dialog_result() {
-                                @Override
-                                public void get_result(String type, String title, String content, int color) {
-                                    // 여기서 서버로 보내기
-                                    Map<String, Object> post = new HashMap<>();
-                                    post.put("type", type);
-                                    post.put("title", title);
-                                    post.put("content", content);
-                                    post.put("color", color);
-                                    ArrayList<String> string_selected_days = new ArrayList<>();
-                                    for (int i = 0; i< selected_day_list.size(); i++)
-                                    {
-                                        String tmp = Integer.toString(selected_day_list.get(i).getYear()) + "-" + Integer.toString(selected_day_list.get(i).getMonth()) + "-"+ Integer.toString(selected_day_list.get(i).getDay());
-                                        string_selected_days.add(tmp);
-                                    }
-                                    post.put("days", string_selected_days);
-
-                                    mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events").document()
-                                            .set(post)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d("AAA", "DocumentSnapshot successfully written!");
-                                                    refresh();
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w("AAA", "Error writing document", e);
-                                                }
-                                            });
-                                }
-                            });
-                        }
-                    });
                     event_delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Log.d("QQQ", selected_event.id);
                             mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events").document(selected_event.id).delete()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Log.d("AA", "success");
+                                            Toast.makeText(mainActivity, "일정이 삭제되었습니다", Toast.LENGTH_SHORT);
                                             refresh();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            //Log.w("AAA", "Error writing document", e);
                                         }
                                     });
                         }
@@ -190,46 +149,62 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
         btn_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                add_event_dialog dialog = new add_event_dialog(mainActivity);
-                dialog.show(mainActivity.getSupportFragmentManager(), "일정등록");
-                dialog.setDialogResult(new add_event_dialog.add_event_dialog_result() {
-                    @Override
-                    public void get_result(String type, String title, String content, int color) {
-                        // 여기서 서버로 보내기
-                        Map<String, Object> post = new HashMap<>();
-                        post.put("type", type);
-                        post.put("title", title);
-                        post.put("content", content);
-                        post.put("color", color);
-                        ArrayList<String> string_selected_days = new ArrayList<>();
-                        for (int i = 0; i< selected_day_list.size(); i++)
-                        {
-                            String tmp = Integer.toString(selected_day_list.get(i).getYear()) + "-" + Integer.toString(selected_day_list.get(i).getMonth()) + "-"+ Integer.toString(selected_day_list.get(i).getDay());
-                            string_selected_days.add(tmp);
-                        }
-                        post.put("days", string_selected_days);
+                boolean check = false;
+                for (int i = 0; i < selected_day_list.size() ; i++)
+                {
+                    if (day_to_event_map.containsKey(selected_day_list.get(i)))
+                        check = true;
+                }
+                if (check) {
+                    Toast.makeText(mainActivity, "겹치는 일정이 있습니다", Toast.LENGTH_SHORT).show();
+                } else {
+                    add_event_dialog dialog = new add_event_dialog(mainActivity);
+                    dialog.show(mainActivity.getSupportFragmentManager(), "일정등록");
+                    dialog.setDialogResult(new add_event_dialog.add_event_dialog_result() {
+                        @Override
+                        public void get_result(String type, String title, String content, int color) {
+                            // 여기서 서버로 보내기
+                            Map<String, Object> post = new HashMap<>();
+                            post.put("type", type);
+                            post.put("title", title);
+                            post.put("content", content);
+                            post.put("color", color);
+                            ArrayList<String> string_selected_days = new ArrayList<>();
+                            for (int i = 0; i < selected_day_list.size(); i++) {
+                                String tmp = Integer.toString(selected_day_list.get(i).getYear()) + "-" + Integer.toString(selected_day_list.get(i).getMonth()) + "-" + Integer.toString(selected_day_list.get(i).getDay());
+                                string_selected_days.add(tmp);
+                            }
+                            post.put("days", string_selected_days);
 
-                        mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events").document()
-                                .set(post)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d("AAA", "DocumentSnapshot successfully written!");
-                                        refresh();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("AAA", "Error writing document", e);
-                                    }
-                                });
-                    }
-                });
+                            mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events").document()
+                                    .set(post)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("AAA", "DocumentSnapshot successfully written!");
+                                            refresh();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("AAA", "Error writing document", e);
+                                        }
+                                    });
+                        }
+                    });
+                }
             }
         });
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainActivity.push_title("일정표");
+        mainActivity.set_title();
     }
 
     public void show_events()
@@ -252,7 +227,8 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
 
     public void refresh()
     {
-        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        getFragmentManager().beginTransaction().
+    detach(this).attach(this).commit();
     }
 }
 

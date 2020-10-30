@@ -117,6 +117,7 @@ public class SocialFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title("소속부대");
         mainActivity.set_title();
     }
 }
