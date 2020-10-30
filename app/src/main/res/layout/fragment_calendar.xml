@@ -52,21 +52,6 @@
                         android:layout_weight="3" />
 
                     <Button
-                        android:id="@+id/event_update"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:layout_weight="10"
-                        android:background="@drawable/buttonshape_type1"
-                        android:enabled="true"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:padding="@dimen/small_button_padding"
-                        android:text="수정"
-                        android:textColor="@color/colorAccent"
-                        android:visibility="visible" />
-
-                    <Button
                         android:id="@+id/event_delete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
