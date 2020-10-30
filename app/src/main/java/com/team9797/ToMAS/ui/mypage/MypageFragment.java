@@ -201,6 +201,7 @@ public class MypageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title("마이페이지");
         mainActivity.set_title();
     }
 

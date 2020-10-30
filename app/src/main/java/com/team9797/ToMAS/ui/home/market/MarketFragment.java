@@ -61,10 +61,11 @@ public class MarketFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title("플리마켓");
         mainActivity.set_title();
     }
 
-
+    
 
     // 자기의 소속을 바탕으로 default setting 처리
     public void default_setting()

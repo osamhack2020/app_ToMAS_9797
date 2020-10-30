@@ -75,6 +75,13 @@ public class GroupExercise extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainActivity.push_title(title);
+        mainActivity.set_title();
+    }
+
     public void default_setting()
     {
         // sharedPreference에서 가져와서 넣어주기
@@ -87,15 +94,15 @@ public class GroupExercise extends Fragment {
     {
         String stringed_path = "";
         String[] tmp = str.split("/");
-        String market_path = str.substring(0, str.length() - tmp[tmp.length - 1].length());
-        market_path += "인원모집/운동/운동";
+        String tmp_path = str.substring(0, str.length() - tmp[tmp.length - 1].length());
+        tmp_path += "인원모집/" + title + "/" + title;
         for (int i = 1; i<tmp.length; i++)
         {
             // document를 만들기 위해 tmp로 사용했던 path를 무시한다.
             if (i%2 == 0)
                 stringed_path += tmp[i] + " ";
         }
-        path = market_path;
+        path = tmp_path;
         return stringed_path;
     }
 
@@ -117,7 +124,6 @@ public class GroupExercise extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 adapter.add_item(document.get("title").toString(), document.get("now_people", Integer.class), document.get("num_people", Integer.class), document.get("place").toString(), document.get("date").toString(), document.get("time").toString(), document.getId());
-                                Log.d("QQ", document.get("title").toString());
                             }
                             adapter.notifyDataSetChanged();
                         } else {

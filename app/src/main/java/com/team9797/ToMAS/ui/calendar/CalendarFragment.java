@@ -200,6 +200,13 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainActivity.push_title("일정표");
+        mainActivity.set_title();
+    }
+
     public void show_events()
     {
         for (int i = 0; i < events.size(); i++)

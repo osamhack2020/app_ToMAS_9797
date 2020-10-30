@@ -44,6 +44,7 @@ public class groupFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title("인원모집");
         mainActivity.set_title();
     }
 
@@ -52,26 +53,33 @@ public class groupFragment extends Fragment {
         public void onClick(View view) {
             Fragment change_fragment = null;
             fragmentTransaction = fragmentManager.beginTransaction();
-            String title;
+            String title = null;
+            Bundle args = null;
             switch (view.getId()) {
                 case R.id.group_btn1:
                     change_fragment = new GroupExercise();
-                    Bundle args = new Bundle();
+                    args = new Bundle();
                     title = "운동";
-                    args.putString("title", title);
-                    change_fragment.setArguments(args);
                     break;
                 case R.id.group_btn2:
-                    change_fragment = new GroupCa();
+                    change_fragment = new GroupExercise();
+                    args = new Bundle();
+                    title = "동아리";
                     break;
                 case R.id.group_btn3:
-                    change_fragment = new GroupContest();
+                    change_fragment = new GroupExercise();
+                    args = new Bundle();
+                    title = "대회";
                     break;
                 case R.id.group_btn4:
-                    change_fragment = new GroupEtc();
+                    change_fragment = new GroupExercise();
+                    args = new Bundle();
+                    title = "기타";
                     break;
 
             }
+            args.putString("title", title);
+            change_fragment.setArguments(args);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.replace(R.id.nav_host_fragment, change_fragment).commitAllowingStateLoss();
         }
