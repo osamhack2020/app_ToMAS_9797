@@ -27,7 +27,7 @@
 
             <Button
                 android:id="@+id/btn_register_board_content"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
@@ -43,7 +43,7 @@
 
             <Button
                 android:id="@+id/btnRender"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="8dp"
@@ -64,52 +64,47 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginBottom="40dp"
+            android:scrollbars="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="제목" />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/post_edit_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="제목" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="내용" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp"
-                android:scrollbars="vertical">
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:text="제목" />
 
-                    <com.github.irshulx.Editor
-                        android:id="@+id/editor"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="100dp" />
+                <EditText
+                    android:id="@+id/post_edit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="제목" />
 
-                </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용" />
+
+                <com.github.irshulx.Editor
+                    android:id="@+id/editor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="100dp" />
+
+            </LinearLayout>
+        </ScrollView>
 
         <HorizontalScrollView
             android:id="@+id/tools"

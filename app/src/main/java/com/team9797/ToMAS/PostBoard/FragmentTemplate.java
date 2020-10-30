@@ -113,7 +113,6 @@ public class FragmentTemplate extends Fragment {
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()) {
                                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                                        Log.d("QQQ", document.get("title").toString());
                                                         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                                         String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                                         tmp_sample_list_adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
