@@ -5,35 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="@dimen/content_padding"
     android:weightSum="4"
     tools:context=".EmailVerify">
 
-    <EditText
-        android:id="@+id/showemail"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="상기의 이메일로 인증메일을 전송 하겠습니다." />
+        <TextView
+            android:id="@+id/showemail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="상기의 이메일로 인증메일을 전송 하겠습니다."
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/sendemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttonshape_type1"
         android:text="전송하기" />
 
     <Button
         android:id="@+id/checkverify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttonshape_type1"
         android:text="회원가입" />
 </LinearLayout>

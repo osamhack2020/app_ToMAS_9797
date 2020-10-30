@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
                     change_fragment.setArguments(args);
                     break;
                 case R.id.home_btn2:
-                    title = "게시판";
+                    title = "소통게시판";
                     change_fragment = new FragmentTemplate();
                     args = new Bundle();
                     args.putInt("fragment_style", 1);

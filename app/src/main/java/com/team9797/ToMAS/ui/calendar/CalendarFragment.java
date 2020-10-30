@@ -126,7 +126,7 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
                         @Override
                         public void onClick(View view) {
                             add_event_dialog dialog = new add_event_dialog(mainActivity, selected_event.type, selected_event.title, selected_event.content);
-                            dialog.show(mainActivity.getSupportFragmentManager(), "일정등록");
+                            dialog.show(getFragmentManager(), "일정등록");
                             dialog.setDialogResult(new add_event_dialog.add_event_dialog_result() {
                                 @Override
                                 public void get_result(String type, String title, String content, int color) {
@@ -166,10 +166,12 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
                     event_delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            Log.d("QQQ", selected_event.id);
                             mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events").document(selected_event.id).delete()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            Log.d("AA", "success");
                                             refresh();
                                         }
                                     })
@@ -205,7 +207,7 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
                             String tmp = Integer.toString(selected_day_list.get(i).getYear()) + "-" + Integer.toString(selected_day_list.get(i).getMonth()) + "-"+ Integer.toString(selected_day_list.get(i).getDay());
                             string_selected_days.add(tmp);
                         }
-                        post.put("days", string_selected_days); // 이거 안되면 for문 돌려서 calendarDay 변환해서 firebase 넣기
+                        post.put("days", string_selected_days);
 
                         mainActivity.db.collection("user").document(mainActivity.getUid()).collection("events").document()
                                 .set(post)

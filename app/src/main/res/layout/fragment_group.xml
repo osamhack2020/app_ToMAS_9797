@@ -21,6 +21,14 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_baseline_sports_tennis_48"
             android:paddingTop="60dp"
+            android:textSize="@dimen/extra_large_text"
+            android:background="@drawable/buttonshape_type1"
+            android:fontFamily="@font/gotham"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#009688"
+            android:layout_marginLeft="10dp"
             android:text="운동" />
 
         <Button
@@ -30,6 +38,14 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_baseline_deck_48"
             android:paddingTop="60dp"
+            android:textSize="@dimen/extra_large_text"
+            android:background="@drawable/buttonshape_type1"
+            android:fontFamily="@font/gotham"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#009688"
+            android:layout_marginLeft="10dp"
             android:text="동아리" />
     </LinearLayout>
 
@@ -46,6 +62,14 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_baseline_emoji_events_48"
             android:paddingTop="60dp"
+            android:textSize="@dimen/extra_large_text"
+            android:background="@drawable/buttonshape_type1"
+            android:fontFamily="@font/gotham"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#009688"
+            android:layout_marginLeft="10dp"
             android:text="대회" />
 
         <Button
@@ -55,6 +79,14 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_baseline_more_horiz_48"
             android:paddingTop="60dp"
+            android:textSize="@dimen/extra_large_text"
+            android:background="@drawable/buttonshape_type1"
+            android:fontFamily="@font/gotham"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#009688"
+            android:layout_marginLeft="10dp"
             android:text="기타" />
     </LinearLayout>
 

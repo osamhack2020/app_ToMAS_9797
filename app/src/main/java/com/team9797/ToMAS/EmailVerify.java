@@ -21,7 +21,7 @@ public class EmailVerify extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_verify);
-        TextView showemail=findViewById(R.id.showemail);
+        TextView showemail = findViewById(R.id.showemail);
         firebaseAuth = FirebaseAuth.getInstance();
         showemail.setText(firebaseAuth.getCurrentUser().getEmail());
         Button sendemail=findViewById(R.id.sendemail);
