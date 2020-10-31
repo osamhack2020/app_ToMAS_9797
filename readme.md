@@ -6,8 +6,8 @@
 
 
 <p align="center" >
-	<a width="30%" href="https://tomas-team9797.gitbook.io/tomas/"><img src="/images/gitbook.png" /></a>
-	<a width="30%" href=""><img src="/images/gitwiki.png" /></a>
+	<a href="https://tomas-team9797.gitbook.io/tomas/"><img width="30%" src="/images/gitbook.png" /></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/wiki/ToMAS_wiki"><img width="30%" src="/images/gitwiki.png" /></a>
 </p>
 
 
