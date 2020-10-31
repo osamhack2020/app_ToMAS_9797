@@ -329,8 +329,8 @@ public class RegisterBoardContent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(RegisterBoardContent.this)
-                        .setTitle("Exit Editor?")
-                        .setMessage("Are you sure you want to exit the editor?")
+                        .setTitle("글 쓰기 종료")
+                        .setMessage("글 쓰기를 종료하시겠습니까?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -417,8 +417,8 @@ public class RegisterBoardContent extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle("Exit Editor?")
-                .setMessage("Are you sure you want to exit the editor?")
+                .setTitle("글 쓰기 종료")
+                .setMessage("글 쓰기를 종료하시겠습니까?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

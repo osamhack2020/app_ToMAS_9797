@@ -398,8 +398,8 @@ public class RegisterMarketContent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(RegisterMarketContent.this)
-                        .setTitle("Exit Editor?")
-                        .setMessage("Are you sure you want to exit the editor?")
+                        .setTitle("물품 등록 종료")
+                        .setMessage("물품 등록을 종료하시겠습니까?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -486,8 +486,8 @@ public class RegisterMarketContent extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle("Exit Editor?")
-                .setMessage("Are you sure you want to exit the editor?")
+                .setTitle("물품 등록 종료")
+                .setMessage("물품 등록을 종료하시겠습니까?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
