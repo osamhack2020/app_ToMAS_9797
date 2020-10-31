@@ -1,9 +1,14 @@
 
-<p align="center" width="50%"><img src="/images/logo.PNG"></p>
+<p align="center" width="30%"><img src="/images/logo.PNG"></p>
 <h3 align="center">Total Military Assistance Service</p>
 <h3 align="center">통합 군생활 도움 서비스</p>
 
 
+
+<p align="center">
+	<a href="https://tomas-team9797.gitbook.io/tomas/"><img src="/images/gitbook.png" /></a>
+	<a href=""><img src="/images/gitwiki.png" /></a>
+</p>
 
 
 
@@ -13,6 +18,8 @@
 실생활에서 사용해야 함에 따라 부대 바깥으로는 자기개발/소통게시판, 플리마켓, 인원모집 기능을 제공하고 부대 안쪽으로는 설문조사,공지사항 기능을 제공하며 개인적으로는 일정표 기능을 제공합니다.</p>
 
 <br>
+
+
 
 ## 프로젝트 계기
 군 인트라넷 내의 아미누리 참여마당과 공군 IT 게시판을 보면서 군이라는 일체감 아래에서 이루어내는 시너지가 가지고 있는 가능성을 보았습니다. 그리고 그 가능성을 군 내부가 아닌 외부에서도 이용한다면 괄목할 만한 성과가 있을 것이라 생각했기에 이 프로젝트를 시작하게 되었습니다.
@@ -30,11 +37,11 @@
 
 1번 조건같은 경우는 소속 부대의 정보를 받고 군번을 받음으로써 어느 정도는 해결이 되었습니다.
 
-_하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습니다.
+하지만 2번 조건같은 경우는 해결하기가 그리 쉽지 않았습니다.
 
 아미누리 같은 사이트를 만들기 위해 게시판을 생성하는 기능은 필수인데, 이 게시판 기능만 제공한다면 기존의 다른 어플들에 비해 차별성을 갖추지못하고 , 차별성을 갖추지 못한 어플은 가치가 없기 때문입니다.
 
-따라서 게시판 기능만큼 비중을 가진, 오히려 더 큰 비중을 가진 기능들을 제공하여 이 어플리케이션의 가치를 창출하기로 하였습니다.
+따라서 게시판 기능보다 더 큰 기능들을 제공하여 이 어플리케이션의 가치를 창출하기로 하였습니다.
 
 <br>
 
@@ -237,26 +244,47 @@ _하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습
 
 <br><br>
 
-## ToMAS의 활용도
+## 프로젝트 관리
+[ToMAS 프로젝트](https://github.com/osamhack2020/app_ToMAS_9797/projects/2)
+[ToMAS 이슈](https://github.com/osamhack2020/app_ToMAS_9797/issues)
+<p><img width="80%" src="/images/gitproject.png"></p>
+ToMAS는 생기는 문제나 기능을 이슈로 발급해서 관리했습니다. 각자 repository에서 작업한 내용을 pull request하고, 이를 issue와 연결해 사용했습니다.
+
+### 개발과정
+<p><img width="50%" src="/images/step.png"></p>
+
+
 
 <br>
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 - Android SDK 28이상 (SDK버전 30권장)
 
-<br><br>
+
 
 ## 기술 스택 (Technique Used)
 - Front-end
-<p align="center"><img width="20%" src="/images/java.png"><img width="30%"
-src="/images/xml.png"><img width="40%" src="/images/android-studio.png"></p>
+<p><img width="20%" src="/images/java.png"><img width="15%"
+src="/images/xml.png"><img width="30%" src="/images/android-studio.png"></p>
 
 - Back-end
-<p align="center"><img width="40%" src="/images/firestore.png"></p>
+
+<p><img width="30%" src="/images/firestore.png"></p>
 
 
 ## 프로젝트 사용법 (Getting Started)
+1. android-studio를 설치합니다. (gradle 4.1.0 버전 권장)
 
+2. github 저장소를 clone 합니다.
+
+```bash
+git clone https://github.com/osamhack2020/app_ToMAS_9797
+```
+3. Firestore에 프로젝트를 생성합니다.
+
+4. Firestore 내에 게시판 구조를 생성합니다.
+
+5. 빌드하여 사용합니다.
 ## 팀 정보
 - 팀장 : 상병 김경민 rlarla915@gmail.com : [Github-rlarla915](https://github.com/rlarla915)
 - 팀원 : 상병 김도한 oneblue14@gmail.com :[Github-commitcomplete](https://github.com/commitcomplete?tab=repositories)
