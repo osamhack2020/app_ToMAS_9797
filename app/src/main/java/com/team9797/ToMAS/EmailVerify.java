@@ -11,8 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.team9797.ToMAS.ui.home.group.RegisterGroupContent;
 
 public class EmailVerify extends AppCompatActivity {
 
@@ -45,21 +48,28 @@ public class EmailVerify extends AppCompatActivity {
         checkverify.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseAuth.getCurrentUser().reload();
-                if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                    Intent intent = new Intent(EmailVerify.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-                else{
+                firebaseAuth.getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        if(firebaseAuth.getCurrentUser().isEmailVerified()){
+                            Intent intent = new Intent(EmailVerify.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                        else{
 
-                    Toast.makeText(getApplicationContext(), "이메일 인증 완료후 클릭해주세요", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "이메일 인증 완료후 클릭해주세요", Toast.LENGTH_LONG).show();
 
-                }
+                        }
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
 
-
-
+                            }
+                        });
             }
         });
     }
