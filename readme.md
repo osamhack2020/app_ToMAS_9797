@@ -17,7 +17,7 @@
 <br>
 
 <p align="center" >
-	<a href="https://github.com/osamhack2020/app_ToMAS_9797/blob/master/app_ToMAS.apk"><img width="20%" src="/images/app_icon.png" /></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/blob/master/app_ToMAS.apk"><img width="20%" src="/images/app_icon.PNG" /></a>
 </p>
 
 ## 프로젝트 설명  
@@ -66,27 +66,22 @@
 
 ### 최 행보관님의 이야기
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen="">
-</iframe>
-
+<a href="https://youtu.be/Wz6WTeOSuss"><img src="/images/youtube_choi.PNG"></a>
 
 ### 박 병장의 이야기
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen="">
-</iframe>
-
+<a href="https://youtu.be/51zyC_WYnI0"><img src="/images/youtube_park.PNG"></a>
 ### 김 중위님의 이야기
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen="">
-</iframe>
-
+<a href="https://youtu.be/WnLyOPfEy-g"><img src="/images/youtube_kim.PNG"></a>
 
  <br><br>
 
 
 
 ## 기능 설명
-자세한 내용은 gitBook을 참고하세요
+
+<a href="https://tomas-team9797.gitbook.io/tomas/">자세한 내용은 gitBook을 참고하세요</a>
 <table>
         <tbody>
 		<tr>
