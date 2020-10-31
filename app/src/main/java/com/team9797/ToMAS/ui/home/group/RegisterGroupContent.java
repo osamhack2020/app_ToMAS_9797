@@ -79,7 +79,11 @@ public class RegisterGroupContent extends Fragment {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                             month++;
-                            edit_date.setText(year + "-" + month + "-"+day);
+                            String str_day = Integer.toString(day);
+                            if (day < 10)
+                                str_day = "0" + str_day;
+
+                            edit_date.setText(year + "-" + month + "-"+str_day);
                         }
                     }, mYear, mMonth, mDay);
                     datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());

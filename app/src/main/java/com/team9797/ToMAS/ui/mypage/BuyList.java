@@ -78,7 +78,7 @@ public class BuyList extends Fragment {
                                     public void get_result() {
                                         // point_record 업데이트
                                         Map<String, Object> post = new HashMap<>();
-                                        post.put("title", "플리마켓 구매 : " + document.get("title").toString());
+                                        post.put("content", "플리마켓 구매 : " + document.get("title").toString());
                                         post.put("timestamp", FieldValue.serverTimestamp());
                                         post.put("change", "-" + Integer.toString(document.get("price", Integer.class)));
                                         mainActivity.db.collection("user").document(mainActivity.getUid()).collection("point_record").document()

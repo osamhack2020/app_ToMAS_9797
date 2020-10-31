@@ -59,12 +59,16 @@ public class ShowBuyDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View rootView = inflater.inflate(R.layout.show_buy_dialog, null);
-        builder.setView(rootView);
 
         title_textView = rootView.findViewById(R.id.title);
         date_textView = rootView.findViewById(R.id.date);
         place_textView = rootView.findViewById(R.id.place);
         price_textView = rootView.findViewById(R.id.price);
+
+        title_textView.setText("제목 : " + this.title);
+        date_textView.setText("마감일 : " + this.date);
+        place_textView.setText("장소 : " + this.place);
+        price_textView.setText("가격 : " + Integer.toString(this.price));
 
 
         // click listener 연결
@@ -81,6 +85,7 @@ public class ShowBuyDialog extends DialogFragment {
                 });
 
         // Create the AlertDialog object and return it
+        builder.setView(rootView);
         return builder.create();
     }
 }

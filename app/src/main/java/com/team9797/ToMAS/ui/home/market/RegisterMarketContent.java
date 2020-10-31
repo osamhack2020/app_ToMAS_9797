@@ -83,7 +83,7 @@ public class RegisterMarketContent extends AppCompatActivity {
         setContentView(R.layout.register_market_content);
 
         // get shared preference
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = getSharedPreferences("user_info", MODE_PRIVATE);
 
         editor =  findViewById(R.id.editor);
         edit_date = findViewById(R.id.register_market_content_due_date);
@@ -108,7 +108,11 @@ public class RegisterMarketContent extends AppCompatActivity {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                             month++;
-                            edit_date.setText(year + "-" + month + "-"+day);
+                            String str_day = Integer.toString(day);
+                            if (day < 10)
+                                str_day = "0" + str_day;
+
+                            edit_date.setText(year + "-" + month + "-"+str_day);
                         }
                     }, mYear, mMonth, mDay);
                     datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -548,6 +552,7 @@ public class RegisterMarketContent extends AppCompatActivity {
                             post2.put("title", title);
                             post2.put("due_date", edit_date.getText().toString());
                             post2.put("path", path + "/" + category + "/" + category);
+                            post2.put("market", edit_place.getText().toString());
                             db.collection("user").document(preferences.getString("user_id", "")).collection("market").document(uuid).set(post2)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
