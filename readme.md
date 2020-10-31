@@ -1,13 +1,13 @@
 
-<p align="center" width="30%"><img src="/images/logo.PNG"></p>
-<h3 align="center">Total Military Assistance Service</p>
-<h3 align="center">통합 군생활 도움 서비스</p>
+<p align="center"><img width="30%" src="/images/logo.PNG"></p>
+<h3 align="center">Total Military Assistance Service</h3>
+<h3 align="center">통합 군생활 도움 서비스</h3>
 
 
 
-<p align="center">
-	<a href="https://tomas-team9797.gitbook.io/tomas/"><img src="/images/gitbook.png" /></a>
-	<a href=""><img src="/images/gitwiki.png" /></a>
+<p align="center" >
+	<a width="30%" href="https://tomas-team9797.gitbook.io/tomas/"><img src="/images/gitbook.png" /></a>
+	<a width="30%" href=""><img src="/images/gitwiki.png" /></a>
 </p>
 
 
@@ -247,11 +247,11 @@
 ## 프로젝트 관리
 [ToMAS 프로젝트](https://github.com/osamhack2020/app_ToMAS_9797/projects/2)
 [ToMAS 이슈](https://github.com/osamhack2020/app_ToMAS_9797/issues)
-<p><img width="80%" src="/images/gitproject.png"></p>
+<p><img width="80%" src="/images/gitproject.PNG"></p>
 ToMAS는 생기는 문제나 기능을 이슈로 발급해서 관리했습니다. 각자 repository에서 작업한 내용을 pull request하고, 이를 issue와 연결해 사용했습니다.
 
 ### 개발과정
-<p><img width="50%" src="/images/step.png"></p>
+<p><img width="50%" src="/images/step.PNG"></p>
 
 
 
