@@ -1,4 +1,5 @@
 
+
 <p align="center"><img width="30%" src="/images/logo.PNG"></p>
 <h3 align="center">Total Military Assistance Service</h3>
 <h3 align="center">통합 군생활 도움 서비스</h3>
@@ -14,6 +15,10 @@
 
 <br>
 <br>
+
+<p align="center" >
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/blob/master/app_ToMAS.apk"><img width="20%" src="/images/app_icon.png" /></a>
+</p>
 
 ## 프로젝트 설명  
 **ToMAS**는 *Total Military Assistant Service* 의 줄임말으로써 현역 장병들의 군 생활에 도움을 주는 통합 서비스 애플리케이션입니다.
@@ -46,6 +51,15 @@
 
 따라서 게시판 기능보다 더 큰 기능들을 제공하여 이 어플리케이션의 가치를 창출하기로 하였습니다.
 
+## 프로젝트 목표
+저희의 최종 목표는 다음과 같습니다.
+
+1.  전반적인 군생활 개선에 기여합니다.
+    
+2.  통합적인 기능을 제공해서 사용율을 높이고 사용자의 편의성을 증대시킵니다.
+    
+3.  효율적인 정보교환을 통해 의미있는 정보를 창출합니다.
+
 <br>
 
 ## 프로젝트 설명 영상
@@ -68,6 +82,8 @@
 
 
  <br><br>
+
+
 
 ## 기능 설명
 자세한 내용은 gitBook을 참고하세요
