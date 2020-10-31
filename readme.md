@@ -66,6 +66,8 @@
 
 ## 프로젝트 설명 영상
 
+ToMAS 사용자의 이야기를 만나보세요
+
 ### 최 행보관님의 이야기
 
 <a href="https://youtu.be/Wz6WTeOSuss"><img src="/images/youtube_choi.PNG"></a>
