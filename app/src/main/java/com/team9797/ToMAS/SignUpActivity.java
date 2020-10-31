@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team9797.ToMAS.ui.home.market.belong_tree.BelongTreeDialog;
 
@@ -230,7 +231,25 @@ public class SignUpActivity extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        //
+                        Map<String, Object> point_upload = new HashMap<>();
+                        point_upload.put("content", "회원가입을 축하드립니다!");
+                        point_upload.put("change", "+5000");
+                        point_upload.put("timestamp", FieldValue.serverTimestamp());
+
+                        db.collection("user").document(firebaseAuth.getCurrentUser().getUid())
+                                .collection("point_record").document().set(point_upload)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        //
+                                    }
+                                });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

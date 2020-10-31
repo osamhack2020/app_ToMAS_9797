@@ -47,10 +47,10 @@ public class EmailVerify extends AppCompatActivity {
             public void onClick(View view) {
                 firebaseAuth.getCurrentUser().reload();
                 if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                Intent intent=new Intent(EmailVerify.this,MainActivity.class);
+                    Intent intent = new Intent(EmailVerify.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                    startActivity(intent);
                 }
                 else{
 
