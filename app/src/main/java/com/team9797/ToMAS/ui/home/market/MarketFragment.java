@@ -29,6 +29,7 @@ public class MarketFragment extends Fragment{
     ListView market_listView;
     TextView tree_textView;
     MarketSampleListAdapter list_adapter;
+    String save_path = null;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -50,6 +51,7 @@ public class MarketFragment extends Fragment{
                     @Override
                     public void get_result(String result) {
                         tree_textView.setText(getPath(result));
+                        save_path = path;
                         set_list();
                     }
                 });
@@ -70,10 +72,15 @@ public class MarketFragment extends Fragment{
     // 자기의 소속을 바탕으로 default setting 처리
     public void default_setting()
     {
-        // sharedPreference에서 가져와서 넣어주기
-        String tmp_path = mainActivity.preferences.getString("소속", "");
-        tree_textView.setText(getPath(tmp_path));
-        set_list();
+        if (save_path == null) {
+            // sharedPreference에서 가져와서 넣어주기
+            String tmp_path = mainActivity.preferences.getString("소속", "");
+            tree_textView.setText(getPath(tmp_path));
+            set_list();
+        }
+        else {
+
+        }
     }
 
     public String getPath(String str)

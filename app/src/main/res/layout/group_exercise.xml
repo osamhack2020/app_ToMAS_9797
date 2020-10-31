@@ -17,6 +17,8 @@
             android:id="@+id/tree_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_down_24"
+            android:padding="8dp"
             android:textAlignment="center" />
 
         <androidx.recyclerview.widget.RecyclerView
