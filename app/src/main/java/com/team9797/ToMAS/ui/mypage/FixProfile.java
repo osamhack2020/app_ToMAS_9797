@@ -83,9 +83,6 @@ public class FixProfile extends Fragment {
         customProgressDialog = new ProgressDialog(mainActivity);
         customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-
-
-       Button get_image=root.findViewById(R.id.get_image);
         profileimage=root.findViewById(R.id.profileimage);
         StorageReference storageRef =storage.getReference();
         StorageReference profileRef=storageRef.child("profiles/"+mainActivity.getUid());
@@ -122,7 +119,7 @@ public class FixProfile extends Fragment {
         fix_name.setText(mainActivity.preferences.getString("이름",""));
         fix_birth.setText(mainActivity.preferences.getString("birth",""));
         fix_anumber.setText(mainActivity.preferences.getString("군번",""));
-        fix_belong.setText(mainActivity.preferences.getString("소속",""));
+        fix_belong.setText(getPath(mainActivity.preferences.getString("소속","")));
         fix_email.setText(mainActivity.preferences.getString("email",""));
         fix_pw.setText(mainActivity.preferences.getString("password",""));
         fix_ph.setText(mainActivity.preferences.getString("phonenumber",""));
@@ -217,7 +214,7 @@ public class FixProfile extends Fragment {
             }
         });
 
-        get_image.setOnClickListener(new Button.OnClickListener() {
+        profileimage.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
@@ -245,6 +242,19 @@ public class FixProfile extends Fragment {
 
 
         return root;
+    }
+
+    public String getPath(String str)
+    {
+        String stringed_path = "";
+        String[] tmp = str.split("/");
+        for (int i = 1; i<tmp.length; i++)
+        {
+            // document를 만들기 위해 tmp로 사용했던 path를 무시한다.
+            if (i%2 == 0)
+                stringed_path += tmp[i] + " ";
+        }
+        return stringed_path;
     }
 
 

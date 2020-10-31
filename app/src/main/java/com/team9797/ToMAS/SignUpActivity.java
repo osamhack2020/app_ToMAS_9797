@@ -210,7 +210,7 @@ public class SignUpActivity extends AppCompatActivity{
         upload.put("권한","사용자");
         upload.put("군번",armynumber);
         upload.put("계급",armyclass);
-        upload.put("point",0);
+        upload.put("point",5000);
         upload.put("phonenumber",phone);
         upload.put("password",password);
         upload.put("email",email);

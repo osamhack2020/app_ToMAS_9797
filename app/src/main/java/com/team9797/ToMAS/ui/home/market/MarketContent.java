@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -205,28 +206,43 @@ public class MarketContent extends Fragment {
                         fragmentTransaction.detach(MarketContent.this).attach(MarketContent.this).commit();
                     }
                     else {
-                        mPostReference.update("numpeople", FieldValue.increment(1));
-                        Map<String, Object> tender = new HashMap<>();
-                        //example : need to fix
-                        tender.put("name", mainActivity.preferences.getString("이름", "홍길동"));
-                        int tmp_price = Integer.parseInt(price_editText.getText().toString());
-                        tender.put("price", tmp_price);
-                        mPostReference.collection("participants").document(mainActivity.getUid())
-                                .set(tender)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
+                        mainActivity.db.collection("user").document(mainActivity.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        if (document.get("point", Integer.class) < Integer.parseInt(price_editText.getText().toString())) {
+                                            Toast.makeText(mainActivity, "포인트가 부족합니다\n잔여 포인트 : " + Integer.toString(document.get("point", Integer.class)), Toast.LENGTH_LONG).show();
+                                        }
+                                        else {
+                                            mPostReference.update("numpeople", FieldValue.increment(1));
+                                            Map<String, Object> tender = new HashMap<>();
+                                            //example : need to fix
+                                            tender.put("name", mainActivity.preferences.getString("이름", "홍길동"));
+                                            int tmp_price = Integer.parseInt(price_editText.getText().toString());
+                                            tender.put("price", tmp_price);
+                                            mPostReference.collection("participants").document(mainActivity.getUid())
+                                                    .set(tender)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
 
-                                        // fragment 새로고침
-                                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                                        fragmentTransaction.detach(MarketContent.this).attach(MarketContent.this).commit();
+                                                            // fragment 새로고침
+                                                            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                                                            fragmentTransaction.detach(MarketContent.this).attach(MarketContent.this).commit();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                        }
+                                                    });
+                                        }
                                     }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                    }
-                                });
+                                }
+                            }
+                        });
                     }
                 }
                 else
