@@ -16,8 +16,10 @@
 <br>
 <br>
 
+
+<p align="center" >하단 다운링크</p>
 <p align="center" >
-	<a href="https://github.com/osamhack2020/app_ToMAS_9797/blob/master/app_ToMAS.apk"><img width="20%" src="/images/app_icon.PNG" /></a>
+	<a id="raw-url" href="https://github.com/osamhack2020/app_ToMAS_9797/blob/master/app_ToMAS.apk"><img width="20%" src="/images/app_icon.PNG" /></a>
 </p>
 
 ## 프로젝트 설명  
