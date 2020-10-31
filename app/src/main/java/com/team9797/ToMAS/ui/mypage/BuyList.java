@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -77,6 +78,7 @@ public class BuyList extends Fragment {
                                     @Override
                                     public void get_result() {
                                         // point_record 업데이트
+                                        Toast.makeText(mainActivity, "포인트가 정산되었습니다", Toast.LENGTH_SHORT).show();
                                         Map<String, Object> post = new HashMap<>();
                                         post.put("content", "플리마켓 구매 : " + document.get("title").toString());
                                         post.put("timestamp", FieldValue.serverTimestamp());
@@ -95,7 +97,7 @@ public class BuyList extends Fragment {
                                                     }
                                                 });
                                         Map<String, Object> post2 = new HashMap<>();
-                                        post2.put("title", "플리마켓 판매 : " + document.get("title").toString());
+                                        post2.put("content", "플리마켓 판매 : " + document.get("title").toString());
                                         post2.put("timestamp", FieldValue.serverTimestamp());
                                         post2.put("change", "+" + Integer.toString(document.get("price", Integer.class)));
                                         mainActivity.db.collection("user").document(document.get("seller_id").toString()).collection("point_record").document()
