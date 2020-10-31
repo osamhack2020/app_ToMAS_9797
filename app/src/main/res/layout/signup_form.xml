@@ -103,7 +103,7 @@
                                         android:drawablePadding="16dp"
                                         android:editable="true"
                                         android:fontFamily="@font/calibri"
-                                        android:hint="생년월일 (8자리 입력)"
+                                        android:hint="생년월일 (6자리 입력)"
                                         android:inputType="datetime"
                                         android:maxLines="1"
                                         android:textColor="@android:color/white"
