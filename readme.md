@@ -1,5 +1,5 @@
 
-<p align="center"><img src="/images/logo.PNG"></p>
+<p align="center" width="50%"><img src="/images/logo.PNG"></p>
 <h3 align="center">Total Military Assistance Service</p>
 <h3 align="center">통합 군생활 도움 서비스</p>
 
@@ -242,12 +242,17 @@ _하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습
 <br>
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
-
+- Android SDK 28이상 (SDK버전 30권장)
 
 <br><br>
 
 ## 기술 스택 (Technique Used)
+- Front-end
+<p align="center"><img width="20%" src="/images/java.png"><img width="30%"
+src="/images/xml.png"><img width="40%" src="/images/android-studio.png"></p>
 
+- Back-end
+<p align="center"><img width="40%" src="/images/firestore.png"></p>
 
 
 ## 프로젝트 사용법 (Getting Started)
