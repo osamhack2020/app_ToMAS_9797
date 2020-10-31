@@ -220,7 +220,7 @@
                 android:enabled="true"
                 android:fontFamily="@font/calibri"
                 android:onClick="signUp"
-                android:text="회원가입"
+                android:text="이메일 인증"
                 android:textAllCaps="false"
                 android:textColor="#96ffffff"
                 android:textSize="16dp"

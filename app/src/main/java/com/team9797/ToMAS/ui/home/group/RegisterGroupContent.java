@@ -28,6 +28,7 @@ import com.team9797.ToMAS.MainActivity;
 import com.team9797.ToMAS.R;
 import com.team9797.ToMAS.ui.home.market.RegisterMarketContent;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -143,7 +144,34 @@ public class RegisterGroupContent extends Fragment {
 
         //카테고리 spinner 설정
         spinner_category = (Spinner) root.findViewById(R.id.recruit_register_category);
-        ArrayAdapter category_adapter = ArrayAdapter.createFromResource(mainActivity, R.array.list_exercise, android.R.layout.simple_spinner_item);
+        String[] tmp = path.split("/");
+        ArrayList<String> category_list = new ArrayList<>();
+        if (tmp[tmp.length-1].equals("운동"))
+        {
+            category_list.add("풋살");
+            category_list.add("축구");
+            category_list.add("농구");
+            category_list.add("탁구");
+            category_list.add("배드민턴");
+            category_list.add("야구");
+            category_list.add("당구");
+        }else if (tmp[tmp.length-1].equals("동아리")){
+            category_list.add("프라모델");
+            category_list.add("코딩");
+            category_list.add("독서");
+            category_list.add("헬스");
+            category_list.add("축구");
+        }else if (tmp[tmp.length-1].equals("대회"))
+        {
+            category_list.add("창업");
+            category_list.add("프로그래밍");
+            category_list.add("영상");
+            category_list.add("포스터");
+            category_list.add("운동");
+        }else {
+            category_list.add("기타");
+        }
+        ArrayAdapter category_adapter = new ArrayAdapter<>(mainActivity, android.R.layout.simple_spinner_item, category_list);
         category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner_category.setAdapter(category_adapter);
         spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
