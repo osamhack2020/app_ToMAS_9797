@@ -194,7 +194,7 @@ public class RegisterGroupContent extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mainActivity, "등록되었습니다", Toast.LENGTH_SHORT).show();
                                     fragmentManager.beginTransaction().remove(RegisterGroupContent.this).commit();
                                     fragmentManager.popBackStack();
                                 }
@@ -202,7 +202,7 @@ public class RegisterGroupContent extends Fragment {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    //Log.w("AAA", "Error writing document", e);
+
                                 }
                             });
                 }

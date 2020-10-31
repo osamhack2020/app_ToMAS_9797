@@ -2,7 +2,6 @@ package com.team9797.ToMAS.ui.social.enroll_social_manager;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,6 @@ public class enroll_social_manager extends Fragment {
         path = mainActivity.preferences.getString("소속", "armyunit/5군단/5군단");
         String[] tmp = path.split("/");
         path = path.substring(0, path.length() - tmp[tmp.length - 1].length());
-        Log.d("path", path);
         mainActivity.db.collection(path + "부대원")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -60,14 +58,12 @@ public class enroll_social_manager extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("first", document.getId());
                                 mainActivity.db.collection("user").document(document.getId())
                                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                          @Override
                                          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                              if (task.isSuccessful()) {
                                                  DocumentSnapshot tmp_document = task.getResult();
-                                                 Log.d("second", tmp_document.getId());
                                                  if (tmp_document.get("권한").toString().equals("사용자")) {
                                                      if (tmp_document.exists()) {
                                                          adapter.addItem(getPath(tmp_document.get("소속").toString()), tmp_document.get("계급").toString(), tmp_document.get("이름").toString(), document.getId());
@@ -88,22 +84,19 @@ public class enroll_social_manager extends Fragment {
             public void onClick(View view) {
                 for (int i = 0; i < adapter.selected_id.size() ; i++)
                 {
-                    Log.d("AA", adapter.selected_id.get(i));
                     mainActivity.db.collection("user").document(adapter.selected_id.get(i)).update("권한", "부대관리자")
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("AAA", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mainActivity, "추가되었습니다", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("AAA", "Error writing document", e);
                                 }
                             });
                 }
-                Toast.makeText(mainActivity, "추가되었습니다", Toast.LENGTH_SHORT);
                 // 새로고침
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.detach(enroll_social_manager.this).attach(enroll_social_manager.this).commit();

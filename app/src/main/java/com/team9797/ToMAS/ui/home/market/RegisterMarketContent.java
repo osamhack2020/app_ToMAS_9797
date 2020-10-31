@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -252,7 +251,6 @@ public class RegisterMarketContent extends AppCompatActivity {
                         .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                Toast.makeText(RegisterMarketContent.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
                                 editor.updateTextColor(colorHex(color));
                             }
 
@@ -307,7 +305,6 @@ public class RegisterMarketContent extends AppCompatActivity {
 
             @Override
             public void onUpload(Bitmap image, final String uuid) {
-                Toast.makeText(RegisterMarketContent.this, uuid, Toast.LENGTH_LONG).show();
                 /**
                  * TODO do your upload here from the bitmap received and all onImageUploadComplete(String url); to insert the result url to
                  * let the editor know the upload has completed
@@ -557,6 +554,7 @@ public class RegisterMarketContent extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            Toast.makeText(RegisterMarketContent.this, "등록되었습니다", Toast.LENGTH_SHORT).show();
                                             setResult(Activity.RESULT_OK);
                                             finish();
                                         }
@@ -571,7 +569,7 @@ public class RegisterMarketContent extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            //Log.w("AAA", "Error writing document", e);
+                            //
                         }
                     });
 

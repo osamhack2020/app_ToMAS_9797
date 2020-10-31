@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -168,7 +167,6 @@ public class RegisterSocialBoardContent extends AppCompatActivity {
                         .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                Toast.makeText(RegisterSocialBoardContent.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
                                 editor.updateTextColor(colorHex(color));
                             }
 
@@ -223,7 +221,6 @@ public class RegisterSocialBoardContent extends AppCompatActivity {
 
             @Override
             public void onUpload(Bitmap image, final String uuid) {
-                Toast.makeText(RegisterSocialBoardContent.this, uuid, Toast.LENGTH_LONG).show();
                 /**
                  * TODO do your upload here from the bitmap received and all onImageUploadComplete(String url); to insert the result url to
                  * let the editor know the upload has completed
@@ -464,7 +461,7 @@ public class RegisterSocialBoardContent extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d("AAA", "DocumentSnapshot successfully written!");
+                            Toast.makeText(RegisterSocialBoardContent.this, "등록되었습니다.", Toast.LENGTH_SHORT).show();
                             setResult(Activity.RESULT_OK);
                             finish();
                         }
@@ -472,10 +469,9 @@ public class RegisterSocialBoardContent extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.w("AAA", "Error writing document", e);
+                            //
                         }
                     });
-            // need to fix finish되서 돌아갈 때 게시판 리스트 최신화하기.
         }
         else{
             Toast.makeText(RegisterSocialBoardContent.this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show();

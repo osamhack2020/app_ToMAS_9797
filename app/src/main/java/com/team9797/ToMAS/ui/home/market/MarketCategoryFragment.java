@@ -37,10 +37,7 @@ public class MarketCategoryFragment extends Fragment {
         mainActivity = (MainActivity)getActivity();
         fragmentManager = getFragmentManager();
         path = getArguments().getString("path");
-/*
-        dialog = new belong_tree_dialog();
-        dialog.show(fragmentManager, "dialog");
-*/
+
         fab = root.findViewById(R.id.fab_market_category);
         final ListView market_listView = root.findViewById(R.id.market_category_list);
 

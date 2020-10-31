@@ -107,7 +107,7 @@ public class SocialBoard extends Fragment {
                             }
                             adapter.notifyDataSetChanged();
                         } else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                            //
                         }
                     }
                 });

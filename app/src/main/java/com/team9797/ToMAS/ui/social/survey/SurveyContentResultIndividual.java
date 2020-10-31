@@ -1,7 +1,6 @@
 package com.team9797.ToMAS.ui.social.survey;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +60,6 @@ public class SurveyContentResultIndividual extends Fragment {
         // 선택한 게시물 document reference
         mPostReference = mainActivity.db.collection(path).document(post_id);
         // id를 바탕으로
-        Log.d("path : ", path);
-        Log.d("post_id : ", post_id);
         mPostReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

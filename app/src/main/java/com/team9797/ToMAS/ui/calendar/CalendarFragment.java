@@ -3,7 +3,6 @@ package com.team9797.ToMAS.ui.calendar;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,7 +130,7 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(mainActivity, "일정이 삭제되었습니다", Toast.LENGTH_SHORT);
+                                            Toast.makeText(mainActivity, "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
                                             refresh();
                                         }
                                     })
@@ -181,14 +180,13 @@ public class CalendarFragment extends Fragment implements OnRangeSelectedListene
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Log.d("AAA", "DocumentSnapshot successfully written!");
+                                            Toast.makeText(mainActivity, "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
                                             refresh();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Log.w("AAA", "Error writing document", e);
                                         }
                                     });
                         }

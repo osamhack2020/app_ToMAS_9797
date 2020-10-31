@@ -3,7 +3,6 @@ package com.team9797.ToMAS.ui.social.survey;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,7 +133,6 @@ public class SurveyContentResultTotal extends Fragment {
                                                                 if (task.isSuccessful()) {
                                                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                                                         if (participate_list.indexOf(document.getId()) == -1) {
-                                                                            Log.d("unread", document.get("name").toString());
                                                                             unread_list.add(document.get("name").toString());
                                                                         }
                                                                     }
@@ -155,7 +153,7 @@ public class SurveyContentResultTotal extends Fragment {
                                                                     });
                                                                     builder.show();
                                                                 } else {
-                                                                    //Log.d(TAG, "Error getting documents: ", task.getException());
+                                                                    //
                                                                 }
                                                             }
                                                         });

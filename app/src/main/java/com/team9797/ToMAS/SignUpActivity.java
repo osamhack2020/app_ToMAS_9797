@@ -230,13 +230,13 @@ public class SignUpActivity extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("AAA", "DocumentSnapshot successfully written!");
+                        //
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("AAA", "Error writing document", e);
+                        //
                     }
                 });
 

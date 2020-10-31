@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -201,6 +200,7 @@ public class MarketContent extends Fragment {
                     { // 이미 참가자에 uid가 있는 경우 : collection의 document에서 삭제
                         mPostReference.collection("participants").document(mainActivity.getUid()).delete();
                         mPostReference.update("numpeople", FieldValue.increment(-1));
+                        Toast.makeText(mainActivity, "취소되었습니다", Toast.LENGTH_SHORT).show();
                         // fragment 새로고침
                         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                         fragmentTransaction.detach(MarketContent.this).attach(MarketContent.this).commit();
@@ -227,7 +227,7 @@ public class MarketContent extends Fragment {
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-
+                                                            Toast.makeText(mainActivity, "신청되었습니다", Toast.LENGTH_SHORT).show();
                                                             // fragment 새로고침
                                                             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                                                             fragmentTransaction.detach(MarketContent.this).attach(MarketContent.this).commit();

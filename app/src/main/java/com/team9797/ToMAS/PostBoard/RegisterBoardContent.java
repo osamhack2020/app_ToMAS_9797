@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -194,7 +193,6 @@ public class RegisterBoardContent extends AppCompatActivity {
                         .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                Toast.makeText(RegisterBoardContent.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
                                 editor.updateTextColor(colorHex(color));
                             }
 
@@ -249,7 +247,6 @@ public class RegisterBoardContent extends AppCompatActivity {
 
             @Override
             public void onUpload(Bitmap image, final String uuid) {
-                Toast.makeText(RegisterBoardContent.this, uuid, Toast.LENGTH_LONG).show();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 storageRef = storage.getReference().child("images/"+uuid+".jpg");
@@ -482,15 +479,14 @@ public class RegisterBoardContent extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    Toast.makeText(RegisterBoardContent.this,"등록되었습니다", Toast.LENGTH_SHORT).show();
                                     setResult(Activity.RESULT_OK);
                                     finish();
-                                    Log.d("AAA", "DocumentSnapshot successfully written!");
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("AAA", "Error writing document", e);
                                 }
                             });
                 }
@@ -500,15 +496,14 @@ public class RegisterBoardContent extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    Toast.makeText(RegisterBoardContent.this,"수정되었습니다", Toast.LENGTH_SHORT).show();
                                     setResult(Activity.RESULT_OK);
                                     finish();
-                                    Log.d("AAA", "DocumentSnapshot successfully written!");
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("AAA", "Error writing document", e);
                                 }
                             });
                 }
@@ -516,11 +511,11 @@ public class RegisterBoardContent extends AppCompatActivity {
 
             }
             else{
-                Toast.makeText(RegisterBoardContent.this," 내용을 기입해주세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterBoardContent.this,"내용을 기입해주세요", Toast.LENGTH_SHORT).show();
             }
         }
             else{
-            Toast.makeText(RegisterBoardContent.this," 제목을 기입해주세요", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterBoardContent.this,"제목을 기입해주세요", Toast.LENGTH_SHORT).show();
         }
 
     }

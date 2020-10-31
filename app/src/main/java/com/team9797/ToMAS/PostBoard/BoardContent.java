@@ -155,7 +155,7 @@ public class BoardContent extends Fragment{
                                             }
                                             mPostReference.delete();
                                         } else {
-                                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                                            //
                                         }
                                     }
                                 });
@@ -188,7 +188,7 @@ public class BoardContent extends Fragment{
                             }
                             adapter.notifyDataSetChanged();
                         } else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                            //
                         }
                     }
                 });

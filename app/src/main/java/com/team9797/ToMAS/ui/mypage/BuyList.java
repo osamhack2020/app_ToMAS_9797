@@ -59,7 +59,7 @@ public class BuyList extends Fragment {
                             }
                             list_adapter.notifyDataSetChanged();
                         } else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                            //
                         }
                     }
                 });

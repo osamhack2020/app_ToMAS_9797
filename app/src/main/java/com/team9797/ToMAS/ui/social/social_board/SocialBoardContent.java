@@ -150,7 +150,7 @@ public class SocialBoardContent extends Fragment{
                                             });
                                             builder.show();
                                         } else {
-                                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                                            //
                                         }
                                     }
                                 });

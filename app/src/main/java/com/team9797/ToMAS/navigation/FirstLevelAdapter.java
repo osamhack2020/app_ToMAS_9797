@@ -2,7 +2,6 @@ package com.team9797.ToMAS.navigation;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,12 +65,10 @@ public class FirstLevelAdapter extends BaseExpandableListAdapter {
                                     String tmp_path = "mainpage/자기개발/자기개발/" + document.getId() + "/" + document.getId();
                                     list_second_level_path.put(document.getId(), tmp_path);
                                 }
-                                Log.d("second_content", second_content);
                                 list_second_level_map.put(second_content, list_first_child);
                                 for (int i = 0; i < list_first_child.size(); i++)
                                 {
-                                    String third_content = list_first_child.get(i); // need to fix
-                                    Log.d("AA", third_content);
+                                    String third_content = list_first_child.get(i);
                                     FirebaseFirestore.getInstance().collection(list_second_level_path.get(third_content)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -83,13 +80,12 @@ public class FirstLevelAdapter extends BaseExpandableListAdapter {
                                                 }
                                                 list_third_level_map.put(third_content, list_second_child);
                                             } else {
-                                                //Log.d(TAG, "Error getting documents: ", task.getException());
                                             }
                                         }
                                     });
                                 }
                             } else {
-                                //Log.d(TAG, "Error getting documents: ", task.getException());
+
                             }
                         }
                     });
@@ -105,12 +101,11 @@ public class FirstLevelAdapter extends BaseExpandableListAdapter {
                                     String tmp_path = "mainpage/소통게시판/소통게시판/" + document.getId() + "/" + document.getId();
                                     list_second_level_path.put(document.getId(), tmp_path);
                                 }
-                                Log.d("second_content", second_content);
+
                                 list_second_level_map.put(second_content, list_first_child);
                                 for (int i = 0; i < list_first_child.size(); i++)
                                 {
                                     String third_content = list_first_child.get(i); // need to fix
-                                    Log.d("AA", third_content);
                                     FirebaseFirestore.getInstance().collection(list_second_level_path.get(third_content)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -122,13 +117,13 @@ public class FirstLevelAdapter extends BaseExpandableListAdapter {
                                                 }
                                                 list_third_level_map.put(third_content, list_second_child);
                                             } else {
-                                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                                                //
                                             }
                                         }
                                     });
                                 }
                             } else {
-                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                                //
                             }
                         }
                     });

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -146,6 +147,7 @@ public class GroupContent extends Fragment {
                     // fragment 새로고침
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.detach(GroupContent.this).attach(GroupContent.this).commit();
+                    Toast.makeText(mainActivity, "취소되었습니다", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED)
@@ -156,6 +158,7 @@ public class GroupContent extends Fragment {
                         my_info.put("position", position_edit.getText().toString());
                         mPostReference.update("participants." + mUid, my_info);
                         mPostReference.update("now_people", FieldValue.increment(1));
+                        Toast.makeText(mainActivity, "신청되었습니다", Toast.LENGTH_SHORT).show();
 
                         // fragment 새로고침
                         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();

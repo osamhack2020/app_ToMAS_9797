@@ -15,8 +15,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
-import android.util.Log;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -166,12 +164,11 @@ public class FixProfile extends Fragment {
                             @Override
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                Log.d(TAG, "Upload is " + progress + "% done");
                             }
                         }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
-                                Log.d(TAG, "Upload is paused");
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

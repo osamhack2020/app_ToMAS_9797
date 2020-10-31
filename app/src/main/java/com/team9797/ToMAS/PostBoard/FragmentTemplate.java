@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,13 +60,13 @@ public class FragmentTemplate extends Fragment {
                         child_list.clear();
                         child_fragment_list.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            //Log.d(TAG, document.getId() + " => " + document.getData());
+                            //
                             child_list.add(document.getId());
                             child_fragment_list.add(document.get("fragment_style", Integer.class));
                         }
                         listview_adapter.notifyDataSetChanged();
                     } else {
-                        //Log.d(TAG, "Error getting documents: ", task.getException());
+                        //
                     }
                 }
             });
@@ -119,7 +118,7 @@ public class FragmentTemplate extends Fragment {
                                                     }
                                                     tmp_sample_list_adapter.notifyDataSetChanged();
                                                 } else {
-                                                    //Log.d(TAG, "Error getting documents: ", task.getException());
+                                                    //
                                                 }
                                             }
                                         });
@@ -128,7 +127,7 @@ public class FragmentTemplate extends Fragment {
                             template2_adapter.notifyDataSetChanged();
 
                         } else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                            //
                         }
                     }
                 });
@@ -147,14 +146,13 @@ public class FragmentTemplate extends Fragment {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("AAA", document.get("title").toString());
                                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                     String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
                                     adapter.addItem(document.get("title").toString(), document.get("num_comments").toString(), dateString, document.get("writer").toString(), document.get("clicks").toString(), document.getId());
                                 }
                                 adapter.notifyDataSetChanged();
                             } else {
-                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                                //
                             }
                         }
                     });

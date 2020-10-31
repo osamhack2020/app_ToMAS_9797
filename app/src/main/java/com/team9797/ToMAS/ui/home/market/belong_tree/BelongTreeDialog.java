@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -114,9 +114,7 @@ public class BelongTreeDialog extends DialogFragment {
                 last_select = node.getPath();
                 //Update and toggle the node.
                 onToggle(!node.isExpand(), holder);
-                if (before_holder != null)
-                {
-                    Log.d("AA","brforeHolder is not null");
+                if (before_holder != null) {
                     before_holder.itemView.setBackgroundColor(Color.parseColor("#00FFFFFF"));
                 }
                 before_holder = holder;
@@ -139,8 +137,12 @@ public class BelongTreeDialog extends DialogFragment {
         // click listener 연결
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                mdialogResult.get_result(last_select);
-                dismiss();
+                if (last_select.equals("armyunit"))
+                    Toast.makeText(context, "정확한 부대를 입력해주세요", Toast.LENGTH_SHORT).show();
+                else {
+                    mdialogResult.get_result(last_select);
+                    dismiss();
+                }
             }
         })
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {

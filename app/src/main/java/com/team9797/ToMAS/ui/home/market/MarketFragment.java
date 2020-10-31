@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ public class MarketFragment extends Fragment{
     ListView market_listView;
     TextView tree_textView;
     MarketSampleListAdapter list_adapter;
-    String save_path = null;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,7 +49,6 @@ public class MarketFragment extends Fragment{
                     @Override
                     public void get_result(String result) {
                         tree_textView.setText(getPath(result));
-                        save_path = path;
                         set_list();
                     }
                 });
@@ -72,15 +69,10 @@ public class MarketFragment extends Fragment{
     // 자기의 소속을 바탕으로 default setting 처리
     public void default_setting()
     {
-        if (save_path == null) {
-            // sharedPreference에서 가져와서 넣어주기
-            String tmp_path = mainActivity.preferences.getString("소속", "");
-            tree_textView.setText(getPath(tmp_path));
-            set_list();
-        }
-        else {
-
-        }
+        // sharedPreference에서 가져와서 넣어주기
+        String tmp_path = mainActivity.preferences.getString("소속", "");
+        tree_textView.setText(getPath(tmp_path));
+        set_list();
     }
 
     public String getPath(String str)
@@ -112,7 +104,6 @@ public class MarketFragment extends Fragment{
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String tmp = document.getId();
-                        Log.d("AAA", tmp);
                         final MarketListAdapter tmp_sample_list_adapter = new MarketListAdapter();
                         // firestore sample list 불러오기
                         String tmp_path = path + "/" + tmp + "/" + tmp;
@@ -122,7 +113,6 @@ public class MarketFragment extends Fragment{
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                                Log.d("inner", document.getId());
                                                 mainActivity.db.collection(tmp_path).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -138,7 +128,7 @@ public class MarketFragment extends Fragment{
                                                 });
                                             }
                                         } else {
-                                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                                            //
                                         }
                                     }
                                 });
@@ -147,7 +137,7 @@ public class MarketFragment extends Fragment{
                     list_adapter.notifyDataSetChanged();
 
                 } else {
-                    //Log.d(TAG, "Error getting documents: ", task.getException());
+                    //
                 }
             }
         });

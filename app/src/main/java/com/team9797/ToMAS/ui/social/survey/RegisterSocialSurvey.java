@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -122,13 +121,13 @@ public class RegisterSocialSurvey extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                    //
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    //Log.w("AAA", "Error writing document", e);
+                                    //
                                 }
                             });
                     for (int i = 0; i < question_list.size(); i++)
@@ -140,7 +139,6 @@ public class RegisterSocialSurvey extends AppCompatActivity {
                         {//객관식
                             tmp_question.put("type", 1);
                             ArrayList<String> tmp_multi_choice_item_list = new ArrayList<>();
-                            Log.d("question number : " , Integer.toString(question_list.get(i).multi_chice_selection_list.size()));
                             for (int j = 0; j < question_list.get(i).multi_chice_selection_list.size(); j++)
                             {
                                 tmp_multi_choice_item_list.add(question_list.get(i).multi_chice_selection_list.get(j).selection_editText.getText().toString());
@@ -157,7 +155,8 @@ public class RegisterSocialSurvey extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        //Log.d("AAA", "DocumentSnapshot successfully written!");
+                                        //
+                                        Toast.makeText(RegisterSocialSurvey.this, "등록되었습니다", Toast.LENGTH_SHORT).show();
                                         setResult(Activity.RESULT_OK);
                                         finish();
                                     }
@@ -165,7 +164,7 @@ public class RegisterSocialSurvey extends AppCompatActivity {
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        //Log.w("AAA", "Error writing document", e);
+                                        //
                                     }
                                 });
                     }

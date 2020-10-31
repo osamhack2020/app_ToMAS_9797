@@ -26,7 +26,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -173,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                            // 날짜 확인
                            if (today.isEqual(due_date) || today.isAfter(due_date))
                            {
-                               Log.d("market", "market has!!");
                                db.collection(document.get("path").toString()).document(document.getId()).collection("participants").orderBy("price", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                    @Override
                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -191,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                post.put("place", document.get("place").toString());
                                                post.put("seller_id", getUid());
                                                post.put("title", document.get("title").toString());
-                                               Log.d("buyer", tmp_document.getId());
                                                db.collection("user").document(tmp_document.getId()).collection("buy_list").document().set(post)
                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                    @Override
@@ -213,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                        }
                    }
                } else {
-                   //Log.d(TAG, "Error getting documents: ", task.getException());
+                   //
                }
            }
        });

@@ -2,7 +2,6 @@ package com.team9797.ToMAS.ui.social.survey;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,9 +64,7 @@ public class SurveyContentResultCustomView extends LinearLayout {
                 RadioButton tmp_radio_button = new RadioButton(context);
                 tmp_radio_button.setText(multi_chioce_question_list.get(i));
                 tmp_radio_button.setId(View.generateViewId());
-                if (i == Integer.parseInt(answer))
-                {
-                    Log.d("index : ", answer);
+                if (i == Integer.parseInt(answer)) {
                     tmp_radio_button.setChecked(true);
                 }
                 tmp_radio_button.setEnabled(false);
