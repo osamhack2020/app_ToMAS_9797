@@ -131,6 +131,7 @@ public class enroll_social_manager extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title("부대관리자 등록");
         mainActivity.set_title();
     }
 }

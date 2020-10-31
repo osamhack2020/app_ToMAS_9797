@@ -128,6 +128,7 @@ public class SocialBoard extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title("공지사항");
         mainActivity.set_title();
     }
 }

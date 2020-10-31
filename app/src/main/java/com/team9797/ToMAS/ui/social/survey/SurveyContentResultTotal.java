@@ -65,9 +65,9 @@ public class SurveyContentResultTotal extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        title_textView.setText(document.get("title", String.class));
-                        due_date_textView.setText(document.get("due_date", String.class));
-                        writer_textView.setText(document.get("writer", String.class));
+                        title_textView.setText("제목 : " + document.get("title", String.class));
+                        due_date_textView.setText("마감일 : " + document.get("due_date", String.class));
+                        writer_textView.setText("작성자 : " + document.get("writer", String.class));
                         ArrayList<ArrayList<String>> submissions_result = new ArrayList<>();
                         mPostReference.collection("submissions").get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

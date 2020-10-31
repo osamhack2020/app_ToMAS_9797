@@ -126,6 +126,7 @@ public class SocialSurvey extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mainActivity.push_title("설문조사");
         mainActivity.set_title();
     }
 }
