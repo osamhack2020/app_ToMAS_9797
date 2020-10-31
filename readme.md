@@ -335,5 +335,5 @@ git clone https://github.com/osamhack2020/app_ToMAS_9797
 - 팀원 : 상병 김도한 oneblue14@gmail.com :[Github-commitcomplete](https://github.com/commitcomplete?tab=repositories)
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
-- apach 2.0
+- apache 2.0
 
