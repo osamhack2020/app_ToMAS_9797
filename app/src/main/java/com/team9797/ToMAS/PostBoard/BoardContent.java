@@ -163,6 +163,37 @@ public class BoardContent extends Fragment{
                                 fragmentManager.popBackStack();
                             }
                         });
+                            CommentListAdapter adapter = new CommentListAdapter(path, post_id, mainActivity, mainActivity.getUid(), writer_id);
+
+                            comment_recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+                            comment_recyclerView.setAdapter(adapter);
+                            mPostReference.collection("comments").orderBy("timestamp", Query.Direction.DESCENDING).get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                                    String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
+                                                    adapter.add_item(document.get("title", String.class), document.get("writer", String.class), dateString, document.get("html", String.class), document.getId(), document.get("user_id", String.class), document.get("selected", boolean.class));
+                                                }
+                                                adapter.notifyDataSetChanged();
+                                            } else {
+                                                //
+                                            }
+                                        }
+                                    });
+                            mPostReference.update("clicks", FieldValue.increment(1));
+
+                            comment_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(mainActivity, RegisterBoardContentComment.class);
+                                    intent.putExtra("path", path);
+                                    intent.putExtra("post_id", post_id);
+                                    startActivityForResult(intent, 11112);
+                                }
+                            });
                         }
                     } else {
 
@@ -172,39 +203,7 @@ public class BoardContent extends Fragment{
                 }
             }
         });
-        CommentListAdapter adapter = new CommentListAdapter(path, post_id, mainActivity, mainActivity.getUid(), writer_id);
 
-        comment_recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
-        comment_recyclerView.setAdapter(adapter);
-        mPostReference.collection("comments").orderBy("timestamp", Query.Direction.DESCENDING).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                                String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
-                                adapter.add_item(document.get("title", String.class), document.get("writer", String.class), dateString, document.get("html", String.class), document.getId(), document.get("user_id", String.class));
-                            }
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            //
-                        }
-                    }
-                });
-        mPostReference.update("clicks", FieldValue.increment(1));
-
-        comment_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mainActivity, RegisterBoardContentComment.class);
-                intent.putExtra("path", path);
-                intent.putExtra("post_id", post_id);
-                startActivityForResult(intent, 11112);
-            }
-        });
-
-        //화면제대로 안보이면 fragment 업데이트 해야 할 수도 있음.
 
         return root;
     }

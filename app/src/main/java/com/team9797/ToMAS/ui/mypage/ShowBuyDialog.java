@@ -22,7 +22,8 @@ public class ShowBuyDialog extends DialogFragment {
     TextView date_textView;
     TextView place_textView;
     TextView price_textView;
-    String title = null, date = null, place = null;
+    TextView phonenumber_textView;
+    String title = null, date = null, place = null, phonenumber = null;
     int price = 0;
 
 
@@ -44,12 +45,13 @@ public class ShowBuyDialog extends DialogFragment {
         context = tmp_context;
     }
 
-    public ShowBuyDialog(Context tmp_context, String title, String date, String place, int price)
+    public ShowBuyDialog(Context tmp_context, String title, String date, String place, int price, String phonenumber)
     {
         this.title = title;
         this.date = date;
         this.place = place;
         this.price = price;
+        this.phonenumber = phonenumber;
         context = tmp_context;
     }
 
@@ -64,11 +66,13 @@ public class ShowBuyDialog extends DialogFragment {
         date_textView = rootView.findViewById(R.id.date);
         place_textView = rootView.findViewById(R.id.place);
         price_textView = rootView.findViewById(R.id.price);
+        phonenumber_textView = rootView.findViewById(R.id.phonenumber);
 
         title_textView.setText("제목 : " + this.title);
         date_textView.setText("마감일 : " + this.date);
         place_textView.setText("장소 : " + this.place);
         price_textView.setText("가격 : " + Integer.toString(this.price));
+        phonenumber_textView.setText("판매자 핸드폰 번호 : \n" + this.phonenumber );
 
 
         // click listener 연결

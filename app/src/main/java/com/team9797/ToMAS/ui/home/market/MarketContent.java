@@ -213,7 +213,7 @@ public class MarketContent extends Fragment {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()) {
                                         if (document.get("point", Integer.class) < Integer.parseInt(price_editText.getText().toString())) {
-                                            Toast.makeText(mainActivity, "포인트가 부족합니다\n잔여 포인트 : " + Integer.toString(document.get("point", Integer.class)), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(mainActivity, "포인트가 부족합니다\n잔여 포인트 : " + Integer.toString(document.get("point", Integer.class)), Toast.LENGTH_SHORT).show();
                                         }
                                         else {
                                             mPostReference.update("numpeople", FieldValue.increment(1));

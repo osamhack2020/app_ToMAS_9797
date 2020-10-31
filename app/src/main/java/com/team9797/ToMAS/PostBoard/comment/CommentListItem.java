@@ -7,6 +7,7 @@ public class CommentListItem {
     private String html;
     private String post_id;
     private String writer_id;
+    private boolean selected;
 
 
     public void setTitle(String a) {
@@ -23,6 +24,7 @@ public class CommentListItem {
     }
     public void setId(String a){post_id = a;}
     public void setWriterId(String a){writer_id = a;}
+    public void setSelected(boolean a){selected = a;}
 
     public String getTitle() {
         return this.title ;
@@ -38,5 +40,6 @@ public class CommentListItem {
     }
     public String getId() {return this.post_id ;}
     public String getWriterId(){return this.writer_id;}
+    public boolean getSelected(){return this.selected;}
 
 }

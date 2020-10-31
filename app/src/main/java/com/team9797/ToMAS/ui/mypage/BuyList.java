@@ -72,7 +72,7 @@ public class BuyList extends Fragment {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                ShowBuyDialog dialog = new ShowBuyDialog(mainActivity, document.get("title").toString(), document.get("due_date").toString(), document.get("place").toString(), document.get("price", Integer.class));
+                                ShowBuyDialog dialog = new ShowBuyDialog(mainActivity, document.get("title").toString(), document.get("due_date").toString(), document.get("place").toString(), document.get("price", Integer.class), document.get("phonenumber", String.class));
                                 dialog.show(mainActivity.getSupportFragmentManager(), "구매확정");
                                 dialog.setDialogResult(new ShowBuyDialog.show_buy_dialog_result() {
                                     @Override

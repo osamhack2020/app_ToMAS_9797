@@ -3,6 +3,7 @@ package com.team9797.ToMAS.PostBoard.comment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,12 +12,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,7 +58,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         context = tmp_context;
         user_id = uid;
         original_writer_id = tmp_original_writer_id;
-
     }
 
     // Provide a reference to the views for each data item
@@ -101,6 +103,10 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         holder.item_writer.setText("작성자 : " + mDataset.get(position).getWriter());
         holder.item_date.setText("작성일 : " + mDataset.get(position).getDate());
 
+        if (mDataset.get(position).getSelected())
+        {
+            holder.item_title.setBackgroundColor(Color.YELLOW);
+        }
         if (user_id.equals(mDataset.get(position).getWriterId()))
         {
             holder.btn_fix.setVisibility(View.VISIBLE);
@@ -110,7 +116,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             holder.btn_fix.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Toast.makeText(context, "댓글 수정 기능은 구현 중입니다", Toast.LENGTH_SHORT);
                 }
             });
             holder.btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -130,32 +136,50 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             {
                 holder.btn_delete.setVisibility(View.VISIBLE);
                 holder.btn_delete.setEnabled(true);
-                holder.btn_delete.setText("채택");
-                holder.btn_delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FirebaseFirestore.getInstance().collection("user").document(mDataset.get(position).getWriterId()).update("point", FieldValue.increment(500));
-                        Map<String, Object> post = new HashMap<>();
-                        post.put("title", "댓글 채택 : " + mDataset.get(position).getTitle());
-                        post.put("timestamp", FieldValue.serverTimestamp());
-                        post.put("change", "+500");
+                if (mDataset.get(position).getSelected())
+                {
+                    holder.btn_delete.setText("채택됨");
+                }
+                else {
+                    holder.btn_delete.setText("채택");
+                    holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            FirebaseFirestore.getInstance().collection("user").document(mDataset.get(position).getWriterId()).update("point", FieldValue.increment(500));
+                            Map<String, Object> post = new HashMap<>();
+                            post.put("content", "댓글 채택 : " + mDataset.get(position).getTitle());
+                            post.put("timestamp", FieldValue.serverTimestamp());
+                            post.put("change", "+500");
 
 
-                        FirebaseFirestore.getInstance().collection("user").document(mDataset.get(position).getWriterId()).collection("point_record").document().set(post)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        //
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        //
-                                    }
-                                });
-                    }
-                });
+                            FirebaseFirestore.getInstance().collection("user").document(mDataset.get(position).getWriterId()).collection("point_record").document().set(post)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FirebaseFirestore.getInstance().collection(path + "/" + post_id + "/comments").document(mDataset.get(position).getId()).update("selected", true)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Toast.makeText(context, "댓글이 채택되었습니다", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            //
+                                                        }
+                                                    });
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            //
+                                        }
+                                    });
+                        }
+                    });
+                }
             }
         }
         Map<Integer, String> headingTypeface = getHeadingTypeface();
@@ -193,7 +217,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         return mDataset.size();
     }
 
-    public void add_item(String title, String writer, String date, String html, String post_id, String writer_id)
+    public void add_item(String title, String writer, String date, String html, String post_id, String writer_id, boolean selected)
     {
         CommentListItem item = new CommentListItem();
 
@@ -203,6 +227,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         item.setHtml(html);
         item.setId(post_id);
         item.setWriterId(writer_id);
+        item.setSelected(selected);
 
         mDataset.add(item);
     }

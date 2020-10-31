@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                post.put("due_date", document.get("due_date").toString());
                                                post.put("place", document.get("place").toString());
                                                post.put("seller_id", getUid());
+                                               post.put("phonenumber", preferences.getString("phonenumber", ""));
                                                post.put("title", document.get("title").toString());
                                                db.collection("user").document(tmp_document.getId()).collection("buy_list").document().set(post)
                                                .addOnSuccessListener(new OnSuccessListener<Void>() {

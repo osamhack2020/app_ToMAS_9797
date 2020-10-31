@@ -446,6 +446,7 @@ public class RegisterBoardContentComment extends AppCompatActivity {
                 Map<String, Object> post = new HashMap<>();
                 post.put("html", string_html);
                 post.put("title", title);
+                post.put("selected", false);
                 post.put("timestamp", FieldValue.serverTimestamp());
                 post.put("writer", preferences.getString("이름", ""));
                 post.put("user_id", preferences.getString("user_id", ""));
