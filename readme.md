@@ -71,19 +71,19 @@ _하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습
 		</tr>
 		<tr>
             <td rowspan="5"><div align="center"><img src="/images/feature1.gif"></a></div></td>
-            <td width="50%">자유로운 설문조사 등록</td>
+            <td width="50%" align="center">자유로운 설문조사 등록</td>
         </tr>
         <tr>
-            <td>간편한 설문조사 결과 종합</td>
+            <td align="center">간편한 설문조사 결과 종합</td>
         </tr>
         <tr>
-            <td>수정 제출 가능</td>
+            <td align="center">수정 제출 가능</td>
         </tr>
         <tr>
-            <td>미참가자 확인 기능</td>
+            <td align="center">미참가자 확인 기능</td>
         </tr>
         <tr>
-            <td>보장된 익명성</td>
+            <td align="center">보장된 익명성</td>
         </tr>
    </tbody>
 </table>
@@ -99,39 +99,43 @@ _하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습
 		</tr>
 		<tr>
             <td rowspan="3"><div align="center"><img src="/images/feature2.gif"></a></div></td>
-            <td width="50%">간편한 등록/전파</td>
+            <td width="50%" align="center">간편한 등록/전파</td>
         </tr>
         <tr>
-            <td>미확인자 검거 가능</td>
+            <td align="center">미확인자 검거 가능</td>
         </tr>
         <tr>
-            <td>간편한 확인</td>
+            <td align="center">간편한 확인</td>
         </tr>
         <tr>
    </tbody>
 </table>
 
+<br><br>
+
 <table>
         <tbody>
 		<tr>
 			<td colspan=2>
-				<b>3. 플리마켓</b>
+				<b align="center">3. 플리마켓</b>
 				<br>
 			</td>
 		</tr>
 		<tr>
             <td rowspan="3"><div align="center"><img src="/images/feature3.gif"></a></div></td>
-            <td width="50%">부대 단위 데이터 분리</td>
+            <td width="50%" align="center">부대 단위 데이터 분리</td>
         </tr>
         <tr>
-            <td>경매제도</td>
+            <td align="center">경매제도</td>
         </tr>
         <tr>
-            <td>직거래 포인트 결산</td>
+            <td align="center">직거래 포인트 결산</td>
         </tr>
         <tr>
    </tbody>
 </table>
+
+<br><br>
 
 <table>
         <tbody>
@@ -143,42 +147,45 @@ _하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습
 		</tr>
 		<tr>
             <td rowspan="3"><div align="center"><img src="/images/feature4.gif"></a></div></td>
-            <td width="50%">부대 단위 데이터 분리</td>
+            <td width="50%" align="center">부대 단위 데이터 분리</td>
         </tr>
         <tr>
-            <td>간편한 모집 신청</td>
+            <td align="center">간편한 모집 신청</td>
         </tr>
         <tr>
-            <td>더 간편한 참가 신청/취소</td>
+            <td align="center">더 간편한 참가 신청/취소</td>
         </tr>
         <tr>
    </tbody>
 </table>
 
+<br><br>
+
 <table>
         <tbody>
 		<tr>
-			<td colspan=2>
+			<td colspan=3>
 				<b>5. 자기개발 / 소통게시판</b>
 				<br>
 			</td>
 		</tr>
 		<tr>
             <td rowspan="4"><div align="center"><img src="/images/feature5.gif"></a></div></td>
-            <td width="50%">게시판 자체를 추가/삭제</td>
+            <td width="50%" align="center">게시판 자체를 추가/삭제</td>
         </tr>
         <tr>
-            <td>사진 + 글 조합으로 글쓰기</td>
+            <td align="center">사진 + 글 조합으로 글쓰기</td>
         </tr>
         <tr>
-            <td>정보를 주고받기 편한 댓글</td>
+            <td align="center">정보를 주고받기 편한 댓글</td>
         </tr>
         <tr>
-            <td></td>
         </tr>
         <tr>
    </tbody>
 </table>
+
+<br><br>
 
 <table>
         <tbody>
@@ -190,14 +197,16 @@ _하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습
 		</tr>
 		<tr>
             <td rowspan="2"><div align="center"><img src="/images/feature6.gif"></a></div></td>
-            <td width="50%">일정 추가</td>
+            <td width="50%" align="center">일정 추가</td>
         </tr>
         <tr>
-            <td>일정 삭제</td>
+            <td align="center">일정 삭제</td>
         </tr>
         <tr>
    </tbody>
 </table>
+
+<br><br>
 
 <table>
         <tbody>
@@ -209,16 +218,16 @@ _하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습
 		</tr>
 		<tr>
             <td rowspan="4"><div align="center"><img src="/images/feature7.gif"></a></div></td>
-            <td width="50%">로그인</td>
+            <td width="50%" align="center">로그인</td>
         </tr>
         <tr>
-            <td>회원가입</td>
+            <td align="center">회원가입</td>
         </tr>
         <tr>
-            <td> 편한 Navigation </td>
+            <td align="center"> 편한 Navigation </td>
         </tr>
         <tr>
-            <td>직관적인 마이페이지</td>
+            <td align="center">마이페이지</td>
         </tr>
         <tr>
    </tbody>
