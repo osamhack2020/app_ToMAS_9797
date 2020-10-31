@@ -8,15 +8,33 @@
 
 
 ## 프로젝트 설명  
-**ToMAS**는 *Total Military Assistant Service* 의 줄임말으로써 현역 장병들의 군 생활을 알차게 만들어주기 위한 통합 서비스 애플리케이션입니다.
+**ToMAS**는 *Total Military Assistant Service* 의 줄임말으로써 현역 장병들의 군 생활에 도움을 주는 통합 서비스 애플리케이션입니다.
 
-실생활에서 사용해야함에 따라 부대 바깥으로는 자기개발/소통게시판, 플리마켓, 인원모집 기능을 제공하고 부대 안쪽으로는 설문조사,공지사항 기능을 제공하며 개인적으로는 일정표 기능을 제공합니다.</p>
+실생활에서 사용해야 함에 따라 부대 바깥으로는 자기개발/소통게시판, 플리마켓, 인원모집 기능을 제공하고 부대 안쪽으로는 설문조사,공지사항 기능을 제공하며 개인적으로는 일정표 기능을 제공합니다.</p>
 
 <br>
 
 ## 프로젝트 계기
 군 인트라넷 내의 아미누리 참여마당과 공군 IT 게시판을 보면서 군이라는 일체감 아래에서 이루어내는 시너지가 가지고 있는 가능성을 보았습니다. 그리고 그 가능성을 군 내부가 아닌 외부에서도 이용한다면 괄목할 만한 성과가 있을 것이라 생각했기에 이 프로젝트를 시작하게 되었습니다.
 
+하지만 이러한 시너지는 다양한 전공 , 직업의 사람들이
+
+군대라는 이름 아래에 모인다는 군의 특수성에 기반해 있었기 때문에
+
+군 외부에서도 시너지를 이끌어 내고 활성화 시키려면 두 가지 조건을 충족 시켜야 할 필요가 있었습니다.
+
+1.  군인이거나 군인 이었다는 경험을 가지고 있는 사람들이 이용해야 한다.
+    
+2.  군인들이 개인적인 시간을 할애해서 이용할 만한 가치가 있어야 한다.
+    
+
+1번 조건같은 경우는 소속 부대의 정보를 받고 군번을 받음으로써 어느 정도는 해결이 되었습니다.
+
+_하지만_  2번 조건같은 경우는 해결하기가 그리 쉽지 않았습니다.
+
+아미누리 같은 사이트를 만들기 위해 게시판을 생성하는 기능은 필수인데, 이 게시판 기능만 제공한다면 기존의 다른 어플들에 비해 차별성을 갖추지못하고 , 차별성을 갖추지 못한 어플은 가치가 없기 때문입니다.
+
+따라서 게시판 기능만큼 비중을 가진, 오히려 더 큰 비중을 가진 기능들을 제공하여 이 어플리케이션의 가치를 창출하기로 하였습니다.
 
 <br>
 
@@ -24,16 +42,19 @@
 
 ### 최 행보관님의 이야기
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen="">
+</iframe>
 
 
 ### 박 병장의 이야기
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen="">
+</iframe>
 
 ### 김 중위님의 이야기
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen="">
+</iframe>
 
 
  <br><br>
@@ -49,7 +70,7 @@
 			</td>
 		</tr>
 		<tr>
-            <td rowspan="5"><div align="center"><img src=""></a></div></td>
+            <td rowspan="5"><div align="center"><img src="/images/feature1.gif"></a></div></td>
             <td width="50%">자유로운 설문조사 등록</td>
         </tr>
         <tr>
@@ -77,7 +98,7 @@
 			</td>
 		</tr>
 		<tr>
-            <td rowspan="3"><div align="center"><img src=""></a></div></td>
+            <td rowspan="3"><div align="center"><img src="/images/feature2.gif"></a></div></td>
             <td width="50%">간편한 등록/전파</td>
         </tr>
         <tr>
@@ -99,7 +120,7 @@
 			</td>
 		</tr>
 		<tr>
-            <td rowspan="3"><div align="center"><img src=""></a></div></td>
+            <td rowspan="3"><div align="center"><img src="/images/feature3.gif"></a></div></td>
             <td width="50%">부대 단위 데이터 분리</td>
         </tr>
         <tr>
@@ -121,7 +142,7 @@
 			</td>
 		</tr>
 		<tr>
-            <td rowspan="3"><div align="center"><img src=""></a></div></td>
+            <td rowspan="3"><div align="center"><img src="/images/feature4.gif"></a></div></td>
             <td width="50%">부대 단위 데이터 분리</td>
         </tr>
         <tr>
@@ -143,7 +164,7 @@
 			</td>
 		</tr>
 		<tr>
-            <td rowspan="4"><div align="center"><img src=""></a></div></td>
+            <td rowspan="4"><div align="center"><img src="/images/feature5.gif"></a></div></td>
             <td width="50%">게시판 자체를 추가/삭제</td>
         </tr>
         <tr>
@@ -153,7 +174,7 @@
             <td>정보를 주고받기 편한 댓글</td>
         </tr>
         <tr>
-            <td>게시판 템플릿으로 목록 구성</td>
+            <td></td>
         </tr>
         <tr>
    </tbody>
@@ -168,7 +189,7 @@
 			</td>
 		</tr>
 		<tr>
-            <td rowspan="2"><div align="center"><img src=""></a></div></td>
+            <td rowspan="2"><div align="center"><img src="/images/feature6.gif"></a></div></td>
             <td width="50%">일정 추가</td>
         </tr>
         <tr>
@@ -187,7 +208,7 @@
 			</td>
 		</tr>
 		<tr>
-            <td rowspan="4"><div align="center"><img src=""></a></div></td>
+            <td rowspan="4"><div align="center"><img src="/images/feature7.gif"></a></div></td>
             <td width="50%">로그인</td>
         </tr>
         <tr>
@@ -197,7 +218,7 @@
             <td> 편한 Navigation </td>
         </tr>
         <tr>
-            <td>게시판 템플릿으로 목록 구성</td>
+            <td>직관적인 마이페이지</td>
         </tr>
         <tr>
    </tbody>
