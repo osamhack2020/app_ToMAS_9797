@@ -1,5 +1,5 @@
 
-<p align="center"><img src="/images/logo.png"></p>
+<p align="center"><img src="/images/logo.PNG"></p>
 <h3 align="center">Total Military Assistance Service</p>
 <h3 align="center">통합 군생활 도움 서비스</p>
 
@@ -8,7 +8,7 @@
 
 
 ## 프로젝트 설명  
-<p><b>ToMAS는 Total Military Assistant Service<b> 의 줄임말으로써 현역 장병들의 군 생활을 알차게 만들어주기 위한 통합 서비스 애플리케이션입니다.
+**ToMAS**는 *Total Military Assistant Service* 의 줄임말으로써 현역 장병들의 군 생활을 알차게 만들어주기 위한 통합 서비스 애플리케이션입니다.
 
 실생활에서 사용해야함에 따라 부대 바깥으로는 자기개발/소통게시판, 플리마켓, 인원모집 기능을 제공하고 부대 안쪽으로는 설문조사,공지사항 기능을 제공하며 개인적으로는 일정표 기능을 제공합니다.</p>
 
@@ -23,6 +23,7 @@
 ## 프로젝트 설명 영상
 
 ### 최 행보관님의 이야기
+
 <iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
 
@@ -31,6 +32,7 @@
 <iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
 ### 김 중위님의 이야기
+
 <iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
 
@@ -211,7 +213,6 @@
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 
-<p><img src="/image/prerequisites.png"></p>
 
 <br><br>
 
