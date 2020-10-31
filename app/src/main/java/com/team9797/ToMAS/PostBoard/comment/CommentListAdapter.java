@@ -160,6 +160,8 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
+                                                            holder.item_title.setBackgroundColor(Color.YELLOW);
+                                                            holder.btn_delete.setText("채택됨");
                                                             Toast.makeText(context, "댓글이 채택되었습니다", Toast.LENGTH_SHORT).show();
                                                         }
                                                     })

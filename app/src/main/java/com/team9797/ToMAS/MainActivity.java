@@ -26,6 +26,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                post.put("path", document.get("path").toString());
                                                post.put("post_id", document.getId());
                                                post.put("due_date", document.get("due_date").toString());
-                                               post.put("place", document.get("place").toString());
+                                               post.put("place", document.get("market").toString());
                                                post.put("seller_id", getUid());
                                                post.put("phonenumber", preferences.getString("phonenumber", ""));
                                                post.put("title", document.get("title").toString());

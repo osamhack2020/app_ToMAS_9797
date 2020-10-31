@@ -175,7 +175,7 @@ public class BoardContent extends Fragment{
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                                     String dateString = formatter.format(document.get("timestamp", Timestamp.class).toDate());
-                                                    adapter.add_item(document.get("title", String.class), document.get("writer", String.class), dateString, document.get("html", String.class), document.getId(), document.get("user_id", String.class), document.get("selected", boolean.class));
+                                                    adapter.add_item(document.get("title", String.class), document.get("writer", String.class), dateString, document.get("html", String.class), document.getId(), document.get("user_id", String.class), (boolean)document.get("selected"));
                                                 }
                                                 adapter.notifyDataSetChanged();
                                             } else {
