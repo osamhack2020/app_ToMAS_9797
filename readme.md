@@ -355,7 +355,9 @@ git clone https://github.com/osamhack2020/app_ToMAS_9797
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
 <a href="https://tomas-team9797.gitbook.io/tomas/undefined-5">사용한 라이브러리 라이센스</a>
+<br>
 [LICENSE](https://github.com/osamhack2020/app_ToMAS_9797/blob/master/license.md)
+
 Copyright [2020] [ToMAS]
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
