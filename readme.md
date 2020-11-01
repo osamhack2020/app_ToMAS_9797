@@ -1,5 +1,6 @@
 
 
+
 <p align="center"><img width="30%" src="/images/logo.PNG"></p>
 <h3 align="center">Total Military Assistance Service</h3>
 <h3 align="center">통합 군생활 도움 서비스</h3>
@@ -9,8 +10,17 @@
 <br>
 
 <p align="center" >
-	<a href="https://tomas-team9797.gitbook.io/tomas/"><img width="20%" src="/images/gitbook.png" /></a>
-	<a href="https://github.com/osamhack2020/app_ToMAS_9797/wiki/ToMAS_wiki"><img width="15%" src="/images/gitwiki.png" /></a>
+	<a href="https://tomas-team9797.gitbook.io/tomas/"><img  src="https://img.shields.io/badge/GitBook-Document-blue  
+?style=for-the-badge&logo=appveyor" /></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/wiki/ToMAS_wiki"><img  src="https://img.shields.io/badge/gitwiki-Tech Doc-orange  
+?style=for-the-badge&logo=appveyor" /></a>
+</p>
+
+<p align="center">
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/projects/2"><img  src="https://img.shields.io/badge/Kanban-project-green  
+" /></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/issues"><img  src="https://img.shields.io/badge/Git-issue-blueviolet  
+" /></a>
 </p>
 
 <br>
@@ -19,7 +29,7 @@
 
 <p align="center" >하단 다운링크</p>
 <p align="center" >
-	<a id="raw-url" href="https://github.com/osamhack2020/app_ToMAS_9797/blob/master/app_ToMAS.apk"><img width="20%" src="/images/app_icon.PNG" /></a>
+	<a href="https://drive.google.com/file/d/1iYNOGBvmnfl-F38whDUaEOLhBH3_CuLj/view?usp=sharing"><img width="20%" src="/images/app_icon.PNG" /></a>
 </p>
 
 ## 프로젝트 설명  
@@ -88,7 +98,7 @@ ToMAS 사용자의 이야기를 만나보세요
 
 ## 기능 설명
 
-<a href="https://tomas-team9797.gitbook.io/tomas/">자세한 내용은 gitBook을 참고하세요</a>
+<a href="https://tomas-team9797.gitbook.io/tomas/">자세한 내용은 GitBook을 참고하세요</a>
 <table>
         <tbody>
 		<tr>
@@ -290,10 +300,16 @@ ToMAS 사용자의 이야기를 만나보세요
 <br><br>
 
 ## 프로젝트 관리
-[ToMAS 프로젝트](https://github.com/osamhack2020/app_ToMAS_9797/projects/2)
-[ToMAS 이슈](https://github.com/osamhack2020/app_ToMAS_9797/issues)
+
+<p>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/projects/2"><img  src="https://img.shields.io/badge/Kanban-project-green  
+" /></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/issues"><img  src="https://img.shields.io/badge/Git-issue-blueviolet  
+" /></a>
+</p>
+
 <p><img width="80%" src="/images/gitproject.PNG"></p>
-ToMAS는 생기는 문제나 기능을 이슈로 발급해서 관리했습니다. 각자 repository에서 작업한 내용을 pull request하고, 이를 issue와 연결해 사용했습니다.
+ToMAS는 기능 구현이나 버그 수정을 이슈로 발급해서 관리했습니다. 각자 repository에서 작업한 내용을 pull request하고, 이를 issue와 연결해 사용했습니다.
 
 ### 개발과정
 <p><img width="100%" src="/images/step.PNG"></p>
@@ -310,11 +326,13 @@ ToMAS는 생기는 문제나 기능을 이슈로 발급해서 관리했습니다
 ## 기술 스택 (Technique Used)
 - Front-end
 <p><img width="20%" src="/images/java.png"><img width="15%"
-src="/images/xml.png"><img width="30%" src="/images/android-studio.png"></p>
+src="/images/xml.png"><img width="20%" src="/images/android-studio.png"></p>
 
 - Back-end
 
 <p><img width="30%" src="/images/firestore.png"></p>
+
+<a href="https://github.com/osamhack2020/app_ToMAS_9797/wiki/ToMAS_wiki">자세한 기술은 git wiki를 참고하세요</a>
 
 
 ## 프로젝트 사용법 (Getting Started)
@@ -335,5 +353,13 @@ git clone https://github.com/osamhack2020/app_ToMAS_9797
 - 팀원 : 상병 김도한 oneblue14@gmail.com :[Github-commitcomplete](https://github.com/commitcomplete?tab=repositories)
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
-- apache 2.0
+[LICENSE](https://github.com/osamhack2020/app_ToMAS_9797/blob/master/license.md)
 
+Copyright [2020] [ToMAS]
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+```
+http://www.apache.org/licenses/LICENSE-2.0
+```
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
