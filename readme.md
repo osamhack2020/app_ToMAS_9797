@@ -10,17 +10,13 @@
 <br>
 
 <p align="center" >
-	<a href="https://tomas-team9797.gitbook.io/tomas/"><img  src="https://img.shields.io/badge/GitBook-Document-blue  
-?style=for-the-badge&logo=appveyor" /></a>
-	<a href="https://github.com/osamhack2020/app_ToMAS_9797/wiki/ToMAS_wiki"><img  src="https://img.shields.io/badge/gitwiki-Tech Doc-orange  
-?style=for-the-badge&logo=appveyor" /></a>
+	<a href="https://tomas-team9797.gitbook.io/tomas/"><img  src="https://img.shields.io/badge/GitBook-Document-blue?style=for-the-badge&logo=appveyor" /></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/wiki/ToMAS_wiki"><img  src="https://img.shields.io/badge/gitwiki-Tech Doc-orange?style=for-the-badge&logo=appveyor" /></a>
 </p>
 
 <p align="center">
-	<a href="https://github.com/osamhack2020/app_ToMAS_9797/projects/2"><img  src="https://img.shields.io/badge/Kanban-project-green  
-" /></a>
-	<a href="https://github.com/osamhack2020/app_ToMAS_9797/issues"><img  src="https://img.shields.io/badge/Git-issue-blueviolet  
-" /></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/projects/2"><img  src="https://img.shields.io/badge/Kanban-project-green"/></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/issues"><img  src="https://img.shields.io/badge/Git-issue-blueviolet"/></a>
 </p>
 
 <br>
@@ -83,14 +79,14 @@ ToMAS 사용자의 이야기를 만나보세요
 
 ### 최 행보관님의 이야기
 
-<a href="https://youtu.be/Wz6WTeOSuss"><img src="/images/youtube_choi.PNG"></a>
+<a href="https://youtu.be/Wz6WTeOSuss"><img width="70%" src="/images/youtube_choi.PNG"></a>
 
 ### 박 병장의 이야기
 
-<a href="https://youtu.be/51zyC_WYnI0"><img src="/images/youtube_park.PNG"></a>
+<a href="https://youtu.be/51zyC_WYnI0"><img width="70%" src="/images/youtube_park.PNG"></a>
 ### 김 중위님의 이야기
 
-<a href="https://youtu.be/WnLyOPfEy-g"><img src="/images/youtube_kim.PNG"></a>
+<a href="https://youtu.be/WnLyOPfEy-g"><img width="70%" src="/images/youtube_kim.PNG"></a>
 
  <br><br>
 
@@ -302,10 +298,8 @@ ToMAS 사용자의 이야기를 만나보세요
 ## 프로젝트 관리
 
 <p>
-	<a href="https://github.com/osamhack2020/app_ToMAS_9797/projects/2"><img  src="https://img.shields.io/badge/Kanban-project-green  
-" /></a>
-	<a href="https://github.com/osamhack2020/app_ToMAS_9797/issues"><img  src="https://img.shields.io/badge/Git-issue-blueviolet  
-" /></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/projects/2"><img  src="https://img.shields.io/badge/Kanban-project-green"/></a>
+	<a href="https://github.com/osamhack2020/app_ToMAS_9797/issues"><img  src="https://img.shields.io/badge/Git-issue-blueviolet"/></a>
 </p>
 
 <p><img width="80%" src="/images/gitproject.PNG"></p>
