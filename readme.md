@@ -77,13 +77,20 @@
 
 ToMAS 사용자의 이야기를 만나보세요
 
+[발표자료](https://drive.google.com/file/d/1bvkPCtHpNU9zRTUUW2q4rKUstoWr6bVi/view?usp=sharing)
+
 ### 최 행보관님의 이야기
 
 <a href="https://youtu.be/Wz6WTeOSuss"><img width="70%" src="/images/youtube_choi.PNG"></a>
 
+<br>
+
 ### 박 병장의 이야기
 
 <a href="https://youtu.be/51zyC_WYnI0"><img width="70%" src="/images/youtube_park.PNG"></a>
+
+<br>
+
 ### 김 중위님의 이야기
 
 <a href="https://youtu.be/WnLyOPfEy-g"><img width="70%" src="/images/youtube_kim.PNG"></a>
