@@ -309,7 +309,7 @@ ToMAS 사용자의 이야기를 만나보세요
 	<a href="https://github.com/osamhack2020/app_ToMAS_9797/issues"><img  src="https://img.shields.io/badge/Git-issue-blueviolet"/></a>
 </p>
 
-<p><img width="80%" src="/images/gitproject.PNG"></p>
+<p><img width="100%" src="/images/gitproject.PNG"></p>
 ToMAS는 기능 구현이나 버그 수정을 이슈로 발급해서 관리했습니다. 각자 repository에서 작업한 내용을 pull request하고, 이를 issue와 연결해 사용했습니다.
 
 ### 개발과정
