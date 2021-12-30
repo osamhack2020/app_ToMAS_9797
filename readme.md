@@ -319,6 +319,7 @@ ToMAS는 기능 구현이나 버그 수정을 이슈로 발급해서 관리했�
 
 <br>
 
+
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 - Android SDK 28이상 (SDK버전 30권장)
 
@@ -354,6 +355,7 @@ git clone https://github.com/osamhack2020/app_ToMAS_9797
 - 팀원 : 상병 김도한 oneblue14@gmail.com :[Github-commitcomplete](https://github.com/commitcomplete?tab=repositories)
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
+
 <a href="https://tomas-team9797.gitbook.io/tomas/undefined-5">사용한 라이브러리 라이센스</a>
 <br>
 [LICENSE](https://github.com/osamhack2020/app_ToMAS_9797/blob/master/license.md)
